@@ -13,10 +13,20 @@
 
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "scripting"
   ],
 
   "host_permissions": [
-    "http://localhost:8080/*"
-  ]
+    "http://localhost:8080/*",
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "icons": {
+    "48": "icon-48.png"
+  }
 }
