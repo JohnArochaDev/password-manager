@@ -1,6 +1,8 @@
 import PasswordsPage from "../PasswordsPage/PasswordsPage"
 import Card from 'react-bootstrap/Card'
 
+// Will need to copy all styling and information over to the real app, but need to work here for now because 'chrome' is not accessable from a tab but it is from a extension
+
 export default function TempApp() {
 
     const headerStyle = {
