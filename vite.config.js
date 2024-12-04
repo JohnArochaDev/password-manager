@@ -7,10 +7,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        popup: 'index.html', // Popup HTML entry file
+        popup: 'index.html',
       },
       output: {
-        manualChunks: undefined,  // Avoid splitting chunks
+        manualChunks: undefined,
       },
     },
   },
