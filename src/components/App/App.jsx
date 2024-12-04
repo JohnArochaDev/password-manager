@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function useBackgroundData() {
 	const [data, setData] = useState(null)
@@ -36,8 +36,17 @@ function useBackgroundData() {
 export default function App() {
 	const { data, loading, error } = useBackgroundData()
 
+	const TopLevelStyle = {
+        color: 'blue',
+        fontSize: '2rem',
+        fontWeight: 'bold',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    };
+
 	return (
-		<div>
+		<div style={TopLevelStyle} >
 			<h1>Data from Background Script</h1>
 			{loading && <p>Loading...</p>}
 			{error && <p style={{ color: 'red' }}>{error}</p>}
