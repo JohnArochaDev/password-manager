@@ -16,6 +16,7 @@ export default function UserData() {
             <Col md={6} className="text-start">
                 <p>Username:</p>
             </Col>
+            {/* Make this a componend that is a rounded input that hides the data, will be used for both user and pass and will haave a cop button on the right hand side for ease of use  */}
             <Col md={6} className="text-end">
                 <p>myUser123</p>
             </Col>
