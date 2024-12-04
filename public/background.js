@@ -1,7 +1,5 @@
-// background.js
 console.log('Background script running!');
 
-// Fetch data from the API and store it in chrome storage
 function fetchData() {
   console.log('Making API request to fetch data...');
 
@@ -19,7 +17,7 @@ function fetchData() {
     });
 }
 
-// Listen for messages from other parts of the extension (e.g., React app, content scripts)
+// Listen for messages from other parts of the extension
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('Message received in background script:', message);
 
@@ -27,7 +25,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     fetchData();
     sendResponse({ status: 'Fetching data...' }); // Sending a response back
   } else if (message.action === 'getData') {
-    // If a message asks for the stored data, retrieve it
+    // If a message asks for the stored data, retrieve it, currently not implemented
     chrome.storage.local.get('usersData', (result) => {
       if (result.usersData) {
         sendResponse({ data: result.usersData });
