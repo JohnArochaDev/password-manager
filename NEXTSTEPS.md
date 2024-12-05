@@ -1,8 +1,8 @@
-1. change back-end to use the correct model / a user has many loginCredentials to remember, but also a username and password to get in to the account
+1. change back-end to use the correct model / a user has many loginCredentials to remember, but also a username and password to get in to the account //// MOSTLY DONE, change ho data is sent, only send by ID data (look below at the differences between the two objects)
 
-2. connect the db and backend to the front end
+2. connect the db and backend to the front end, data for population, and debug if necessary
 
-3. add a login feature and conditional rendering if the user doesn't have any saved passwords
+3. add a login feature and conditional rendering if the user doesn't have any saved passwords and if the user isn't logged in
 
 4. add a feature that hashes the usernames and passwords in the database
 
@@ -10,7 +10,7 @@
 
 6. add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
 
-7. finalize styling]
+7. finalize styling
 
 
 
