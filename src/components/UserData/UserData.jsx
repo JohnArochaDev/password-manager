@@ -3,7 +3,8 @@ import './UserData.css'
 
 export default function UserData({ secureData }) {
     return (
-        <Container className="d-flex flex-column justify-content-center text-white">
+        // <Container className="d-flex flex-column justify-content-center text-white">
+        <Container className="w-100 d-flex flex-column justify-content-between align-items-center text-white">
             <Row className="mb-4">
                 <Col xs={12} className="d-flex justify-content-center">
                     <p>{secureData.website}</p>
@@ -27,14 +28,14 @@ export default function UserData({ secureData }) {
                     <input type="password" value={secureData.password} readOnly className="form-control dark-input" />
                 </Col>
             </Row>
-            <Row className="w-100 d-flex justify-content-between">
-                <Col xs={6}>
+            <Row className="w-100 d-flex justify-content-between align-items-center">
+                    <Col xs="auto">
                     <Button variant="primary" block>Edit</Button>
-                </Col>
-                <Col xs={6} style={{ paddingRight: '0px', marginRight: '0px', alignSelf: 'end' }}>
+                    </Col>
+                    <Col xs="auto">
                     <Button variant="danger" block>Delete</Button>
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
         </Container>
     );
 }
