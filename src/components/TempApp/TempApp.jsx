@@ -13,6 +13,12 @@ export default function TempApp() {
         fontWeight: 'bold',
     };
 
+    const card = (
+        <Card className="border-primary rounded-3 p-3 shadow-sm mx-1" style={{ backgroundColor: '#1f1f1f', width: '90vw' }}>
+            <PasswordsPage />
+        </Card>
+    )
+
     return (
         <>
             <h1 style={headerStyle}>Password Manager</h1>
