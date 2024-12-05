@@ -1,12 +1,12 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './UserData.css'
 
-export default function UserData() {
+export default function UserData({ secureData }) {
     return (
         <Container className="d-flex flex-column justify-content-center text-white">
             <Row className="mb-4">
                 <Col xs={12} className="d-flex justify-content-center">
-                    <p>https://www.myurl.com/something</p>
+                    <p>{secureData.website}</p>
                 </Col>
             </Row>
             
@@ -16,7 +16,7 @@ export default function UserData() {
                 </Col>
                 {/* Make this a component that is a rounded input that hides the data, will be used for both user and pass and will have a copy button on the right hand side for ease of use */}
                 <Col xs={6} className="text-end">
-                    <input type="text" value="myUser123" readOnly className="form-control dark-input" />
+                    <input type="text" value={secureData.email} readOnly className="form-control dark-input" />
                 </Col>
             </Row>
             <Row className="mb-4">
@@ -24,7 +24,7 @@ export default function UserData() {
                     <p>Password:</p>
                 </Col>
                 <Col xs={6}>
-                    <input type="password" value="password" readOnly className="form-control dark-input" />
+                    <input type="password" value={secureData.password} readOnly className="form-control dark-input" />
                 </Col>
             </Row>
             <Row className="w-100 d-flex justify-content-between">

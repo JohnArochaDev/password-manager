@@ -17,6 +17,17 @@ function fetchData() {
     });
 }
 
+// not setup yet. use in  the future
+function getFavicon() {
+    const linkElements = document.querySelectorAll('link[rel~="icon"]');
+    if (linkElements.length > 0) {
+        return linkElements[0].href;
+    } else {
+        // Fallback to default favicon location
+        return `${window.location.origin}/favicon.ico`;
+    }
+}
+
 // Listen for messages from other parts of the extension
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	console.log('Message received in background script:', message);

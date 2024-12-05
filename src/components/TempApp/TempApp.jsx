@@ -5,7 +5,29 @@ import Card from 'react-bootstrap/Card'
 
 
 export default function TempApp() {
-    let arr = [0, 1, 2, 3, 4, 5, 6, 7]
+    let arr = [
+        {
+            "id": 1,
+            "website" : "https://www.myurl.com/something",
+            "name": "John Doe",
+            "password": "Password123",
+            "email": "john.doe@gmail.com"
+        },
+        {
+            "id": 2,
+            "website" : "https://www.myurl.com/something",
+            "name": "Johnathan Doughburry",
+            "password": "Password123",
+            "email": "doesntmatter@gmail.com"
+        },
+        {
+            "id": 3,
+            "website" : "https://www.myurl.com/something",
+            "name": "Johnathan Doughburry",
+            "password": "Password123",
+            "email": "kindamatters@gmail.com"
+        }
+    ]
 
     const headerStyle = {
         paddingTop: '7vh',
@@ -19,9 +41,12 @@ export default function TempApp() {
         <>
             <h1 style={headerStyle}>Password Manager</h1>
             <hr style={{ width: '90%', borderColor: '#1e90ff' }} />
-            {arr.map((secureData) => (
-                <PasswordsPage secureData={secureData} arr={arr} className="mb-2" />
-            ))}
+            {arr.map((secureData, idx) => {
+                console.log(secureData); // Log the secureData object
+                return (
+                    <PasswordsPage key={idx} secureData={secureData} className="mb-2" />
+                );
+            })}
         </>
     );
 }
