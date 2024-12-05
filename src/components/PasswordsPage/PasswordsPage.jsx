@@ -6,7 +6,7 @@ export default function PasswordsPage() { // import all the passwords from a spe
     return (
         <>
             {/* Add a map over data from a specific user */}
-            <Container className="d-flex flex-column justify-content-center align-items-center text-white" >
+            <Container>
                 <UserData />
             </Container>
         </>
