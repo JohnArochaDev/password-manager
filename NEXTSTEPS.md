@@ -10,4 +10,34 @@
 
 6. add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
 
-7. finalize styling
+7. finalize styling]
+
+
+
+
+
+
+
+This is the object to send data to the password manager : 
+
+{
+  "username": "exampleUsername",
+  "password": "examplePassword",
+  "website": "https://example.com",
+  "user": {
+        "id": 2,
+        "name": "Johnathan Doughburry",
+        "email": "kindamatters@gmail.com",
+        "password": null,
+        "loginCredentials": []
+    }
+}
+
+for put 
+
+{
+  "username": "exampleUsername",
+  "password": "examplePassword",
+  "website": "https://example.com",
+  "userId": 2
+}
