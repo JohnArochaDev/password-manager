@@ -4,15 +4,19 @@
 
 3. add a login feature and conditional rendering if the user doesn't have any saved passwords and if the user isn't logged in
 
-4. [DONE] add a feature that encrypts the usernames and passwords for the user in the database
+4. change how login works, primarily change how the DB stores new users email and password, hash instead of encrypt, and make sure then the user log's in they hash the attempt and compare against
 
-4. [DONE] 4.5 Add a feature to encrypt the users saved credentials in the DB
+5. [DONE] add a feature that encrypts the usernames and passwords for the user in the database             [WILL BE CHANGED]
 
-5. add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
+6. [DONE] 4.5 Add a feature to encrypt the users saved credentials in the DB
 
-6. add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
+7. add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
 
-7. finalize styling
+8. add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
+
+9. Add a seach option at the top that will look through the websites annd find the sire the user is looking for. partial and full searches
+
+10. finalize styling
 
 
 
