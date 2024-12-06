@@ -1,4 +1,4 @@
-1. [DONE] change back-end to use the correct model / a user has many loginCredentials to remember, but also a username and password to get in to the account //// MOSTLY DONE, change how data is sent, only send by ID data (look below at the differences between the two objects)
+1. Add token Authentication with JWT and host it in localStorage on the front end
 
 2. connect the db and backend to the front end, data for population, and debug if necessary
 
@@ -6,7 +6,7 @@
 
 4. [DONE] add a feature that encrypts the usernames and passwords for the user in the database
 
-4. 4.5 Add a feature to encrypt the users saved credentials in the DB
+4. [DONE] 4.5 Add a feature to encrypt the users saved credentials in the DB
 
 5. add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
 
