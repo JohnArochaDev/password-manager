@@ -18,6 +18,16 @@
 
 10. finalize styling
 
+ADDITIONAL features
+
+1. auto populate
+
+2. favicon saving for closed card display
+
+3. weak password warning, run the password through a basic formatter that I may have to build, looks for num of characters, special characters, numbers, no repetition, things like that and tells the user the password strength
+
+4. maybe inpliment an API that has common passwords and runs the users by it to tell them if its been in a data breech or if its too common
+
 
 
 
