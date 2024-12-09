@@ -1,4 +1,4 @@
-1. Add token Authentication with JWT and host it in localStorage on the front end
+1. Add Oauth2 and conect it to protected routes
 
 2. connect the db and backend to the front end, data for population, and debug if necessary
 
