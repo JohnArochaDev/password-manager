@@ -1,6 +1,6 @@
-1. Add Oauth2 and conect it to protected routes
+1. [DONE] Add login and conect it to protected routes
 
-2. connect the db and backend to the front end, data for population, and debug if necessary
+2. [DONE] connect the db and backend to the front end, data for population, and debug if necessary
 
 3. add a login feature and conditional rendering if the user doesn't have any saved passwords and if the user isn't logged in
 
