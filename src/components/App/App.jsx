@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import PasswordsPage from "../PasswordsPage/PasswordsPage"
 
 function useBackgroundData() {
 	const [data, setData] = useState(null)
@@ -36,17 +37,28 @@ function useBackgroundData() {
 export default function App() {
 	const { data, loading, error } = useBackgroundData()
 
-	const TopLevelStyle = {
-        color: 'blue',
+	const headerStyle = {
+        marginBottom: '2vh',
+        textAlign: 'center',
         fontSize: '2rem',
         fontWeight: 'bold',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
     };
 
 	return (
-		<div style={TopLevelStyle} >
+        <>
+            <h1 style={headerStyle} className="doto-title" >SafePass</h1>
+            <hr style={{ width: '90%', borderColor: 'black' }} />
+            {(data && !loading) ? data.loginCredentials.map((secureData, idx) => {
+                console.log('This is the data in the return statement' + secureData);
+                return (
+                    <PasswordsPage key={idx} secureData={secureData} className="mb-2" />
+                );
+            }) : "Loading...."}
+        </>
+    );
+
+	return (
+		<div style={headerStyle} >
 			<h1>Data from Background Script</h1>
 			{loading && <p>Loading...</p>}
 			{error && <p style={{ color: 'red' }}>{error}</p>}

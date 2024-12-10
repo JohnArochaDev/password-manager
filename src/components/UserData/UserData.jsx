@@ -17,7 +17,7 @@ export default function UserData({ secureData }) {
                 </Col>
                 {/* Make this a component that is a rounded input that hides the data, will be used for both user and pass and will have a copy button on the right hand side for ease of use */}
                 <Col xs={6} className="text-end">
-                    <input type="text" value={secureData.email} readOnly className="form-control dark-input field" />
+                    <input type="text" value={secureData.username} readOnly className="form-control dark-input field" />
                 </Col>
             </Row>
             <Row className="mb-4">

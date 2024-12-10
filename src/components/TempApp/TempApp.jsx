@@ -31,7 +31,6 @@ export default function TempApp() {
     ]
 
     const headerStyle = {
-        // paddingTop: '2vh',
         marginBottom: '2vh',
         textAlign: 'center',
         fontSize: '2rem',

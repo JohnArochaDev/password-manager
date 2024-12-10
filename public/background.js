@@ -3,7 +3,8 @@ console.log('Background script running!');
 function fetchData() {
   	console.log('Making API request to fetch data...');
 
-  fetch('http://localhost:8080/users')
+//   fetch(`http://localhost:8080/users/${usersID}`)
+  fetch('http://localhost:8080/users/6a8cecdb-3a5c-4440-a626-26eb9e5de00c')
     .then(response => response.json())
     .then(data => {
 		console.log('Fetched data:', data);

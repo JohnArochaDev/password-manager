@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is import
 import './main.css'; // Import custom CSS
 
 import TempApp from './components/TempApp/TempApp.jsx'; // temporary for styling
+import App from './components/App/App.jsx';
 import { Container } from 'react-bootstrap';
 
 createRoot(document.getElementById('root')).render(
@@ -20,7 +21,8 @@ createRoot(document.getElementById('root')).render(
 						<Button className="m-3" variant="danger" style={{ backgroundColor: '#344955', borderColor: '#50727B' }}>...</Button>
                     </Col>
                 </Row>
-                <TempApp />
+                {/* <TempApp /> */}
+                <App />
             </Container>
         </div>
     </StrictMode>
