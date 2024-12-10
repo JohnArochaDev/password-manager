@@ -28,7 +28,7 @@ function useBackgroundData() {
   
 	useEffect(() => {
 	  	fetchDataFromBackground()
-	}, [])
+	}, []) // make this reload when the data is given, need a logout route for testing first
   
 	return { data, loading, error }
 }  

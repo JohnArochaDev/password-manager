@@ -11,16 +11,18 @@ import './main.css'; // Import custom CSS
 export default function Main() {
 
     const [loggedin, setLoggedin] = useState(false)
+    const [reload, setReload] = useState(false)
 
 
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
-        console.log("THIS IS THE TOKEN : \n" + token)
         if (token) {
-            console.log("WE IN HEREEE")
             setLoggedin(true)
+            const id = localStorage.getItem("userId")
+            const token = localStorage.getItem("jwtToken")
+            console.log("IDDDD " + id)
         }
-    }, [])
+    }, [reload])
 
     return(
         <StrictMode>
@@ -38,7 +40,7 @@ export default function Main() {
 
 
                     {/* <App /> */}
-                    {loggedin ? <App /> : <Login />}
+                    {loggedin ? <App /> : <Login reload={reload} setReload={setReload} />}
 
 
 

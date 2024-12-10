@@ -2,16 +2,49 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import './login.css'; // Ensure this import is correct
 
-export default function Login() {
+export default function Login({ reload, setReload }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (event) => {
+    async function handleSubmit(event) {
         event.preventDefault();
-        // Handle login logic here
-        console.log('Email:', email);
-        console.log('Password:', password);
-    };
+
+        const loginData = {
+            email: email,
+            password: password,
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('Success:', data);
+
+            localStorage.setItem('jwtToken', data.token);
+            localStorage.setItem('userId', data.userId)
+            chrome.storage.local.set({ jwtToken: data.token }, function() {
+                console.log('Token saved');
+            });
+            
+            chrome.storage.local.set({ userId: data.userId }, function() {
+                console.log('User ID saved');
+            });
+
+            setReload(!reload)
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     return (
         <Container fluid className="container-fullwidth d-flex flex-column justify-content-center align-items-center text-white">

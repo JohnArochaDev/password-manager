@@ -1,3 +1,5 @@
+0. MAKE A LOGOUT ROUTE AND UNENCRYPT THE USERNAMES WHEN THEY COME OUT OF THE DB
+
 1. [DONE] Add login and conect it to protected routes
 
 2. [DONE] connect the db and backend to the front end, data for population, and debug if necessary
