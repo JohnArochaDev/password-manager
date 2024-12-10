@@ -1,14 +1,12 @@
 import { StrictMode, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Col, Row, Button } from 'react-bootstrap';
+import { Col, Row, Button, Container } from 'react-bootstrap';
+
+import App from './components/App/App.jsx';
+import Login from './components/Login/Login.jsx';
+
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
 import './main.css'; // Import custom CSS
-
-import TempApp from './components/TempApp/TempApp.jsx'; // temporary for styling
-import App from './components/App/App.jsx';
-import { Container } from 'react-bootstrap';
-
-
 
 export default function Main() {
 
@@ -17,7 +15,9 @@ export default function Main() {
 
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
+        console.log("THIS IS THE TOKEN : \n" + token)
         if (token) {
+            console.log("WE IN HEREEE")
             setLoggedin(true)
         }
     }, [])
@@ -37,7 +37,7 @@ export default function Main() {
                     </Row>
 
 
-                    <App />
+                    {/* <App /> */}
                     {loggedin ? <App /> : <Login />}
 
 
