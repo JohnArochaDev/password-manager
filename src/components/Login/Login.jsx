@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import './login.css'; // Ensure this import is correct
 
-export default function Login({ reload, setReload }) {
+export default function Login({ reload, setReload, setLoggedin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -30,15 +30,19 @@ export default function Login({ reload, setReload }) {
             const data = await response.json();
             console.log('Success:', data);
 
+            // Store the token in chrome.storage
             chrome.storage.local.set({ jwtToken: data.token }, function() {
                 console.log('Token saved');
             });
-            
+
+            // Optionally, store the user ID
             chrome.storage.local.set({ userId: data.userId }, function() {
                 console.log('User ID saved');
             });
 
-            setReload(!reload)
+            // Update the UI or redirect as needed
+            setLoggedin(true);
+            setReload(!reload);
         } catch (error) {
             console.error('Error:', error);
         }

@@ -15,14 +15,17 @@ export default function Main() {
     function handleLogout() {
         chrome.storage.local.set({ jwtToken: null, userId: null }, function() {
             console.log('Token and User ID Deleted');
+            setLoggedin(false);
+            setReload(!reload); // Trigger a re-fetch of the data
         });
-        setLoggedin(false)
     }
 
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
         if (token) {
             setLoggedin(true);
+            const id = localStorage.getItem("userId");
+            console.log("IDDDD " + id);
 
             // Send a message to the background script to fetch the latest data
             chrome.runtime.sendMessage({ action: 'fetchData' }, (response) => {
@@ -53,13 +56,13 @@ export default function Main() {
 
                                 <Dropdown.Menu className="custom-dropdown-menu">
                                     <Dropdown.Item href="#/action-1">Settings</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => handleLogout()} >Logout</Dropdown.Item>
+                                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
                     </Row>
 
-                    {loggedin ? <App /> : <Login reload={reload} setReload={setReload} />}
+                    {loggedin ? <App reload={reload} /> : <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} />}
                 </Container>
             </div>
         </StrictMode>
