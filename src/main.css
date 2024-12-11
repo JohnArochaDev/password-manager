@@ -40,3 +40,29 @@ html, body {
   border-color: transparent !important;
   outline: none !important;
 }
+/* this gets rid of the little carrot next to my dropdown button */
+.custom-button::after {
+  display: none;
+}
+
+.custom-dropdown-menu {
+  background-color: #292a2d !important; /* Change to your desired background color */
+  color: white !important; /* Change text color if needed */
+  border: none !important; /* Remove border if desired */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.custom-dropdown-menu .dropdown-item {
+  color: white !important; /* Change text color of dropdown items */
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+  background-color: #3d3e41 !important; /* Change background color of dropdown items on hover */
+}
+
+.custom-dropdown-menu .dropdown-item:active,
+.custom-dropdown-menu .dropdown-item:focus {
+  background-color: #5bcd04 !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
