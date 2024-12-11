@@ -40,7 +40,7 @@ export default function Main() {
                 });
             }
         });
-    }, [reload]);
+    }, []); // Ensure the useEffect hook only runs once
 
     return (
         <StrictMode>

@@ -29,6 +29,7 @@ function fetchData() {
                     // Store the fetched data in chrome storage
                     chrome.storage.local.set({ usersData: data }, () => {
                         console.log('Data stored in chrome storage.');
+                        sendResponse({ status: 'success' }); // Sending a response back
                     });
                 })
                 .catch(error => {
@@ -58,7 +59,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     if (message.action === 'fetchData') {
         fetchData();
-        sendResponse({ status: 'Fetching data...' }); // Sending a response back
+        // sendResponse({ status: 'Fetching data...' }); // Sending a response back
     } else if (message.action === 'getData') {
         // If a message asks for the stored data, retrieve it, currently not implemented
         chrome.storage.local.get('usersData', (result) => {
