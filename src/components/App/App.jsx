@@ -45,6 +45,8 @@ export default function App() {
         fontWeight: 'bold',
     }
 
+	// window.location.reload()
+
 	return (
         <>
             <h1 style={headerStyle} className="doto-title" >SafePass</h1>
