@@ -12,13 +12,13 @@ export default function PasswordsPage({ secureData }) { // import all the passwo
     return (
         <>
             {/* Add a map over data from a specific user */}
-            <Container onClick={() => setClicked(!clicked)}> 
+            <Container> 
                 {clicked ? (
-                    <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 card-hover">
-                        <UserData secureData={secureData} />
+                    <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 open-card-hover">
+                        <UserData secureData={secureData} setClicked={setClicked} />
                     </Card>
                 ) : (
-                    <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover">
+                    <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover"  onClick={() => setClicked(!clicked)}>
                         <p>{secureData.website}</p>
                     </Card>
                 )}

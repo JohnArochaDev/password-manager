@@ -1,10 +1,15 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './UserData.css'
 
-export default function UserData({ secureData }) {
+export default function UserData({ secureData, setClicked }) {
     return (
         // <Container className="d-flex flex-column justify-content-center text-white">
         <Container className="w-100 d-flex flex-column justify-content-between align-items-center text-white">
+            <Row className="w-100">
+                <Col className="d-flex justify-content-end p-0">
+                    <Button className="custom-button no-padding no-margin mb-3" onClick={() => setClicked(false)} >X</Button>
+                </Col>
+            </Row>
             <Row className="mb-4">
                 <Col xs={12} className="d-flex justify-content-center">
                     <p className="field" >{secureData.website}</p>
