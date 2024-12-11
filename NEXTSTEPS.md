@@ -6,7 +6,7 @@
 
 2. [DONE] connect the db and backend to the front end, data for population, and debug if necessary
 
-3. add a login feature and conditional rendering if the user doesn't have any saved passwords and if the user isn't logged in
+3. [DONE] add a login feature and conditional rendering if the user doesn't have any saved passwords and if the user isn't logged in
 
 4. change how login works, primarily change how the DB stores new users email and password, hash instead of encrypt, and make sure then the user log's in they hash the attempt and compare against
 
@@ -16,7 +16,7 @@
 
 7. add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
 
-8. add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
+8. [HALF-DONE] add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
 
 9. Add a seach option at the top that will look through the websites annd find the sire the user is looking for. partial and full searches
 
