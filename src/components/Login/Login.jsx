@@ -158,10 +158,10 @@ export default function Login({ reload, setReload, setLoggedin }) {
                             </Form.Group>
 
                             <div className="d-flex justify-content-between mt-4">
-                                <Button variant="danger" type="submit" style={{ backgroundColor: '#344955', borderColor: '#50727B' }}>
+                                <Button variant="danger" type="submit" style={{ backgroundColor: '#344955', borderColor: '#50727B' }} onClick={makeLogin}>
                                     Login
                                 </Button>
-                                <Button variant="danger" style={{ backgroundColor: '#344955', borderColor: '#50727B' }} onClick={handleRegister}>
+                                <Button variant="danger" type="submit" style={{ backgroundColor: '#344955', borderColor: '#50727B' }}>
                                     Register
                                 </Button>
                             </div>
