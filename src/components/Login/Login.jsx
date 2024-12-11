@@ -10,12 +10,20 @@ export default function Login({ reload, setReload, setLoggedin }) {
 
     const [form, setForm] = useState("login")
 
-    function handleRegister() {
-
+    function makeRegister() {
+        setForm("register")
     }
 
-    async function handleSubmit(event) {
-        event.preventDefault()
+    function makeLogin() {
+        setForm("login")
+    }
+
+    async function handleRegister(e) {
+        
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault()
 
         const registerData = {
             username: username,
@@ -97,7 +105,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                 <Button variant="danger" type="submit" style={{ backgroundColor: '#344955', borderColor: '#50727B' }}>
                                     Login
                                 </Button>
-                                <Button variant="danger" style={{ backgroundColor: '#344955', borderColor: '#50727B' }} onClick={handleRegister}>
+                                <Button variant="danger" style={{ backgroundColor: '#344955', borderColor: '#50727B' }} onClick={makeRegister}>
                                     Register
                                 </Button>
                             </div>
