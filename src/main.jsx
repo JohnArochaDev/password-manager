@@ -17,12 +17,21 @@ export default function Main() {
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
         if (token) {
-            setLoggedin(true)
-            const id = localStorage.getItem("userId")
-            const token = localStorage.getItem("jwtToken")
-            console.log("IDDDD " + id)
+            setLoggedin(true);
+            const id = localStorage.getItem("userId");
+            console.log("IDDDD " + id);
+
+            // Send a message to the background script to fetch the latest data
+            chrome.runtime.sendMessage({ action: 'fetchData' }, (response) => {
+                if (response.status === 'success') {
+                    console.log('Data fetched successfully');
+                    setReload(!reload); // Trigger a re-render if needed
+                } else {
+                    console.error('Failed to fetch data');
+                }
+            });
         }
-    }, [reload])
+    }, [reload]);
 
     return(
         <StrictMode>

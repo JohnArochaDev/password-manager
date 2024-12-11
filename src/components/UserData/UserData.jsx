@@ -7,7 +7,7 @@ export default function UserData({ secureData, setClicked }) {
         <Container className="w-100 d-flex flex-column justify-content-between align-items-center text-white">
             <Row className="w-100">
                 <Col className="d-flex justify-content-end p-0">
-                    <Button className="custom-button no-padding no-margin mb-3" onClick={() => setClicked(false)} >X</Button>
+                    <Button className="x-button no-padding no-margin mb-3" onClick={() => setClicked(false)} >X</Button>
                 </Col>
             </Row>
             <Row className="mb-4">
