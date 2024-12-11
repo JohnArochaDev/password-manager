@@ -109,7 +109,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                 </Button>
                             </div>
                         </Form>) : (
-                        <Form onSubmit={handleSubmit} className="p-4" style={{ backgroundColor: '#344955', borderRadius: '8px' }}>
+                        <Form onSubmit={handleRegister} className="p-4" style={{ backgroundColor: '#344955', borderRadius: '8px' }}>
                             <Form.Group controlId="formBasicName">
                                 <Form.Label>Full name</Form.Label>
                                 <Form.Control
