@@ -1,26 +1,30 @@
--1. [DONE] FREE UP THE POST /users ROUTE, CHANGE IT TO /register OR /users/register AND THEN FREE IT SO ANYCONE CAN MAKE AN ACCOUNT< NOT JUST LOGGED IN USERS
+1. add login failed information, register button
 
-0. UNENCRYPT THE USERNAMES WHEN THEY COME OUT OF THE DB, SOMETHING IS VERY WRONG WITH THE USERNAMES RIGHT NOW. MAY REMOVE THEM AS EMAIL IS USED FOR LOGGING IN. LOOK INTO IT TOMORROW.
+2. [DONE] FREE UP THE POST /users ROUTE, CHANGE IT TO /register OR /users/register AND THEN FREE IT SO ANYCONE CAN MAKE AN ACCOUNT< NOT JUST LOGGED IN USERS
 
-1. [DONE] Add login and conect it to protected routes
+3. UNENCRYPT THE USERNAMES WHEN THEY COME OUT OF THE DB, SOMETHING IS VERY WRONG WITH THE USERNAMES RIGHT NOW. MAY REMOVE THEM AS EMAIL IS USED FOR LOGGING IN. LOOK INTO IT TOMORROW.
 
-2. [DONE] connect the db and backend to the front end, data for population, and debug if necessary
+4. [DONE] Add login and conect it to protected routes
 
-3. [DONE] add a login feature and conditional rendering if the user doesn't have any saved passwords and if the user isn't logged in
+5. [DONE] connect the db and backend to the front end, data for population, and debug if necessary
 
-4. change how login works, primarily change how the DB stores new users email and password, hash instead of encrypt, and make sure then the user log's in they hash the attempt and compare against
+6. [DONE] add a login feature and conditional rendering if the user doesn't have any saved passwords and if the user isn't logged in
 
-5. [DONE] add a feature that encrypts the usernames and passwords for the user in the database             [WILL BE CHANGED]
+7. change how login works, primarily change how the DB stores new users email and password, hash instead of encrypt, and make sure then the user log's in they hash the attempt and compare against
 
-6. [DONE] 4.5 Add a feature to encrypt the users saved credentials in the DB
+8. [DONE] add a feature that encrypts the usernames and passwords for the user in the database             [WILL BE CHANGED]
 
-7. add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
+9. [DONE] 4.5 Add a feature to encrypt the users saved credentials in the DB
 
-8. [HALF-DONE] add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
+10. add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
 
-9. Add a seach option at the top that will look through the websites annd find the sire the user is looking for. partial and full searches
+11. [HALF-DONE] add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
 
-10. finalize styling
+12. add login failed information, register button
+
+13. Add a seach option at the top that will look through the websites annd find the sire the user is looking for. partial and full searches
+
+14. finalize styling
 
 ADDITIONAL features
 
