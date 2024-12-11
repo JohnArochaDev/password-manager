@@ -34,7 +34,7 @@ export default function Main() {
                             {/* here is the link for later : https://uxwing.com/shield-lock-line-icon/ */}
                         </Col>
                         <Col xs="auto">
-                            <Button className="m-3" variant="danger" style={{ backgroundColor: '#344955', borderColor: '#50727B' }}>...</Button>
+                            <Button className="m-3 custom-button" >...</Button>
                         </Col>
                     </Row>
 

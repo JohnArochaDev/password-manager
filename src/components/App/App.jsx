@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import PasswordsPage from "../PasswordsPage/PasswordsPage"
+import "./App.css"
 
 function useBackgroundData() {
 	const [data, setData] = useState(null)
@@ -42,12 +43,12 @@ export default function App() {
         textAlign: 'center',
         fontSize: '2rem',
         fontWeight: 'bold',
-    };
+    }
 
 	return (
         <>
             <h1 style={headerStyle} className="doto-title" >SafePass</h1>
-            <hr style={{ width: '90%', borderColor: 'black' }} />
+            <hr style={{ width: '90%', borderColor: '#37383a' }} />
             {(data && !loading) ? data.loginCredentials.map((secureData, idx) => {
                 console.log('This is the data in the return statement' + secureData);
                 return (
@@ -55,18 +56,5 @@ export default function App() {
                 );
             }) : "Loading...."}
         </>
-    );
-
-	return (
-		<div style={headerStyle} >
-			<h1>Data from Background Script</h1>
-			{loading && <p>Loading...</p>}
-			{error && <p style={{ color: 'red' }}>{error}</p>}
-			{data ? (
-				<pre>{JSON.stringify(data, null, 2)}</pre>
-			) : (
-				!loading && <p>No data to display.</p>
-			)}
-		</div>
-	)
+    )
 }
