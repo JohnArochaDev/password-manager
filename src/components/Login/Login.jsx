@@ -30,8 +30,6 @@ export default function Login({ reload, setReload }) {
             const data = await response.json();
             console.log('Success:', data);
 
-            localStorage.setItem('jwtToken', data.token);
-            localStorage.setItem('userId', data.userId)
             chrome.storage.local.set({ jwtToken: data.token }, function() {
                 console.log('Token saved');
             });
