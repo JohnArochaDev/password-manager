@@ -19,18 +19,17 @@ export default function Login({ reload, setReload, setLoggedin }) {
     }
 
     async function handleRegister(e) {
-        
-    }
-
-    async function handleSubmit(e) {
-        e.preventDefault()
 
         const registerData = {
             username: username,
             name: name,
             email: email,
             password: password
-          }
+        }
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault()
 
         const loginData = {
             email: email,
