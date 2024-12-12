@@ -1,5 +1,5 @@
 import { Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaCopy } from 'react-icons/fa'; // Import the icon
 import './UserData.css';
 
@@ -10,10 +10,17 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const isInitialRender = useRef(true);
+
     useEffect(() => {
-        setUsername(secureData.username);
-        setPassword(secureData.password);
-    }, [secureData]);
+        if (isInitialRender.current) {
+            isInitialRender.current = false;
+            setUsername(secureData.username);
+            setPassword(secureData.password);
+        }
+
+    }, []);
+
 
     const [buttonSwitch, setButtonSwitch] = useState(false);
 
