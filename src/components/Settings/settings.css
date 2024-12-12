@@ -49,3 +49,24 @@ form .dark-input::placeholder {
 .custom-modal .modal-header {
     border-bottom: 1px solid #37383a !important; /* Change this to your desired color */
 }
+
+.custom-modal .modal-footer {
+    border-top: none;
+}
+
+.sureYes, .sureNo {
+    width: 50px !important;
+}
+
+.sureYes:active {
+    background-color: #ff4d4d !important;
+    border-color: transparent !important;
+    outline: none !important;
+
+}
+
+.sureNo:active {
+    background-color: #5bcd04 !important;
+    border-color: transparent !important;
+    outline: none !important;
+}

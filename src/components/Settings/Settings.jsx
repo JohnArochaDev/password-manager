@@ -150,7 +150,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 </Modal.Body>
             </Modal>
 
-            <Modal show={sureFrom} onHide={handleCloseSureModal} centered>
+            <Modal show={sureFrom} onHide={handleCloseSureModal} centered className="custom-modal">
                 <Modal.Header closeButton>
                     <Modal.Title>Are you sure?</Modal.Title>
                 </Modal.Header>
@@ -158,12 +158,14 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     Are you sure?
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={areYouSure}>
+                <div className='d-flex justify-content-around w-100'>
+                    <Button variant="secondary" onClick={areYouSure} className='sureYes' >
                         Yes
                     </Button>
-                    <Button variant="secondary" onClick={handleCloseSureModal}>
+                    <Button variant="secondary" onClick={handleCloseSureModal} className='sureNo' >
                         No
                     </Button>
+                </div>
                 </Modal.Footer>
             </Modal>
         </>
