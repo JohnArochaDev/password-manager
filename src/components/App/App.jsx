@@ -5,12 +5,11 @@ import {Card, Container, Modal, Button, Form} from 'react-bootstrap';
 import "./App.css";
 
 function useBackgroundData(reload) {
-    const [data, setData] = useState(null); // Use state instead of context
+    const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const isInitialRender = useRef(true);
 
-    // Tells the background.js script to fetch the data
     const fetchDataFromBackground = () => {
         return new Promise((resolve, reject) => {
             chrome.runtime.sendMessage({ action: 'fetchData' }, (response) => {
@@ -46,13 +45,16 @@ function useBackgroundData(reload) {
         if (isInitialRender.current) {
             isInitialRender.current = false;
             fetchData();
+        } else {
+            fetchData();
         }
-    }, [reload]); // Ensure the useEffect hook runs when reload changes
+    }, [reload]);
 
     return { data, loading, error };
 }
 
-// Main App component
+
+
 export default function App({ reload, setReload, setDarkMode, darkMode }) {
     const { data, loading, error } = useBackgroundData(reload);
 
@@ -112,9 +114,8 @@ export default function App({ reload, setReload, setDarkMode, darkMode }) {
                     throw new Error('Network response was not ok');
                 }
 
-                setReload(!reload); // Might not work
-                handleCloseModal()
-                console.log("SHOULD RELOAD EVERYTHING");
+                handleCloseModal();
+                setReload(!reload);
             } catch (error) {
                 console.error('Error:', error);
             }
