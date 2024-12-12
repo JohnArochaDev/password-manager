@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import './settings.css'
 
-export default function Settings({ setReload, reload, setSettingsPage, settingsPage, setLoggedin }) {
+export default function Settings({ setReload, reload, setSettingsPage, settingsPage, setLoggedin, darkMode, setDarkMode }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -97,10 +97,12 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     id="custom-switch"
                     className="custom-switch"
                     label="Dark Mode"
+                    checked={darkMode}
+                    onChange={() => setDarkMode(!darkMode)}
                 />
             </Form>
 
-            <Button className='custom-form-button' onClick={handleShowForm}>
+            <Button className={darkMode ? 'custom-form-button' : 'light-mode-custom-form-button'} onClick={handleShowForm}>
                 Delete Account
             </Button>
 
@@ -119,7 +121,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                             onChange={(e) => setEmail(e.target.value)}
                             isInvalid={!!loginError}
                             required
-                            className="dark-input"
+                            className={darkMode ? "dark-input" : "light-input"}
                         />
                         <Form.Control.Feedback type="invalid">
                             {loginError}
@@ -135,7 +137,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                             onChange={(e) => setPassword(e.target.value)}
                             isInvalid={!!loginError}
                             required
-                            className="dark-input"
+                            className={darkMode ? "dark-input" : "light-input"}
                         />
                         <Form.Control.Feedback type="invalid">
                             {loginError}
