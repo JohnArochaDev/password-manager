@@ -1,4 +1,3 @@
-
 function getFromStorage(key, callback) {
     chrome.storage.local.get([key], function(result) {
         callback(result[key]);
@@ -6,11 +5,8 @@ function getFromStorage(key, callback) {
 }
 
 function fetchData(sendResponse) {
-
     getFromStorage('jwtToken', function(token) {
-
         getFromStorage('userId', function(userId) {
-
             if (token && userId) {
                 fetch(`http://localhost:8080/users/${userId}`, {
                     method: 'GET',
@@ -28,15 +24,17 @@ function fetchData(sendResponse) {
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
+                    sendResponse({ status: 'error', message: error.message }); // Send error response
                 });
             } else {
                 console.error('Token or userId not found in storage.');
+                sendResponse({ status: 'error', message: 'Token or userId not found in storage.' }); // Send error response
             }
         });
     });
 }
 
-// not setup yet. use in  the future
+// not setup yet. use in the future
 function getFavicon() {
     const linkElements = document.querySelectorAll('link[rel~="icon"]');
     if (linkElements.length > 0) {
@@ -49,10 +47,8 @@ function getFavicon() {
 
 // Listen for messages from other parts of the extension
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-
     if (message.action === 'fetchData') {
         fetchData(sendResponse);
-        // sendResponse({ status: 'Fetching data...' }); // Sending a response back
     } else if (message.action === 'getData') {
         // If a message asks for the stored data, retrieve it, currently not implemented
         chrome.storage.local.get('usersData', (result) => {

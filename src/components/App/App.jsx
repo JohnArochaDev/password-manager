@@ -28,11 +28,10 @@ function useBackgroundData(reload) {
             chrome.storage.local.get('usersData', (result) => {
                 if (result.usersData && JSON.stringify(result.usersData) !== JSON.stringify(data)) {
                     setData(result.usersData);
-                    setLoading(false);
                 } else {
                     setError('No data found.');
-                    setLoading(false);
                 }
+                setLoading(false);
             });
         } catch (error) {
             console.error('Failed to fetch data:', error);
@@ -46,7 +45,7 @@ function useBackgroundData(reload) {
             isInitialRender.current = false;
             fetchData();
         }
-    }, []); // Ensure the useEffect hook only runs once
+    }, [reload]); // Ensure the useEffect hook runs when reload changes
 
     return { data, loading, error };
 }
@@ -62,9 +61,6 @@ export default function App({ reload, setDarkMode, darkMode }) {
         fontWeight: 'bold',
     };
 
-    useEffect(() => {
-    }, [data]);
-
     return (
         <>
             <h1 style={headerStyle} className="doto-title">SafePass</h1>
@@ -74,11 +70,9 @@ export default function App({ reload, setDarkMode, darkMode }) {
             ) : error ? (
                 <p>{error}</p>
             ) : (
-                data && data.loginCredentials.map((secureData, idx) => {
-                    return (
-                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} className="mb-2" />
-                    );
-                })
+                Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
+                    <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} className="mb-2" />
+                ))
             )}
         </>
     );
