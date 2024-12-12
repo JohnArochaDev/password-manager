@@ -25,13 +25,15 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
                 {credentials.map((data) => (
                     <div key={data.id} >
                         {clicked === data.id ? (
-                            <UserData
-                                secureData={data}
-                                setClicked={setClicked}
-                                setDarkMode={setDarkMode}
-                                darkMode={darkMode}
-                                handleDelete={() => handleDelete(data.id)}
-                            />
+                            <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover">
+                                <UserData
+                                    secureData={data}
+                                    setClicked={setClicked}
+                                    setDarkMode={setDarkMode}
+                                    darkMode={darkMode}
+                                    handleDelete={() => handleDelete(data.id)}
+                                />
+                            </Card>
                         ) : (
                             <Card
                                 className="rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover"
