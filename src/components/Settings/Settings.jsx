@@ -106,7 +106,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 Delete Account
             </Button>
 
-            <Modal show={showForm} onHide={handleCloseForm} size="lg" centered className="custom-modal" >
+            <Modal show={showForm} onHide={handleCloseForm} size="lg" centered className={darkMode ? "custom-modal" : "light-custom-modal"} >
                 <Modal.Header closeButton>
                     <Modal.Title style={{color : '#b0b3b8'}} >Verify credentials</Modal.Title>
                 </Modal.Header>
@@ -144,7 +144,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                         </Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
-                        <Button variant="danger" type="submit" className={darkMode ? "login-form-button mt-4" : "light-login-form-button mt-4"}>
+                        <Button variant="danger" type="submit" className={darkMode ? "login-form-button mt-4" : "light-login-form-button"}>
                             Delete Account
                         </Button>
                     </div>
@@ -152,7 +152,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 </Modal.Body>
             </Modal>
 
-            <Modal show={sureFrom} onHide={handleCloseSureModal} centered className="custom-modal">
+            <Modal show={sureFrom} onHide={handleCloseSureModal} centered className={darkMode ? "custom-modal" : "light-custom-modal"}>
                 <Modal.Header closeButton>
                     <Modal.Title>Are you sure?</Modal.Title>
                 </Modal.Header>

@@ -92,11 +92,24 @@ form .light-input::placeholder {
     color: #ecf0f1; /* Optional: Change text color */
 }
 
+.light-custom-modal .modal-content {
+    background-color: #ecf0f1 !important;
+    color: #202124; /* Optional: Change text color */
+}
+
 .custom-modal .modal-header {
     border-bottom: 1px solid #37383a !important; /* Change this to your desired color */
 }
 
+.light-custom-modal .modal-header {
+    border-bottom: 1px solid #ecf0f1 !important; /* Change this to your desired color */
+}
+
 .custom-modal .modal-footer {
+    border-top: none;
+}
+
+.light-custom-modal .modal-footer {
     border-top: none;
 }
 
