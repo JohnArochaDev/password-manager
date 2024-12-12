@@ -10,6 +10,8 @@ export default function Login({ reload, setReload, setLoggedin }) {
 
     const [form, setForm] = useState("login")
 
+    const [loginError, setLoginError] = useState('');
+
     function makeRegister() {
         setForm("register")
     }
@@ -46,7 +48,8 @@ export default function Login({ reload, setReload, setLoggedin }) {
             })
 
             if (!response.ok) {
-                throw new Error('Network response was not ok')
+                setLoginError('Invalid email address or password');
+                throw new Error('Network response was not ok');
             }
 
             const data = await response.json()
@@ -83,9 +86,13 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                     placeholder="Enter email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    isInvalid={!!loginError}
                                     required
                                     className="dark-input"
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                    {loginError}
+                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword" className="mt-3">
@@ -95,9 +102,13 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                     placeholder="Password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    isInvalid={!!loginError}
                                     required
                                     className="dark-input"
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                    {loginError}
+                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <div className="d-flex justify-content-between mt-4">

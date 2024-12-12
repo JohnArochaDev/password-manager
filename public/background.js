@@ -1,4 +1,3 @@
-console.log('Background script running!');
 
 function getFromStorage(key, callback) {
     chrome.storage.local.get([key], function(result) {
@@ -7,13 +6,10 @@ function getFromStorage(key, callback) {
 }
 
 function fetchData() {
-    console.log('Making API request to fetch data...');
 
     getFromStorage('jwtToken', function(token) {
-        console.log('Retrieved token:', token);
 
         getFromStorage('userId', function(userId) {
-            console.log('Retrieved user ID:', userId);
 
             if (token && userId) {
                 fetch(`http://localhost:8080/users/${userId}`, {
@@ -25,10 +21,8 @@ function fetchData() {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Fetched data:', data);
                     // Store the fetched data in chrome storage
                     chrome.storage.local.set({ usersData: data }, () => {
-                        console.log('Data stored in chrome storage.');
                         sendResponse({ status: 'success' }); // Sending a response back
                     });
                 })
@@ -55,7 +49,6 @@ function getFavicon() {
 
 // Listen for messages from other parts of the extension
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log('Message received in background script:', message);
 
     if (message.action === 'fetchData') {
         fetchData();
