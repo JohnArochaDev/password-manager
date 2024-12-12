@@ -1,7 +1,43 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 import './UserData.css'
 
 export default function UserData({ secureData, setClicked, setDarkMode, darkMode }) {
+
+    const [credentialId, setCredentialId] = useState('')
+    const [userToken, setUserToken] = useState('')
+
+    async function handleDelete() {
+        try {
+            const response = await fetch(`http://localhost:8080/credentials/${credentialId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${userToken}`,
+                    'Content-Type': 'application/json'
+                },
+            })
+        } catch (error) {
+            console.error('Error:', error)
+        }
+
+        // Update the UI or redirect as needed
+
+
+        console.log("END OF EVERTHING")
+    }
+
+    async function handleEdit() {
+
+    }
+
+    useEffect(() => {
+        setCredentialId(secureData.id)
+
+        chrome.storage.local.get(['jwtToken', 'userId'], function(result) {
+            setUserToken(result.jwtToken)
+        })
+    }, [secureData.id])
+
     return (
         // <Container className="d-flex flex-column justify-content-center text-white">
         <Container className="w-100 d-flex flex-column justify-content-between align-items-center text-white">
@@ -35,10 +71,10 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             </Row>
             <Row className="w-100 d-flex justify-content-between align-items-center">
                     <Col xs="auto">
-                    <Button variant="primary" block>Edit</Button>
+                    <Button variant="primary" block onClick={handleEdit}>Edit</Button>
                     </Col>
                     <Col xs="auto">
-                    <Button variant="danger" block>Delete</Button>
+                    <Button variant="danger" block onClick={handleDelete}>Delete</Button>
                     </Col>
                 </Row>
         </Container>
