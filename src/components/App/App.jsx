@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import PasswordsPage from "../PasswordsPage/PasswordsPage";
+import {Card, Container} from 'react-bootstrap';
+
 import "./App.css";
 
 function useBackgroundData(reload) {
@@ -74,6 +76,11 @@ export default function App({ reload, setDarkMode, darkMode }) {
                     <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} className="mb-2" />
                 ))
             )}
+            <Container >
+                <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover">
+                    <h1>+</h1>
+                </Card>
+            </Container>
         </>
     );
 }
