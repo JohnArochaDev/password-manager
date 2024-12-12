@@ -52,7 +52,7 @@ function useBackgroundData(reload) {
 }
 
 // Main App component
-export default function App({ reload }) {
+export default function App({ reload, setDarkMode, darkMode }) {
     const { data, loading, error } = useBackgroundData(reload);
 
     const headerStyle = {
@@ -76,7 +76,7 @@ export default function App({ reload }) {
             ) : (
                 data && data.loginCredentials.map((secureData, idx) => {
                     return (
-                        <PasswordsPage key={idx} secureData={secureData} className="mb-2" />
+                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} className="mb-2" />
                     );
                 })
             )}

@@ -1,7 +1,7 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './UserData.css'
 
-export default function UserData({ secureData, setClicked }) {
+export default function UserData({ secureData, setClicked, setDarkMode, darkMode }) {
     return (
         // <Container className="d-flex flex-column justify-content-center text-white">
         <Container className="w-100 d-flex flex-column justify-content-between align-items-center text-white">

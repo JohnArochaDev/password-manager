@@ -14,6 +14,7 @@ export default function Main() {
     const [reload, setReload] = useState(false);
 
     const [settingsPage, setSettingsPage] = useState(false)
+    const [darkMode, setDarkMode] = useState(true)
 
 
     function handleLogout() {
@@ -67,7 +68,7 @@ export default function Main() {
                     </Row>
 
                     {/* {loggedin ? <App reload={reload} /> : <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} />} */}
-                    {loggedin ? ( settingsPage ? (<Settings />) : (<App reload={reload} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} /> ) }
+                    {loggedin ? ( settingsPage ? (<Settings setDarkMode={setDarkMode} darkMode={darkMode} />) : (<App reload={reload} setDarkMode={setDarkMode} darkMode={darkMode} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} setDarkMode={setDarkMode} darkMode={darkMode} /> ) }
                 </Container>
             </div>
         </StrictMode>

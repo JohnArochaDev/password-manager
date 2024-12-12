@@ -4,7 +4,7 @@ import UserData from "../UserData/UserData"
 import Card from 'react-bootstrap/Card'
 import "./passwordPage.css"
 
-export default function PasswordsPage({ secureData }) { // import all the passwords from a specific user and map over them
+export default function PasswordsPage({ secureData, setDarkMode, darkMode }) { // import all the passwords from a specific user and map over them
     const [clicked, setClicked] = useState(false)
     console.log(secureData)
 
@@ -15,7 +15,7 @@ export default function PasswordsPage({ secureData }) { // import all the passwo
             <Container> 
                 {clicked ? (
                     <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 open-card-hover">
-                        <UserData secureData={secureData} setClicked={setClicked} />
+                        <UserData secureData={secureData} setClicked={setClicked} setDarkMode={setDarkMode} darkMode={darkMode} />
                     </Card>
                 ) : (
                     <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover"  onClick={() => setClicked(!clicked)}>
