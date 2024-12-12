@@ -1,5 +1,6 @@
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import { FaCopy } from 'react-icons/fa'; // Import the icon
 import './UserData.css';
 
 export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete }) {
@@ -69,6 +70,13 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
         });
     }, [secureData.id]);
 
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text).then(() => {
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+        });
+    };
+
     return (
         <Container className="w-100 d-flex flex-column justify-content-between align-items-center text-white">
             <Form onSubmit={handleEdit} className="w-100">
@@ -83,31 +91,41 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     </Col>
                 </Row>
                 <Row className="mb-4">
-                    <Col xs={6} className="text-start">
+                    <Col xs={4} className="text-start pt-2">
                         <p className="field">Username:</p>
                     </Col>
-                    <Col xs={6} className="text-end">
-                        <Form.Control
-                            type="text"
-                            value={username}
-                            readOnly={!buttonSwitch}
-                            className="form-control dark-input field"
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+                    <Col xs={8} className="text-end">
+                        <InputGroup>
+                            <Form.Control
+                                type="text"
+                                value={username}
+                                readOnly={!buttonSwitch}
+                                className="form-control dark-input field"
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <Button variant="secondary" onClick={() => copyToClipboard(username)} className="copy-button">
+                                <FaCopy />
+                            </Button>
+                        </InputGroup>
                     </Col>
                 </Row>
                 <Row className="mb-4">
-                    <Col xs={6}>
+                    <Col xs={4} className='pt-2' >
                         <p className="field">Password:</p>
                     </Col>
-                    <Col xs={6}>
-                        <Form.Control
-                            type={buttonSwitch ? "text" : "password"}
-                            value={password}
-                            readOnly={!buttonSwitch}
-                            className="form-control dark-input field"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                    <Col xs={8}>
+                        <InputGroup>
+                            <Form.Control
+                                type={buttonSwitch ? "text" : "password"}
+                                value={password}
+                                readOnly={!buttonSwitch}
+                                className="form-control dark-input field"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <Button variant="secondary" onClick={() => copyToClipboard(password)} className="copy-button">
+                                <FaCopy />
+                            </Button>
+                        </InputGroup>
                     </Col>
                 </Row>
                 <Row className="w-100 d-flex justify-content-between align-items-center">
