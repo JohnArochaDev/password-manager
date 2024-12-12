@@ -141,9 +141,11 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                             {loginError}
                         </Form.Control.Feedback>
                     </Form.Group>
-                        <Button variant="danger" type="submit" className="login-form-button">
+                    <div className="d-flex justify-content-center">
+                        <Button variant="danger" type="submit" className="login-form-button mt-4">
                             Delete Account
                         </Button>
+                    </div>
                 </Form>
                 </Modal.Body>
             </Modal>
