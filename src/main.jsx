@@ -6,8 +6,8 @@ import App from './components/App/App.jsx';
 import Login from './components/Login/Login.jsx';
 import Settings from './components/Settings/Settings.jsx'
 
-import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
-import './main.css'; // Import custom CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './main.css';
 
 export default function Main() {
     const [loggedin, setLoggedin] = useState(false);
@@ -20,29 +20,30 @@ export default function Main() {
     function handleLogout() {
         chrome.storage.local.set({ jwtToken: null, userId: null }, function() {
             setLoggedin(false);
-            setReload(!reload); // Trigger a re-fetch of the data
+            setReload(!reload);
         });
     }
 
     useEffect(() => {
-        // Check for JWT token in chrome.storage.local
         chrome.storage.local.get(['jwtToken', 'userId'], function(result) {
             const token = result.jwtToken;
             const id = result.userId;
+
+            
+
             if (token) {
                 setLoggedin(true);
     
-                // Send a message to the background script to fetch the latest data
                 chrome.runtime.sendMessage({ action: 'fetchData' }, (response) => {
                     if (response.status === 'success') {
-                        setReload(!reload); // Trigger a re-render if needed
+                        setReload(!reload);
                     } else {
                         console.error('Failed to fetch data');
                     }
                 });
             }
         });
-    }, []); // Ensure the useEffect hook only runs once
+    }, []);
 
     return (
         <StrictMode>
@@ -51,7 +52,6 @@ export default function Main() {
                     <Row className="w-100 d-flex justify-content-between align-items-center">
                         <Col xs="auto">
                             <img src="shield-lock-line-icon.png" alt="icon" className="m-3" />
-                            {/* here is the link for later : https://uxwing.com/shield-lock-line-icon/ */}
                         </Col>
                         <Col xs="auto">
                             <Dropdown>
@@ -66,8 +66,6 @@ export default function Main() {
                             </Dropdown>
                         </Col>
                     </Row>
-
-                    {/* {loggedin ? <App reload={reload} /> : <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} />} */}
                     {loggedin ? ( settingsPage ? (<Settings setDarkMode={setDarkMode} darkMode={darkMode} setReload={setReload} reload={reload} setSettingsPage={setSettingsPage} settingsPage={settingsPage} setLoggedin={setLoggedin} />) : (<App reload={reload} setReload={setReload} setDarkMode={setDarkMode} darkMode={darkMode} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} setDarkMode={setDarkMode} darkMode={darkMode} /> ) }
                 </Container>
             </div>
