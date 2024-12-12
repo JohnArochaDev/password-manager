@@ -78,7 +78,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
             <Row className="w-100 d-flex justify-content-center align-items-center">
                 <Col xs={12} md={6} lg={4}>
                     {(form == "login") ? (
-                        <Form onSubmit={handleSubmit} className="p-4" style={{ backgroundColor: '#344955', borderRadius: '8px' }}>
+                        <Form onSubmit={handleSubmit} className="p-4" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control
@@ -112,13 +112,13 @@ export default function Login({ reload, setReload, setLoggedin }) {
                             </Form.Group>
 
                             <div className="d-flex justify-content-between mt-4">
-                                <Button variant="danger" type="submit" style={{ backgroundColor: '#344955', borderColor: '#50727B' }}>
-                                    Login
-                                </Button>
-                                <Button variant="danger" style={{ backgroundColor: '#344955', borderColor: '#50727B' }} onClick={makeRegister}>
-                                    Register
-                                </Button>
-                            </div>
+                            <Button variant="danger" type="submit" className="login-form-button">
+                                Login
+                            </Button>
+                            <Button variant="danger" className="login-form-button" onClick={makeRegister}>
+                                Register
+                            </Button>
+                        </div>
                         </Form>) : (
                         <Form onSubmit={handleRegister} className="p-4" style={{ backgroundColor: '#344955', borderRadius: '8px' }}>
                             <Form.Group controlId="formBasicName">
@@ -169,10 +169,10 @@ export default function Login({ reload, setReload, setLoggedin }) {
                             </Form.Group>
 
                             <div className="d-flex justify-content-between mt-4">
-                                <Button variant="danger" type="submit" style={{ backgroundColor: '#344955', borderColor: '#50727B' }} onClick={makeLogin}>
+                                <Button type="submit" className='login-button' onClick={makeLogin}>
                                     Login
                                 </Button>
-                                <Button variant="danger" type="submit" style={{ backgroundColor: '#344955', borderColor: '#50727B' }}>
+                                <Button type="submit" className='login-button'>
                                     Register
                                 </Button>
                             </div>

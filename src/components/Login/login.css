@@ -1,15 +1,32 @@
 form .dark-input {
-    background-color: #2c3e50;
+    background-color: #2d2e31;
     color: #ecf0f1;
-    border: 1px solid #344955;
+    border: 1px solid #242526;
     padding: 10px;
     border-radius: 4px;
 }
 
 .dark-input:focus {
-    background-color: #2c3e50 !important;
-    color: #ecf0f1 !important; /* Ensure text color remains consistent */
-    border-color: #50727B !important;
-    outline: none !important; /* Remove default outline */
-    box-shadow: 0 0 0 0.2rem rgba(80, 114, 123, 0.25) !important; /* Optional: Add a subtle shadow */
+    background-color: #4a4b4e !important;
+    color: #ecf0f1 !important;
+    border-color: #3a3b3e !important;
+    outline: none !important;
+    box-shadow: 0 0 0 0.2rem rgba(80, 114, 123, 0.25) !important;
+}
+
+form .dark-input::placeholder {
+    color: #b0b3b8;
+    opacity: 1;
+}
+
+.login-form-button {
+    background-color: #3a3b3e !important;
+    border-color: transparent !important;
+    outline: none !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.login-form-button:hover {
+    background-color: #4a4b4e !important;
+    border-color: transparent !important;
 }
