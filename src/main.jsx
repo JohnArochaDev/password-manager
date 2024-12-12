@@ -4,6 +4,7 @@ import { Col, Row, Container, Dropdown } from 'react-bootstrap';
 
 import App from './components/App/App.jsx';
 import Login from './components/Login/Login.jsx';
+import Settings from './components/Settings/Settings.jsx'
 
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
 import './main.css'; // Import custom CSS
@@ -11,6 +12,9 @@ import './main.css'; // Import custom CSS
 export default function Main() {
     const [loggedin, setLoggedin] = useState(false);
     const [reload, setReload] = useState(false);
+
+    const [settingsPage, setSettingsPage] = useState(false)
+
 
     function handleLogout() {
         chrome.storage.local.set({ jwtToken: null, userId: null }, function() {
@@ -55,14 +59,15 @@ export default function Main() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu className="custom-dropdown-menu">
-                                    <Dropdown.Item href="#/action-1">Settings</Dropdown.Item>
+                                    { settingsPage ? (<Dropdown.Item onClick={() => setSettingsPage(!settingsPage)}>Home</Dropdown.Item>) : (<Dropdown.Item onClick={() => setSettingsPage(!settingsPage)}>Settings</Dropdown.Item>) }
                                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
                     </Row>
 
-                    {loggedin ? <App reload={reload} /> : <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} />}
+                    {/* {loggedin ? <App reload={reload} /> : <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} />} */}
+                    {loggedin ? ( settingsPage ? (<Settings />) : (<App reload={reload} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} /> ) }
                 </Container>
             </div>
         </StrictMode>
