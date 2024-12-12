@@ -28,6 +28,8 @@
 
 14. finalize styling
 
+(JWT AUTO-LOGGOUT WORKS!!)
+
 ADDITIONAL features
 
 1. auto populate
