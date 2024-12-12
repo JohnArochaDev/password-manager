@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import './settings.css'
 
-export default function Settings({ setReload, reload }) {
+export default function Settings({ setReload, reload, setSettingsPage, settingsPage, setLoggedin }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -55,10 +55,21 @@ export default function Settings({ setReload, reload }) {
             } catch (error) {
                 console.error('Error:', error)
             }
+            
+            chrome.storage.local.set({ jwtToken: null }, function() {
+                console.log('Token removed')
+            })
+
+            // Optionally, store the user ID
+            chrome.storage.local.set({ userId: null }, function() {
+                console.log('User ID removed')
+            })
 
             // Update the UI or redirect as needed
             setLoggedin(false)
+            setSettingsPage(false)
             setReload(!reload)
+            console.log("SHOULD RELOAD EVERTHING")
         } catch (error) {
             console.error('Error:', error)
         }
