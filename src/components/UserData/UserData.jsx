@@ -6,6 +6,16 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     const [credentialId, setCredentialId] = useState('');
     const [userToken, setUserToken] = useState('');
 
+    const [username, setUsername] = useState()
+    const [password, setPassword] = useState()
+
+    useEffect(() => {
+        setUsername(secureData.username)
+        setPassword(secureData.password)
+    }, [])
+
+    const [buttonSwitch, setButtonSwitch] = useState(false)
+
     async function handleDeleteClick() {
         try {
             const response = await fetch(`http://localhost:8080/credentials/${credentialId}`, {
@@ -24,7 +34,29 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     }
 
     async function handleEdit() {
-        // Edit functionality
+
+        setButtonSwitch(true)
+
+        let updatedData = {
+            username: username,
+            password: password
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/credentials/${credentialId}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${userToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: {updatedData}
+            });
+            if (response.ok) {
+                console.log("SUCCESSFUL UPDATE")
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     useEffect(() => {
@@ -52,7 +84,12 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     <p className="field">Username:</p>
                 </Col>
                 <Col xs={6} className="text-end">
-                    <input type="text" value={secureData.username} readOnly className="form-control dark-input field" />
+                    <input type="text" 
+                    value={username} 
+                    readOnly={!buttonSwitch} 
+                    className="form-control dark-input field" 
+                    onChange={(e) => setUsername(e.target.value)}
+                    />
                 </Col>
             </Row>
             <Row className="mb-4">
@@ -60,7 +97,12 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     <p className="field">Password:</p>
                 </Col>
                 <Col xs={6}>
-                    <input type="password" value={secureData.password} readOnly className="form-control dark-input field" />
+                    <input type="password" 
+                    value={password} 
+                    readOnly={!buttonSwitch} 
+                    className="form-control dark-input field" 
+                    onChange={(e) => setPassword(e.target.value)}
+                    />
                 </Col>
             </Row>
             <Row className="w-100 d-flex justify-content-between align-items-center">
@@ -68,7 +110,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     <Button variant="primary" block onClick={handleEdit}>Edit</Button>
                 </Col>
                 <Col xs="auto">
-                    <Button variant="danger" block onClick={handleDeleteClick}>Delete</Button>
+                    {buttonSwitch ? <Button block onClick={handleDeleteClick}>Confirm</Button> : <Button variant="danger" block onClick={handleDeleteClick}>Delete</Button>}
                 </Col>
             </Row>
         </Container>
