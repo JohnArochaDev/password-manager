@@ -5,7 +5,7 @@ function getFromStorage(key, callback) {
     });
 }
 
-function fetchData() {
+function fetchData(sendResponse) {
 
     getFromStorage('jwtToken', function(token) {
 
@@ -51,7 +51,7 @@ function getFavicon() {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     if (message.action === 'fetchData') {
-        fetchData();
+        fetchData(sendResponse);
         // sendResponse({ status: 'Fetching data...' }); // Sending a response back
     } else if (message.action === 'getData') {
         // If a message asks for the stored data, retrieve it, currently not implemented
