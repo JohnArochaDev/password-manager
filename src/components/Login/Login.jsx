@@ -8,7 +8,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
     const [username, setUsername] = useState('')
     const [name, setName] = useState('')
 
-    const [form, setForm] = useState("login")
+    const [form, setForm] = useState('login')
 
     const [loginError, setLoginError] = useState('');
 
@@ -21,12 +21,36 @@ export default function Login({ reload, setReload, setLoggedin }) {
     }
 
     async function handleRegister(e) {
+        e.preventDefault()
+        makeLogin()
 
         const registerData = {
             username: username,
             name: name,
             email: email,
             password: password
+        }
+
+        try {
+            const response = await fetch('http://localhost:8080/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(registerData),
+            })
+
+            if (!response.ok) {
+                setLoginError('Invalid email address or password');
+                throw new Error('Network response was not ok');
+            }
+
+            console.log('Succesful register:')
+
+            makeLogin()
+            console.log("MADE A REGISTRATION END BBY")
+        } catch (error) {
+            console.error('Error:', error)
         }
     }
 
