@@ -1,4 +1,6 @@
-1. add login failed information, register button
+0. DARK MODE IS STARTED, WHEN YOU GET BACK FINISH IT. WERE STARTING IN settings.css. FINISH DARK MODE, THEN MOVE TO BELOW STUFF
+
+1. [DONE] add login failed information, register button
 
 2. [DONE] FREE UP THE POST /users ROUTE, CHANGE IT TO /register OR /users/register SO ANYCONE CAN MAKE AN ACCOUNT
 
@@ -20,7 +22,7 @@
 
 11. [HALF-DONE] add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
 
-12. add login failed information, register button
+12. [DONE] add login failed information, register button
 
 13. Add a seach option at the top that will look through the websites annd find the sire the user is looking for. partial and full searches
 
