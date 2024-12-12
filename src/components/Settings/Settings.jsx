@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import './settings.css'
 
 export default function Settings() {
     const [email, setEmail] = useState('')
@@ -70,7 +71,7 @@ export default function Settings() {
                 />
             </Form>
 
-            <Button variant="primary" onClick={handleShow}>
+            <Button className='custom-form-button' onClick={handleShow}>
                 Delete Account
             </Button>
 
