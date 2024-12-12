@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import './settings.css'
 
-export default function Settings() {
+export default function Settings({ setReload, reload }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -16,6 +16,9 @@ export default function Settings() {
 
     async function handleDeleteSubmit(e) {
         e.preventDefault()
+
+        let userIdForDeletion
+        let userTokenForDeletion
 
         const loginData = {
             email: email,
@@ -37,20 +40,24 @@ export default function Settings() {
             }
 
             const data = await response.json()
-            console.log('Success:', data)
+            userIdForDeletion = data.userId
+            userTokenForDeletion = data.token
 
-            // Store the token in chrome.storage
-            chrome.storage.local.set({ jwtToken: data.token }, function() {
-                console.log('Token saved')
-            })
-
-            // Optionally, store the user ID
-            chrome.storage.local.set({ userId: data.userId }, function() {
-                console.log('User ID saved')
-            })
+            // Add delete route
+            try {
+                const response = await fetch(`http://localhost:8080/users/${userIdForDeletion}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${userTokenForDeletion}`,
+                        'Content-Type': 'application/json'
+                    },
+                })
+            } catch (error) {
+                console.error('Error:', error)
+            }
 
             // Update the UI or redirect as needed
-            setLoggedin(true)
+            setLoggedin(false)
             setReload(!reload)
         } catch (error) {
             console.error('Error:', error)
