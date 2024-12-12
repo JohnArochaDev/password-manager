@@ -14,6 +14,10 @@ export default function Login({ reload, setReload, setLoggedin }) {
 
     function makeRegister() {
         setForm("register")
+        setEmail('')
+        setPassword('')
+        setUsername('')
+        setName('')
     }
 
     function makeLogin() {
