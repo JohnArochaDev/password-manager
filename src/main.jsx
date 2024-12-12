@@ -1,6 +1,7 @@
 import { StrictMode, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Col, Row, Container, Dropdown } from 'react-bootstrap';
+import {jwtDecode} from 'jwt-decode'; // Import jwt-decode library
 
 import App from './components/App/App.jsx';
 import Login from './components/Login/Login.jsx';
@@ -29,18 +30,32 @@ export default function Main() {
             const token = result.jwtToken;
             const id = result.userId;
 
-            
+
 
             if (token) {
-                setLoggedin(true);
-    
-                chrome.runtime.sendMessage({ action: 'fetchData' }, (response) => {
-                    if (response.status === 'success') {
-                        setReload(!reload);
+                try {
+                    const decodedToken = jwtDecode(token)
+                    console.log("DECODED TOKEN : \n" + decodedToken.exp)
+                    const currentTime = Date.now() / 1000 // Time in seconds
+                    console.log("TIME NOW : \n" + currentTime)
+
+
+                    if(decodedToken.exp < currentTime) {
+                        handleLogout()
                     } else {
-                        console.error('Failed to fetch data');
+                        setLoggedin(true)
+
+                        chrome.runtime.sendMessage({ action: 'fetchData' }, (response) => {
+                            if (response.status === 'success') {
+                                setReload(!reload);
+                            } else {
+                                console.error('Failed to fetch data');
+                            }
+                        });
                     }
-                });
+                } catch (error) {
+                    console.error('Failed to fetch data');
+                }
             }
         });
     }, []);
