@@ -10,15 +10,19 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
     
     
     const [showForm, setShowForm] = useState(false);
+    const [sureFrom, setSureForm] = useState(false)
 
-    const handleShow = () => setShowForm(true);
-    const handleClose = () => setShowForm(false);
+    const [userIdForDeletion, setUserIdForDeletion] = useState(null); // Use state
+    const [userTokenForDeletion, setUserTokenForDeletion] = useState(null); // Use state
+
+
+    const handleShowForm = () => setShowForm(true);
+    const handleCloseForm = () => setShowForm(false);
+    const handleShowSureModal = () => setSureForm(true);
+    const handleCloseSureModal = () => setSureForm(false);
 
     async function handleDeleteSubmit(e) {
         e.preventDefault()
-
-        let userIdForDeletion
-        let userTokenForDeletion
 
         const loginData = {
             email: email,
@@ -34,45 +38,52 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 body: JSON.stringify(loginData),
             })
 
+            const data = await response.json()
+
+            setUserIdForDeletion(data.userId)
+            setUserTokenForDeletion(data.token)
+
             if (!response.ok) {
                 setLoginError('Invalid email address or password');
                 throw new Error('Network response was not ok');
             }
 
-            const data = await response.json()
-            userIdForDeletion = data.userId
-            userTokenForDeletion = data.token
-
-            // Add delete route
-            try {
-                const response = await fetch(`http://localhost:8080/users/${userIdForDeletion}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${userTokenForDeletion}`,
-                        'Content-Type': 'application/json'
-                    },
-                })
-            } catch (error) {
-                console.error('Error:', error)
-            }
+            handleShowSureModal()
             
-            chrome.storage.local.set({ jwtToken: null }, function() {
-                console.log('Token removed')
-            })
-
-            // Optionally, store the user ID
-            chrome.storage.local.set({ userId: null }, function() {
-                console.log('User ID removed')
-            })
-
-            // Update the UI or redirect as needed
-            setLoggedin(false)
-            setSettingsPage(false)
-            setReload(!reload)
-            console.log("SHOULD RELOAD EVERTHING")
         } catch (error) {
             console.error('Error:', error)
         }
+    }
+
+    async function areYouSure() {
+        try {
+            const response = await fetch(`http://localhost:8080/users/${userIdForDeletion}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${userTokenForDeletion}`,
+                    'Content-Type': 'application/json'
+                },
+            })
+        } catch (error) {
+            console.error('Error:', error)
+        }
+        
+        chrome.storage.local.set({ jwtToken: null }, function() {
+            console.log('Token removed')
+        })
+
+        // Optionally, store the user ID
+        chrome.storage.local.set({ userId: null }, function() {
+            console.log('User ID removed')
+        })
+
+        // Update the UI or redirect as needed
+        setLoggedin(false)
+        setSettingsPage(false)
+        setReload(!reload)
+        handleCloseSureModal()
+        handleCloseForm()
+        console.log("SHOULD RELOAD EVERTHING")
     }
 
     return (
@@ -89,11 +100,11 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 />
             </Form>
 
-            <Button className='custom-form-button' onClick={handleShow}>
+            <Button className='custom-form-button' onClick={handleShowForm}>
                 Delete Account
             </Button>
 
-            <Modal show={showForm} onHide={handleClose} size="lg" centered>
+            <Modal show={showForm} onHide={handleCloseForm} size="lg" centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Verify credentials</Modal.Title>
                 </Modal.Header>
@@ -135,6 +146,23 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                         </Button>
                     </Form>
                 </Modal.Body>
+            </Modal>
+
+            <Modal show={sureFrom} onHide={handleCloseSureModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Are you sure?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure?
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={areYouSure}>
+                        Yes
+                    </Button>
+                    <Button variant="secondary" onClick={handleCloseSureModal}>
+                        No
+                    </Button>
+                </Modal.Footer>
             </Modal>
         </>
     );
