@@ -104,47 +104,47 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 Delete Account
             </Button>
 
-            <Modal show={showForm} onHide={handleCloseForm} size="lg" centered>
+            <Modal show={showForm} onHide={handleCloseForm} size="lg" centered className="custom-modal" >
                 <Modal.Header closeButton>
-                    <Modal.Title>Verify credentials</Modal.Title>
+                    <Modal.Title style={{color : '#b0b3b8'}} >Verify credentials</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={handleDeleteSubmit} className="p-4" style={{ backgroundColor: '#344955', borderRadius: '8px' }}>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                isInvalid={!!loginError}
-                                required
-                                className="dark-input"
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                {loginError}
-                            </Form.Control.Feedback>
-                        </Form.Group>
+                <Form onSubmit={handleDeleteSubmit} className="p-4" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label style={{color : '#b0b3b8'}} >Email address</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            isInvalid={!!loginError}
+                            required
+                            className="dark-input"
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {loginError}
+                        </Form.Control.Feedback>
+                    </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword" className="mt-3">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                isInvalid={!!loginError}
-                                required
-                                className="dark-input"
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                {loginError}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Button variant="danger" type="submit" style={{ backgroundColor: '#344955', borderColor: '#50727B' }}>
-                           Delete Account
+                    <Form.Group controlId="formBasicPassword" className="mt-3">
+                        <Form.Label style={{color : '#b0b3b8'}} >Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            isInvalid={!!loginError}
+                            required
+                            className="dark-input"
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {loginError}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                        <Button variant="danger" type="submit" className="login-form-button">
+                            Delete Account
                         </Button>
-                    </Form>
+                </Form>
                 </Modal.Body>
             </Modal>
 
