@@ -101,8 +101,9 @@ export default function Login({ reload, setReload, setLoggedin }) {
         <Container fluid className="container-fullwidth d-flex flex-column justify-content-center align-items-center text-white">
             <Row className="w-100 d-flex justify-content-center align-items-center">
                 <Col xs={12} md={6} lg={4}>
+                <h2 style={{ color: '#ecf0f1' }} className='text-center mt-3 mx-auto'>{form == 'login' ? "Welcome Back" : "Create an Account"}</h2>
                     {(form == "login") ? (
-                        <Form onSubmit={handleSubmit} className="p-4" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
+                        <Form onSubmit={handleSubmit} className="p-4 mt-5" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control
@@ -144,7 +145,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
                             </Button>
                         </div>
                         </Form>) : (
-                        <Form onSubmit={handleRegister} className="p-4" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
+                        <Form onSubmit={handleRegister} className="p-4 mt-3" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
                             <Form.Group controlId="formBasicName">
                                 <Form.Label>Full name</Form.Label>
                                 <Form.Control
