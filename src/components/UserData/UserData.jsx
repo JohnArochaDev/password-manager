@@ -89,17 +89,17 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             <Form onSubmit={handleEdit} className="w-100">
                 <Row className="w-100">
                     <Col className="d-flex justify-content-end p-0">
-                        <Button className="x-button no-padding no-margin mb-3" onClick={() => setClicked(null)}>X</Button>
+                        <Button className={darkMode ? "x-button no-padding no-margin mb-3" : "light-mode-x-button no-padding no-margin mb-3"} onClick={() => setClicked(null)}>X</Button>
                     </Col>
                 </Row>
                 <Row className="mb-4">
                     <Col xs={12} className="d-flex justify-content-center">
-                        <p className="field">{secureData.website}</p>
+                        <p className={darkMode ? "field text-white" : "field text-black"}>{secureData.website}</p>
                     </Col>
                 </Row>
                 <Row className="mb-4">
                     <Col xs={4} className="text-start pt-2">
-                        <p className="field">Username:</p>
+                        <p className={darkMode ? "field text-white" : "field text-black"}>Username:</p>
                     </Col>
                     <Col xs={8} className="text-end">
                         <InputGroup>
@@ -107,7 +107,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                                 type="text"
                                 value={username}
                                 readOnly={!buttonSwitch}
-                                className="form-control dark-input field"
+                                className={darkMode ? "form-control dark-input field" : "form-control light-input field"}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                             <Button variant="secondary" onClick={() => copyToClipboard(username)} className="copy-button">
@@ -118,7 +118,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 </Row>
                 <Row className="mb-4">
                     <Col xs={4} className='pt-2' >
-                        <p className="field">Password:</p>
+                        <p className={darkMode ? "field text-white" : "field text-black"}>Password:</p>
                     </Col>
                     <Col xs={8}>
                         <InputGroup>
@@ -126,7 +126,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                                 type={buttonSwitch ? "text" : "password"}
                                 value={password}
                                 readOnly={!buttonSwitch}
-                                className="form-control dark-input field"
+                                className={darkMode ? "form-control dark-input field" : "form-control light-input field"}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <Button variant="secondary" onClick={() => copyToClipboard(password)} className="copy-button">
