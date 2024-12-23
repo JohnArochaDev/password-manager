@@ -25,7 +25,7 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
                 {credentials.map((data) => (
                     <div key={data.id} >
                         {clicked === data.id ? (
-                            <Card className={darkMode ? "rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover" : "rounded-3 p-3 shadow-sm mx-1 my-2 text-black d-flex justify-content-center align-items-center light-mode-card-hover"}>
+                            <Card className="rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover">
                                 <UserData
                                     secureData={data}
                                     setClicked={setClicked}
@@ -36,7 +36,7 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
                             </Card>
                         ) : (
                             <Card
-                                className={darkMode ? "rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover" : "rounded-3 p-3 shadow-sm mx-1 my-2 text-black d-flex justify-content-center align-items-center light-mode-card-hover"}
+                                className="rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover"
                                 onClick={() => setClicked(data.id)}
                             >
                                 <p>{data.website}</p>

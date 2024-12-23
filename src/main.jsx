@@ -62,7 +62,7 @@ export default function Main() {
 
     return (
         <StrictMode>
-            <div className={darkMode ? "custom-bg" : "light-mode-custom-bg"}>
+            <div className="custom-bg">
                 <Container fluid className="container-fullwidth d-flex flex-column justify-content-center align-items-center text-white">
                     <Row className="w-100 d-flex justify-content-between align-items-center">
                         <Col xs="auto">
@@ -70,11 +70,11 @@ export default function Main() {
                         </Col>
                         <Col xs="auto">
                             <Dropdown>
-                                <Dropdown.Toggle className={darkMode ? "m-3 custom-button" : "m-3 light-mode-custom-button"}>
+                                <Dropdown.Toggle className="m-3 custom-button">
                                     ...
                                 </Dropdown.Toggle>
 
-                                <Dropdown.Menu className={darkMode ? "custom-dropdown-menu" : "light-mode-custom-dropdown-menu"}>
+                                <Dropdown.Menu className="custom-dropdown-menu">
                                     { settingsPage ? (<Dropdown.Item onClick={() => setSettingsPage(!settingsPage)}>Home</Dropdown.Item>) : (<Dropdown.Item onClick={() => setSettingsPage(!settingsPage)}>Settings</Dropdown.Item>) }
                                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
