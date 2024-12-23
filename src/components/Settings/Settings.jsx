@@ -88,14 +88,14 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
 
     return (
         <>
-            <h1>Settings</h1>
+            <h1 className={darkMode ? "font" : "light-mode-font"} >Settings</h1>
             <hr style={{ width: '90%', borderColor: '#37383a' }} />
 
             <Form className="my-4">
                 <Form.Check 
                     type="switch"
                     id="custom-switch"
-                    className="custom-switch"
+                    className={darkMode ? "font" : "light-mode-font"}
                     label="Dark Mode"
                     checked={darkMode}
                     onChange={() => setDarkMode(!darkMode)}
@@ -111,7 +111,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     <Modal.Title style={{color : '#b0b3b8'}} >Verify credentials</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Form onSubmit={handleDeleteSubmit} className="p-4" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
+                <Form onSubmit={handleDeleteSubmit} className={darkMode ? "p-4 delete-form" : "p-4 light-mode-delete-form"}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label style={{color : '#b0b3b8'}} >Email address</Form.Label>
                         <Form.Control
@@ -144,7 +144,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                         </Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
-                        <Button variant="danger" type="submit" className={darkMode ? "login-form-button mt-4" : "light-login-form-button"}>
+                        <Button variant="danger" type="submit" className={darkMode ? "login-form-button mt-4" : "light-login-form-button mt-4"}>
                             Delete Account
                         </Button>
                     </div>
