@@ -38,7 +38,7 @@
 
 ADDITIONAL features
 
-1. auto populate
+1. auto populate / auto saving / asking to save if a user logs in
 
 2. favicon saving for closed card display
 
