@@ -21,3 +21,35 @@
     color: black;
     /* color: #ff9f34; */
 }
+
+.search {
+  background-color: #3a3b3e !important;
+  color: #ecf0f1 !important;
+  border: 1px solid #555 !important;
+}
+
+.search::placeholder {
+  color: #b0b3b8 !important; /* Placeholder color for dark mode */
+}
+
+.search:focus {
+  outline: none !important;
+  border-color: #5bcd04 !important; /* Change this to your desired focus border color */
+  box-shadow: 0 0 0 0.2rem rgba(35, 193, 156, 0) !important; /* makes sure it is transparent */
+}
+
+.light-search {
+  background-color: #ecf0f1 !important;
+  color: #3a3b3e !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.light-search::placeholder {
+  color: #6c757d !important; /* Placeholder color for light mode */
+}
+
+.light-search:focus {
+  outline: none !important;
+  border-color: #23c19d !important; /* Change this to your desired focus border color */
+  box-shadow: 0 0 0 0.2rem rgba(35, 193, 157, 0.25) !important; /* Optional: Add a shadow effect */
+}

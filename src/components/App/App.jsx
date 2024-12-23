@@ -127,12 +127,12 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
             <h1 style={headerStyle} className={darkMode ? "doto-title" : "light-mode-doto-title"}>SafePass</h1>
             <hr style={{ width: '90%', borderColor: '#37383a' }} />
             {search ? (
-                <Container className="rounded-3 p-3 pb-2 pt-0 shadow-sm text-white d-flex justify-content-center align-items-center">
+                <Container className="rounded-3 p-3 pb-2 pt-0 shadow-sm d-flex justify-content-center align-items-center">
                     <Form className="d-flex w-100">
                         <FormControl
                             type="search"
                             placeholder="Search"
-                            className="w-100"
+                            className={darkMode ? " form-control w-100 search text-white" : " form-control w-100 light-search text-black"}
                             aria-label="Search"
                         />
                     </Form>
