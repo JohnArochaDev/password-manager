@@ -136,7 +136,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode }) {
                 ))
             )}
             <Container >
-                <Card className={darkMode ? "rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover" : "rounded-3 p-3 shadow-sm mx-1 my-2 text-black d-flex justify-content-center align-items-center light-mode-card-hover"} onClick={handleShowModal}>
+                <Card className={darkMode ? "rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover mb-3" : "rounded-3 p-3 shadow-sm mx-1 my-2 text-black d-flex justify-content-center align-items-center light-mode-card-hover mb-3"} onClick={handleShowModal}>
                     <h1>+</h1>
                 </Card>
             </Container>
