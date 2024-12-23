@@ -30,7 +30,7 @@
 
 12. [DONE] add login failed information, register button
 
-13. Add a search option at the top that will look through the websites annd find the sire the user is looking for. partial and full searches
+13. Add a search option at the top that will look through the websites and find the sire the user is looking for. partial and full searches
 
 14. finalize styling
 
