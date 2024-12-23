@@ -135,12 +135,16 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                         </InputGroup>
                     </Col>
                 </Row>
-                <Row className="w-100 d-flex justify-content-between align-items-center">
+                <Row className="w-100 d-flex justify-content-between align-items-center" style={{ marginLeft: '0px' }}> {/* this is needed to overwrite something in boostrap that forces an uneven margin */}
+
                     <Col xs="auto">
-                        <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} block onClick={() => setButtonSwitch(true)}>Edit</Button>
+                        <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(true)}>Edit</Button>
                     </Col>
                     <Col xs="auto">
-                        {buttonSwitch ? <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} type="submit" block>Confirm</Button> : <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} block onClick={handleDeleteClick}>Delete</Button>}
+                        {buttonSwitch ? 
+                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} type="submit" style={{ width: '100px' }}>Confirm</Button> : 
+                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={handleDeleteClick}>Delete</Button>
+                        }
                     </Col>
                 </Row>
             </Form>
