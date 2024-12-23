@@ -137,10 +137,10 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 </Row>
                 <Row className="w-100 d-flex justify-content-between align-items-center">
                     <Col xs="auto">
-                        <Button variant="primary" block onClick={() => setButtonSwitch(true)}>Edit</Button>
+                        <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} block onClick={() => setButtonSwitch(true)}>Edit</Button>
                     </Col>
                     <Col xs="auto">
-                        {buttonSwitch ? <Button type="submit" block>Confirm</Button> : <Button variant="danger" block onClick={handleDeleteClick}>Delete</Button>}
+                        {buttonSwitch ? <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} type="submit" block>Confirm</Button> : <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} block onClick={handleDeleteClick}>Delete</Button>}
                     </Col>
                 </Row>
             </Form>

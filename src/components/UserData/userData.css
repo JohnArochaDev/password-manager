@@ -65,3 +65,35 @@
 .mb-3 {
   margin-bottom: 15px !important; /* Adjust the value as needed */
 }
+
+.card-button {
+  background-color: #292a2d !important;
+  border-color: #1f2023 !important;
+}
+
+.light-card-button {
+  background-color: #fafafa !important;
+  border-color: #f0f0f0 !important;
+}
+
+.card-button:hover {
+  background-color: #3a3b3e !important;
+  border-color: #292a2d !important;
+}
+
+.light-card-button {
+  background-color: #f0f0f0 !important;
+  border-color: #e0e0e0 !important;
+}
+
+.card-button:active {
+  background-color: #5bcd04 !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
+
+.light-card-button:active {
+  background-color: #5bcd04 !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
