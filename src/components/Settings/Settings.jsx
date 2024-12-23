@@ -88,14 +88,14 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
 
     return (
         <>
-            <h1>Settings</h1>
+            <h1 className={darkMode ? "font" : "light-mode-font"} >Settings</h1>
             <hr style={{ width: '90%', borderColor: '#37383a' }} />
 
             <Form className="my-4">
                 <Form.Check 
                     type="switch"
                     id="custom-switch"
-                    className="custom-switch"
+                    className={darkMode ? "font" : "light-mode-font"}
                     label="Dark Mode"
                     checked={darkMode}
                     onChange={() => setDarkMode(!darkMode)}

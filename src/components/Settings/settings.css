@@ -137,3 +137,11 @@ form .light-input::placeholder {
     border-color: transparent !important;
     outline: none !important;
 }
+
+.font {
+    color: white;
+}
+
+.light-mode-font {
+    color: black;
+}
