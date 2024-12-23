@@ -91,14 +91,14 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 <Row className="w-100 m-0 p-0">
                     <Col className="d-flex justify-content-center">
                         {secureData.website.length >= 25 ? (
-                                <p className={darkMode ? "field text-white" : "field text-black"}>{secureData.website.substring(0, 25)}...</p>
+                                <p className={darkMode ? "text-white" : "text-black"}>{secureData.website.substring(0, 25)}...</p>
                             ) : (
-                                <p className={darkMode ? "field text-white" : "field text-black"}>{secureData.website}</p>
+                                <p className={darkMode ? "text-white" : "text-black"}>{secureData.website}</p>
                             )
                         }
                     </Col>
                 </Row>
-                <Row className="mb-4">
+                <Row className="mb-4 mt-3">
                     <Col xs={4} className="text-start pt-2">
                         <p className={darkMode ? "field text-white" : "field text-black"}>Username:</p>
                     </Col>
