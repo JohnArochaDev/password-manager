@@ -6,6 +6,14 @@ form .dark-input {
     border-radius: 4px;
 }
 
+form .light-input {
+    background-color: #ecf0f1;
+    color: #2d2e31;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 4px;
+}
+
 .dark-input:focus {
     background-color: #4a4b4e !important;
     color: #ecf0f1 !important;
@@ -14,7 +22,20 @@ form .dark-input {
     box-shadow: 0 0 0 0.2rem rgba(80, 114, 123, 0.25) !important;
 }
 
+.dark-input:focus {
+    background-color: #ecf0f1 !important;
+    color: #4a4b4e !important;
+    border-color: #dce0e3 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 0.2rem rgba(80, 114, 123, 0.25) !important;
+}
+
 form .dark-input::placeholder {
+    color: #b0b3b8;
+    opacity: 1;
+}
+
+form .light-input::placeholder {
     color: #b0b3b8;
     opacity: 1;
 }
@@ -26,7 +47,19 @@ form .dark-input::placeholder {
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
+.light-login-form-button {
+    background-color: #fafafa !important;
+    border-color: transparent !important;
+    outline: none !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
 .login-form-button:hover {
     background-color: #4a4b4e !important;
+    border-color: transparent !important;
+}
+
+.light-login-form-button:hover {
+    background-color: #ebebeb !important;
     border-color: transparent !important;
 }

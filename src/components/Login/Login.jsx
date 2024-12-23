@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import './login.css' // Ensure this import is correct
 
-export default function Login({ reload, setReload, setLoggedin }) {
+export default function Login({ darkMode, reload, setReload, setLoggedin }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
@@ -102,12 +102,12 @@ export default function Login({ reload, setReload, setLoggedin }) {
     }
 
     return (
-        <Container fluid className="container-fullwidth d-flex flex-column justify-content-center align-items-center text-white">
+        <Container fluid className="container-fullwidth d-flex flex-column justify-content-center align-items-center">
             <Row className="w-100 d-flex justify-content-center align-items-center">
                 <Col xs={12} md={6} lg={4}>
-                <h2 style={{ color: '#ecf0f1' }} className='text-center mt-3 mx-auto'>{form == 'login' ? "Welcome Back" : "Create an Account"}</h2>
+                <h2 className={darkMode ? 'text-center text-white mt-3 mx-auto' : 'text-center text-black mt-3 mx-auto'}>{form == 'login' ? "Welcome Back" : "Create an Account"}</h2>
                     {(form == "login") ? (
-                        <Form onSubmit={handleSubmit} className="p-4 mt-5" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
+                        <Form onSubmit={handleSubmit} className="p-4 mt-5" style={{ backgroundColor: darkMode ? '#292a2d' : '#fafafa', borderRadius: '8px' }}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control
@@ -117,7 +117,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                     onChange={(e) => setEmail(e.target.value)}
                                     isInvalid={!!loginError}
                                     required
-                                    className="dark-input"
+                                    className={darkMode ? "dark-input" : "light-input"}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {loginError}
@@ -133,7 +133,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                     onChange={(e) => setPassword(e.target.value)}
                                     isInvalid={!!loginError}
                                     required
-                                    className="dark-input"
+                                    className={darkMode ? "dark-input" : "light-input"}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {loginError}
@@ -141,10 +141,10 @@ export default function Login({ reload, setReload, setLoggedin }) {
                             </Form.Group>
 
                             <div className="d-flex justify-content-between mt-4">
-                            <Button variant="danger" type="submit" className="login-form-button">
+                            <Button variant="danger" type="submit" className={darkMode ? "login-form-button" : "light-login-form-button"}>
                                 Login
                             </Button>
-                            <Button variant="danger" className="login-form-button" onClick={makeRegister}>
+                            <Button variant="danger" className={darkMode ? "login-form-button" : "light-login-form-button"} onClick={makeRegister}>
                                 Register
                             </Button>
                         </div>
@@ -158,7 +158,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     required
-                                    className="dark-input"
+                                    className={darkMode ? "dark-input" : "light-input"}
                                 />
                             </Form.Group>
                             <Form.Group controlId="formBasicEmail">
@@ -169,7 +169,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="dark-input"
+                                    className={darkMode ? "dark-input" : "light-input"}
                                 />
                             </Form.Group>
 
@@ -181,7 +181,7 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     required
-                                    className="dark-input"
+                                    className={darkMode ? "dark-input" : "light-input"}
                                 />
                             </Form.Group>
 
@@ -193,15 +193,15 @@ export default function Login({ reload, setReload, setLoggedin }) {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    className="dark-input"
+                                    className={darkMode ? "dark-input" : "light-input"}
                                 />
                             </Form.Group>
 
                             <div className="d-flex justify-content-between mt-4">
-                                <Button type="submit" className="login-form-button" onClick={makeLogin}>
+                                <Button type="submit" className={darkMode ? "login-form-button" : "light-login-form-button"} onClick={makeLogin}>
                                     Login
                                 </Button>
-                                <Button type="submit" className="login-form-button">
+                                <Button type="submit" className={darkMode ? "login-form-button" : "light-login-form-button"}>
                                     Register
                                 </Button>
                             </div>
