@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import PasswordsPage from "../PasswordsPage/PasswordsPage";
-import {Card, Container, Modal, Button, Form} from 'react-bootstrap';
+import {Card, Container, Modal, Button, Form, Row, Col, FormControl} from 'react-bootstrap';
 
 import "./App.css";
 
@@ -55,7 +55,7 @@ function useBackgroundData(reload) {
 
 
 
-export default function App({ reload, setReload, setDarkMode, darkMode }) {
+export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch }) {
     const { data, loading, error } = useBackgroundData(reload);
 
     const [userId, setUserId] = useState()
@@ -126,6 +126,20 @@ export default function App({ reload, setReload, setDarkMode, darkMode }) {
         <>
             <h1 style={headerStyle} className={darkMode ? "doto-title" : "light-mode-doto-title"}>SafePass</h1>
             <hr style={{ width: '90%', borderColor: '#37383a' }} />
+            {search ? (
+                <Container className="rounded-3 p-3 pb-2 pt-0 shadow-sm text-white d-flex justify-content-center align-items-center">
+                    <Form className="d-flex w-100">
+                        <FormControl
+                            type="search"
+                            placeholder="Search"
+                            className="w-100"
+                            aria-label="Search"
+                        />
+                    </Form>
+                </Container>
+            ) : (
+                ''
+            )}
             {loading ? (
                 "Loading...."
             ) : error ? (

@@ -16,6 +16,7 @@ export default function Main() {
 
     const [settingsPage, setSettingsPage] = useState(false)
     const [darkMode, setDarkMode] = useState(true)
+    const [search, setSearch] = useState(false)
 
 
     function handleLogout() {
@@ -75,13 +76,14 @@ export default function Main() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu className={darkMode ? "custom-dropdown-menu" : "light-mode-custom-dropdown-menu"}>
+                                    <Dropdown.Item onClick={() => setSearch(!search)}>Search</Dropdown.Item>
                                     { settingsPage ? (<Dropdown.Item onClick={() => setSettingsPage(!settingsPage)}>Home</Dropdown.Item>) : (<Dropdown.Item onClick={() => setSettingsPage(!settingsPage)}>Settings</Dropdown.Item>) }
                                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
                     </Row>
-                    {loggedin ? ( settingsPage ? (<Settings setDarkMode={setDarkMode} darkMode={darkMode} setReload={setReload} reload={reload} setSettingsPage={setSettingsPage} settingsPage={settingsPage} setLoggedin={setLoggedin} />) : (<App reload={reload} setReload={setReload} setDarkMode={setDarkMode} darkMode={darkMode} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} setDarkMode={setDarkMode} darkMode={darkMode} /> ) }
+                    {loggedin ? ( settingsPage ? (<Settings setDarkMode={setDarkMode} darkMode={darkMode} setReload={setReload} reload={reload} setSettingsPage={setSettingsPage} settingsPage={settingsPage} setLoggedin={setLoggedin} />) : (<App reload={reload} setReload={setReload} setDarkMode={setDarkMode} darkMode={darkMode} search={search} setSearch={setSearch} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} setDarkMode={setDarkMode} darkMode={darkMode} /> ) }
                 </Container>
             </div>
         </StrictMode>
