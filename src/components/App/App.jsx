@@ -124,7 +124,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode }) {
 
     return (
         <>
-            <h1 style={headerStyle} className="doto-title">SafePass</h1>
+            <h1 style={headerStyle} className={darkMode ? "doto-title" : "light-mode-doto-title"}>SafePass</h1>
             <hr style={{ width: '90%', borderColor: '#37383a' }} />
             {loading ? (
                 "Loading...."
