@@ -80,11 +80,19 @@ form .light-input::placeholder {
 }
 
 .light-login-form-button:hover {
-    background-color: #ecf0f1 !important;
+    background-color: #b0b0b0 !important;
     border-color: transparent !important;
 }
 
+.delete-form {
+    background-color: #292a2d !important;
+    border-radius: 8px !important;
+}
 
+.light-mode-delete-form {
+    background-color: #e6eaed !important;
+    border-radius: 8px !important;
+}
 
 
 .custom-modal .modal-content {

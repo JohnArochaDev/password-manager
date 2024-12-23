@@ -1,3 +1,5 @@
+-1. MAKE SURE A USER CANT DELETE OTHER ACCOUNTS IF IT HAS THE LOGIN INFORMATION
+
 0. DARK MODE IS STARTED, WHEN YOU GET BACK FINISH IT. WERE STARTING IN settings.css. FINISH DARK MODE, THEN MOVE TO BELOW STUFF
 
 0.5 MAKE THE EDIT BUTTON CONVERT INTO A CANCEL BUTTON AFTER PRESSED, AND ADD A BUTTON TO SHOW THE PASSWORD TO THE USER WITH THE || OPERATOR
@@ -28,7 +30,7 @@
 
 12. [DONE] add login failed information, register button
 
-13. Add a seach option at the top that will look through the websites annd find the sire the user is looking for. partial and full searches
+13. Add a search option at the top that will look through the websites annd find the sire the user is looking for. partial and full searches
 
 14. finalize styling
 

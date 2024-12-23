@@ -111,7 +111,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     <Modal.Title style={{color : '#b0b3b8'}} >Verify credentials</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Form onSubmit={handleDeleteSubmit} className="p-4" style={{ backgroundColor: '#292a2d', borderRadius: '8px' }}>
+                <Form onSubmit={handleDeleteSubmit} className={darkMode ? "p-4 delete-form" : "p-4 light-mode-delete-form"}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label style={{color : '#b0b3b8'}} >Email address</Form.Label>
                         <Form.Control
@@ -144,7 +144,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                         </Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
-                        <Button variant="danger" type="submit" className={darkMode ? "login-form-button mt-4" : "light-login-form-button"}>
+                        <Button variant="danger" type="submit" className={darkMode ? "login-form-button mt-4" : "light-login-form-button mt-4"}>
                             Delete Account
                         </Button>
                     </div>
