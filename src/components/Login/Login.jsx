@@ -109,7 +109,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                     {(form == "login") ? (
                         <Form onSubmit={handleSubmit} className="p-4 mt-5" style={{ backgroundColor: darkMode ? '#292a2d' : '#fafafa', borderRadius: '8px' }}>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
+                                <Form.Label className={darkMode ? 'text-white' : 'text-black'} >Email address</Form.Label>
                                 <Form.Control
                                     type="email"
                                     placeholder="Enter email"
@@ -125,7 +125,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword" className="mt-3">
-                                <Form.Label>Password</Form.Label>
+                                <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Password</Form.Label>
                                 <Form.Control
                                     type="password"
                                     placeholder="Password"
