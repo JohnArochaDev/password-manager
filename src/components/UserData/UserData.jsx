@@ -87,14 +87,15 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     return (
         <Container className="w-100 d-flex flex-column justify-content-between align-items-center text-white">
             <Form onSubmit={handleEdit} className="w-100">
-                <Row className="w-100">
-                    <Col className="d-flex justify-content-end p-0">
-                        <Button className={darkMode ? "x-button no-padding no-margin mb-3" : "light-mode-x-button no-padding no-margin mb-3"} onClick={() => setClicked(null)}>X</Button>
-                    </Col>
-                </Row>
-                <Row className="mb-4">
-                    <Col xs={12} className="d-flex justify-content-center">
-                        <p className={darkMode ? "field text-white" : "field text-black"}>{secureData.website}</p>
+                <Button className={darkMode ? "x-button no-padding no-margin mb-3" : "light-mode-x-button no-padding no-margin mb-3"} onClick={() => setClicked(null)} style={{ position: 'absolute', top: '10px', right: '10px' }}>X</Button>                
+                <Row className="w-100 m-0 p-0">
+                    <Col className="d-flex justify-content-center">
+                        {secureData.website.length >= 25 ? (
+                                <p className={darkMode ? "field text-white" : "field text-black"}>{secureData.website.substring(0, 25)}...</p>
+                            ) : (
+                                <p className={darkMode ? "field text-white" : "field text-black"}>{secureData.website}</p>
+                            )
+                        }
                     </Col>
                 </Row>
                 <Row className="mb-4">

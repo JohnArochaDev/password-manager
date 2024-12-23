@@ -39,7 +39,11 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
                                 className={darkMode ? "rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover" : "rounded-3 p-3 shadow-sm mx-1 my-2 text-black d-flex justify-content-center align-items-center light-mode-card-hover"}
                                 onClick={() => setClicked(data.id)}
                             >
-                                <p>{data.website}</p>
+                                {data.website.length >= 25 ? (
+                                    <p>{data.website.substring(0, 25)}...</p>
+                                ) : (
+                                    <p>{data.website}</p>
+                                )}
                             </Card>
                         )}
                     </div>
