@@ -138,7 +138,11 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 </Row>
                 <Row className="w-100 d-flex justify-content-between align-items-center" style={{ marginLeft: '0px' }}> {/* this is needed to overwrite something in boostrap that forces an uneven margin */}
                     <Col xs="auto">
-                        <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(true)}>Edit</Button>
+                        {buttonSwitch ? 
+                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(false)}>Cancel</Button> :
+                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(true)}>Edit</Button>
+                        }
+                        {/* <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(true)}>Edit</Button> */}
                     </Col>
                     <Col xs="auto">
                         {buttonSwitch ? 
