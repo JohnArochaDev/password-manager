@@ -11,8 +11,6 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
     const base64Key = "cHNj27eIEIyw/y0RMex69iuLcEnXRwYoWlfTAWhwCEc="
 
     useEffect(() => {
-        console.log("SECURE DATA" + secureData)
-        // Decrypt here
         if (secureData) {
             const decryptedDataArray = secureData.map(dataObj => {
                 const decryptedDataObj = { ...dataObj };
@@ -25,7 +23,6 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
             });
 
             setCredentials(decryptedDataArray);
-            console.log(decryptedDataArray);
         }
     }, [secureData]);
 
@@ -34,12 +31,11 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
     function handleDelete(id) {
         setCredentials((prevCredentials) => prevCredentials.filter((credential) => credential.id !== id));
     };
-    console.log("CREDENTIALS ARRAY : " + credentials)
+
     return (
         <>
             <Container>
                 {credentials.map((data) => {
-                    console.log('Rendering card for data:', data);
                     return (
                         <div key={data.id}>
                             {clicked === data.id ? (
