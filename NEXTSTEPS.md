@@ -1,4 +1,4 @@
-TOMORROW MORNING : DONT DO THE SEARCH BAR YET. IT WILL TAKE A LIGHT REWORK, AND ITS NOT NECESSARY. TEST DATA UN_ENCRYPTION ON FRONT-END SIDE, THENNNN DO THE SEARCH BAR FUNCTIONALITY, AFTER SEARCH LOOK INTO OPENAPI!!!
+DO THE SEARCH BAR FUNCTIONALITY, AFTER SEARCH LOOK INTO OPENAPI!!!
 
 -1. MAKE SURE A USER CANT DELETE OTHER ACCOUNTS IF IT HAS THE LOGIN INFORMATION
 
@@ -26,7 +26,7 @@ TOMORROW MORNING : DONT DO THE SEARCH BAR YET. IT WILL TAKE A LIGHT REWORK, AND 
 
 9. [DONE] 4.5 Add a feature to encrypt the users saved credentials in the DB
 
-10. add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
+10. [DONE] add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
 
 11. [HALF-DONE] add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
 
