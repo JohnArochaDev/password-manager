@@ -4,6 +4,10 @@ import { FaCopy } from 'react-icons/fa'; // Import the icon
 import './UserData.css';
 
 export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete }) {
+    const [passShow, setPassShow] = useState(false)
+    const [buttonSwitch, setButtonSwitch] = useState(false);
+
+
     const [credentialId, setCredentialId] = useState('');
     const [userToken, setUserToken] = useState('');
 
@@ -11,6 +15,12 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     const [password, setPassword] = useState('');
 
     const isInitialRender = useRef(true);
+
+    function showPass() {
+        if(!buttonSwitch) {
+            setPassShow(!passShow)
+        }
+    }
 
     useEffect(() => {
         if (isInitialRender.current) {
@@ -20,9 +30,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
         }
 
     }, []);
-
-
-    const [buttonSwitch, setButtonSwitch] = useState(false);
 
     async function handleDeleteClick() {
         try {
@@ -43,7 +50,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
 
     async function handleEdit(e) {
         e.preventDefault();
-
+        setPassShow(false)
         setButtonSwitch(true);
 
         let updatedData = {
@@ -124,11 +131,12 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     <Col xs={8}>
                         <InputGroup>
                             <Form.Control
-                                type={buttonSwitch ? "text" : "password"}
+                                type={buttonSwitch || passShow ? "text" : "password"}
                                 value={password}
                                 readOnly={!buttonSwitch}
                                 className={darkMode ? "form-control dark-input field" : "form-control light-input field"}
                                 onChange={(e) => setPassword(e.target.value)}
+                                onClick={() => showPass()}
                             />
                             <Button variant="secondary" onClick={() => copyToClipboard(password)} className="copy-button">
                                 <FaCopy />
@@ -139,8 +147,8 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 <Row className="w-100 d-flex justify-content-between align-items-center" style={{ marginLeft: '0px' }}> {/* this is needed to overwrite something in boostrap that forces an uneven margin */}
                     <Col xs="auto">
                         {buttonSwitch ? 
-                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(false)}>Cancel</Button> :
-                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(true)}>Edit</Button>
+                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => {setButtonSwitch(false); setPassShow(false)}}>Cancel</Button> :
+                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => {setButtonSwitch(true); setPassShow(false)}}>Edit</Button>
                         }
                         {/* <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(true)}>Edit</Button> */}
                     </Col>
