@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 import './login.css' // Ensure this import is correct
 
 export default function Login({ darkMode, reload, setReload, setLoggedin }) {
+    const [showPassword, setShowPassword] = useState(false)
+    const [showRegisterPassword, setShowRegisterPassword] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
@@ -10,7 +14,15 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
 
     const [form, setForm] = useState('login')
 
-    const [loginError, setLoginError] = useState('');
+    const [loginError, setLoginError] = useState('')
+
+    function togglePasswordVisibility() {
+        setShowPassword(!showPassword)
+    }
+
+    function toggleRegisterPasswordVisibility() {
+        setShowRegisterPassword(!showRegisterPassword)
+    }
 
     function makeRegister() {
         setForm("register")
@@ -125,15 +137,20 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
 
                             <Form.Group controlId="formBasicPassword" className="mt-3">
                                 <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    isInvalid={!!loginError}
-                                    required
-                                    className={darkMode ? "dark-input" : "light-input"}
-                                />
+                                <div className="password-input-container">
+                                    <Form.Control
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        isInvalid={!!loginError}
+                                        required
+                                        className={darkMode ? "dark-input" : "light-input"}
+                                    />
+                                    <span className="password-toggle-icon" onClick={togglePasswordVisibility}>
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </span>
+                                </div>
                                 <Form.Control.Feedback type="invalid">
                                     {loginError}
                                 </Form.Control.Feedback>
@@ -160,17 +177,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     className={darkMode ? "dark-input" : "light-input"}
                                 />
                             </Form.Group>
-                            {/* <Form.Group controlId="formBasicEmail">
-                                <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Email address</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Enter email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                    className={darkMode ? "dark-input" : "light-input"}
-                                />
-                            </Form.Group> */}
 
                             <Form.Group controlId="formBasicUsername">
                                 <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Email</Form.Label>
@@ -186,14 +192,19 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
 
                             <Form.Group controlId="formBasicPassword" className="mt-3">
                                 <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                    className={darkMode ? "dark-input" : "light-input"}
-                                />
+                                <div className="password-input-container">
+                                    <Form.Control
+                                        type={showRegisterPassword ? "text" : "password"}
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                        className={darkMode ? "dark-input" : "light-input"}
+                                    />
+                                    <span className="password-toggle-icon" onClick={toggleRegisterPasswordVisibility}>
+                                        {showRegisterPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </span>
+                                </div>
                             </Form.Group>
 
                             <div className="d-flex justify-content-between mt-4">

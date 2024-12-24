@@ -63,3 +63,19 @@ form .light-input::placeholder {
     background-color: #ebebeb !important;
     border-color: transparent !important;
 }
+
+.password-input-container {
+    position: relative;
+}
+
+.password-input-container .form-control {
+    padding-right: 2.5rem; /* Adjust padding to make space for the icon */
+}
+
+.password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
