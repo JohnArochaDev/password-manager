@@ -146,7 +146,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 <p>{error}</p>
             ) : (
                 Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
-                    <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} className="mb-2" />
+                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} className="mb-2" />
                 ))
             )}
             <Container >
