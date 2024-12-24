@@ -8,7 +8,7 @@ import "./passwordPage.css";
 
 export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
     const [credentials, setCredentials] = useState([]);
-    const base64Key = "cHNj27eIEIyw/y0RMex69iuLcEnXRwYoWlfTAWhwCEc="
+    const base64Key = import.meta.env.VITE_SECRET_KEY
 
     useEffect(() => {
         if (secureData) {
