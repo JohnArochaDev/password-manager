@@ -25,7 +25,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
         e.preventDefault()
 
         const loginData = {
-            email: email,
+            username: email,
             password: password
         }
 

@@ -12,7 +12,7 @@ TOMORROW MORNING : DONT DO THE SEARCH BAR YET. IT WILL TAKE A LIGHT REWORK, AND 
 
 2. [DONE] FREE UP THE POST /users ROUTE, CHANGE IT TO /register OR /users/register SO ANYCONE CAN MAKE AN ACCOUNT
 
-3. UNENCRYPT THE USERNAMES WHEN THEY COME OUT OF THE DB, SOMETHING IS VERY WRONG WITH THE USERNAMES RIGHT NOW. MAY REMOVE THEM AS EMAIL IS USED FOR LOGGING IN. LOOK INTO IT TOMORROW.
+3. [DONE] UNENCRYPT THE USERNAMES WHEN THEY COME OUT OF THE DB, SOMETHING IS VERY WRONG WITH THE USERNAMES RIGHT NOW. MAY REMOVE THEM AS EMAIL IS USED FOR LOGGING IN. LOOK INTO IT TOMORROW.
 
 4. [DONE] Add login and conect it to protected routes
 
@@ -61,18 +61,16 @@ This is the object to send data to the password manager :
 making a user : 
 
 {
-  "username": "jpjpjppj",
   "name": "john arocha",
-  "email": "jparocha777@gmail.com",
+  "username": "jparocha777@gmail.com",
   "password": "testPassword"
 }
 
 for put 
 
 {
-  "username": "jpjpjppj",
   "name": "john arocha",
-  "email": "jparocha777@gmail.com",
+  "username": "jparocha777@gmail.com",
   "password": "testPassword"
 }
 
@@ -87,6 +85,6 @@ making a credential :
 to login : 
 
 {
-  "email": "jparocha777@gmail.com",
+  "username": "jparocha777@gmail.com",
   "password": "testPassword"
 }

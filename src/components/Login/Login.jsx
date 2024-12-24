@@ -14,7 +14,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
 
     function makeRegister() {
         setForm("register")
-        setEmail('')
+
         setPassword('')
         setUsername('')
         setName('')
@@ -31,7 +31,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
         const registerData = {
             username: username,
             name: name,
-            email: email,
             password: password
         }
 
@@ -62,7 +61,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
         e.preventDefault()
 
         const loginData = {
-            email: email,
+            username: username,
             password: password
         }
 
@@ -113,8 +112,8 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                 <Form.Control
                                     type="email"
                                     placeholder="Enter email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
                                     isInvalid={!!loginError}
                                     required
                                     className={darkMode ? "dark-input" : "light-input"}
@@ -161,7 +160,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     className={darkMode ? "dark-input" : "light-input"}
                                 />
                             </Form.Group>
-                            <Form.Group controlId="formBasicEmail">
+                            {/* <Form.Group controlId="formBasicEmail">
                                 <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Email address</Form.Label>
                                 <Form.Control
                                     type="email"
@@ -171,13 +170,13 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     required
                                     className={darkMode ? "dark-input" : "light-input"}
                                 />
-                            </Form.Group>
+                            </Form.Group> */}
 
                             <Form.Group controlId="formBasicUsername">
-                                <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Username</Form.Label>
+                                <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Email</Form.Label>
                                 <Form.Control
-                                    type="username"
-                                    placeholder="Enter username"
+                                    type="email" // this was username
+                                    placeholder="Enter email"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     required
