@@ -1,4 +1,4 @@
-TOMORROW MORNING : DONT DO THE SEARCH BAR YET. IT WILL TAKE A LIGHT REWORK, AND ITS NOT NECESSARY. CLEAN BACKEND AND CHANGE LOGIN, REMOVE USERNAMES, TEST DATA UN_ENCRYPTION ON FRONT-END SIDE, THENNNN DO THE SEARCH BAR FUNCTIONALITY, AFTER SEARCH LOOK INTO OPENAPI!!!
+TOMORROW MORNING : DONT DO THE SEARCH BAR YET. IT WILL TAKE A LIGHT REWORK, AND ITS NOT NECESSARY. TEST DATA UN_ENCRYPTION ON FRONT-END SIDE, THENNNN DO THE SEARCH BAR FUNCTIONALITY, AFTER SEARCH LOOK INTO OPENAPI!!!
 
 -1. MAKE SURE A USER CANT DELETE OTHER ACCOUNTS IF IT HAS THE LOGIN INFORMATION
 
@@ -20,7 +20,7 @@ TOMORROW MORNING : DONT DO THE SEARCH BAR YET. IT WILL TAKE A LIGHT REWORK, AND 
 
 6. [DONE] add a login feature and conditional rendering if the user doesn't have any saved passwords and if the user isn't logged in
 
-7. change how login works, primarily change how the DB stores new users email and password, hash instead of encrypt, and make sure then the user log's in they hash the attempt and compare against
+7. [DONE] change how login works, primarily change how the DB stores new users email and password, hash instead of encrypt, and make sure then the user log's in they hash the attempt and compare against
 
 8. [DONE] add a feature that encrypts the usernames and passwords for the user in the database             [WILL BE CHANGED]
 
@@ -32,7 +32,7 @@ TOMORROW MORNING : DONT DO THE SEARCH BAR YET. IT WILL TAKE A LIGHT REWORK, AND 
 
 12. [DONE] add login failed information, register button
 
-13. Add a search option at the top that will look through the websites and find the sire the user is looking for. partial and full searches
+13. Add a search option at the top that will look through the websites and find the site the user is looking for. partial and full searches
 
 14. finalize styling
 
