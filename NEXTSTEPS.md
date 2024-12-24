@@ -1,4 +1,4 @@
-ADD THE ABILITY TO SEE PASSWORDS ON LOGIN, REGISTER, AND CARDS, FIX BUG WHERE WHEN IT UPDATES IT DOESNT SHOW AFTER CLOSE, DO THE SEARCH BAR FUNCTIONALITY, AFTER SEARCH LOOK INTO OPENAPI!!!
+ADD ENV, ADD THE ABILITY TO SEE PASSWORDS ON LOGIN, REGISTER, AND CARDS, FIX BUG WHERE WHEN IT UPDATES IT DOESNT SHOW AFTER CLOSE, DO THE SEARCH BAR FUNCTIONALITY, AFTER SEARCH LOOK INTO OPENAPI!!!
 
 -1. MAKE SURE A USER CANT DELETE OTHER ACCOUNTS IF IT HAS THE LOGIN INFORMATION
 
@@ -28,7 +28,7 @@ ADD THE ABILITY TO SEE PASSWORDS ON LOGIN, REGISTER, AND CARDS, FIX BUG WHERE WH
 
 10. [DONE] add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
 
-11. [HALF-DONE] add a hamburger menu on the ... button for logging out, adding 2 factor auth, and light/dark mode
+11. [DONE] add a hamburger menu on the ... button for logging out, and light/dark mode
 
 12. [DONE] add login failed information, register button
 
