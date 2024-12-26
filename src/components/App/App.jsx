@@ -214,43 +214,48 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                     </Card>
                 </Container>
 
-                <Modal show={showModal} onHide={handleCloseModal} centered>
+                <Modal show={showModal} onHide={handleCloseModal} centered className={darkMode ? "custom-modal" : "light-custom-modal"}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Add New Credential</Modal.Title>
+                        <Modal.Title className={darkMode ? "field text-white" : "field text-black"}>Add New Credential</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={newCredential}>
                             <Form.Group controlId="formWebsite">
-                                <Form.Label>Website</Form.Label>
+                                <Form.Label className={darkMode ? "field text-white" : "field text-black"}>Website</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Enter website"
                                     value={website}
                                     onChange={(e) => setWebsite(e.target.value)}
                                     required
+                                    className={darkMode ? 'dark-input' : 'light-input'}
                                 />
                             </Form.Group>
                             <Form.Group controlId="formUsername" className="mt-3">
-                                <Form.Label>Username</Form.Label>
+                                <Form.Label className={darkMode ? "field text-white" : "field text-black"}>Username</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Enter username"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     required
+                                    className={darkMode ? 'dark-input' : 'light-input'}
+
                                 />
                             </Form.Group>
                             <Form.Group controlId="formPassword" className="mt-3">
-                                <Form.Label>Password</Form.Label>
+                                <Form.Label className={darkMode ? "field text-white" : "field text-black"} >Password</Form.Label>
                                 <Form.Control
                                     type="password"
                                     placeholder="Enter password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
+                                    className={darkMode ? 'dark-input' : 'light-input'}
+
                                 />
                             </Form.Group>
-                            <Button variant="primary" type="submit" className="mt-4" onClick={() => console.log('hit')}>
+                            <Button variant="primary" type="submit" className={darkMode ? 'custom-form-button mt-4' : 'light-mode-custom-form-button mt-4'} onClick={() => console.log('hit')}>
                                 Save
                             </Button>
                         </Form>
