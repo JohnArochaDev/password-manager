@@ -1,36 +1,36 @@
-import { useState, useEffect } from "react";
-import { Container } from 'react-bootstrap';
-import UserData from "../UserData/UserData";
-import Card from 'react-bootstrap/Card';
+import { useState, useEffect } from "react"
+import { Container } from 'react-bootstrap'
+import UserData from "../UserData/UserData"
+import Card from 'react-bootstrap/Card'
 
 import decryptData from '../../utils/decryption.js'
-import "./passwordPage.css";
+import "./passwordPage.css"
 
 export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
-    const [credentials, setCredentials] = useState([]);
+    const [credentials, setCredentials] = useState([])
     const base64Key = import.meta.env.VITE_SECRET_KEY
 
     useEffect(() => {
         if (secureData) {
             const decryptedDataArray = secureData.map(dataObj => {
-                const decryptedDataObj = { ...dataObj };
+                const decryptedDataObj = { ...dataObj }
                 for (const key in decryptedDataObj) {
                     if (key !== 'id' && decryptedDataObj.hasOwnProperty(key)) {
-                        decryptedDataObj[key] = decryptData(decryptedDataObj[key], base64Key);
+                        decryptedDataObj[key] = decryptData(decryptedDataObj[key], base64Key)
                     }
                 }
-                return decryptedDataObj;
-            });
+                return decryptedDataObj
+            })
 
-            setCredentials(decryptedDataArray);
+            setCredentials(decryptedDataArray)
         }
-    }, [secureData]);
+    }, [secureData])
 
-    const [clicked, setClicked] = useState(null);
+    const [clicked, setClicked] = useState(null)
 
     function handleDelete(id) {
-        setCredentials((prevCredentials) => prevCredentials.filter((credential) => credential.id !== id));
-    };
+        setCredentials((prevCredentials) => prevCredentials.filter((credential) => credential.id !== id))
+    }
 
     return (
         <>
