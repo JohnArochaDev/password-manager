@@ -158,8 +158,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 }
 
                 setSearchArray((prevSearchArray) => [...prevSearchArray, responseData]);
-
-
                 handleCloseModal();
                 setReload(!reload);
             } catch (error) {
@@ -169,7 +167,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     }
 
     useEffect(() => {
-        console.log("Updated searchArray:", searchArray);
+        console.log("Updated searchArray:", searchArray); // remove when the search is flawless with all other features
     }, [searchArray]);
 
     return (
