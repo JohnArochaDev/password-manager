@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Container } from 'react-bootstrap'
 import UserData from "../UserData/UserData"
 import Card from 'react-bootstrap/Card'
@@ -9,11 +9,13 @@ import "./passwordPage.css"
 export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray }) {
     const [credentials, setCredentials] = useState([])
 
+    const isInitialRender = useRef(true);
+
     const base64Key = import.meta.env.VITE_SECRET_KEY
 
     useEffect(() => {
         if (secureData) {
-            console.log("SECURE DATA", secureData)
+            // console.log("SECURE DATA", secureData)
             const decryptedDataArray = secureData.map(dataObj => {
                 const decryptedDataObj = { ...dataObj }
                 for (const key in decryptedDataObj) {
@@ -25,9 +27,20 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
             })
 
             setCredentials(decryptedDataArray)
-            // setSearchArray((prevSearchArray) => [...prevSearchArray, secureData])
         }
     }, [secureData])
+
+    useEffect(() => {
+        if (isInitialRender.current) {
+            isInitialRender.current = false;
+            setSearchArray((prevSearchArray) => [...prevSearchArray, secureData[0]]);
+        }
+    }, [secureData, setSearchArray]);
+
+    useEffect(() => {
+        console.log("SEARCH ARRAY", searchArray);
+        console.log(secureData[0]);
+    }, [searchArray, secureData]);
 
     const [clicked, setClicked] = useState(null)
 
