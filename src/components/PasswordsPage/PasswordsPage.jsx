@@ -37,11 +37,6 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
         }
     }, [secureData, setSearchArray]);
 
-    useEffect(() => {
-        console.log("SEARCH ARRAY", searchArray);
-        console.log(secureData[0]);
-    }, [searchArray, secureData]);
-
     const [clicked, setClicked] = useState(null)
 
     function handleDelete(id) {

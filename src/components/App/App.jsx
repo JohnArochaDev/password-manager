@@ -68,6 +68,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     const [showModal, setShowModal] = useState(false);
 
     const [searchArray, setSearchArray] = useState([])
+    const [searchBar, setSearchBar] = useState('')
 
     function handleShowModal() {
         setShowModal(true);
@@ -136,6 +137,8 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                             placeholder="Search"
                             className={darkMode ? " form-control w-100 search text-white" : " form-control w-100 light-search text-black"}
                             aria-label="Search"
+                            value={searchBar}
+                            onChange={(e) => setSearchBar(e.target.value)}
                         />
                     </Form>
                 </Container>
