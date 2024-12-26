@@ -150,16 +150,12 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 }
 
                 const responseData = await response.json();
-                console.log("THIS IS THE RESPONSE", responseData);
 
-                for (const key in responseData) {
+                for (const key in responseData) { // this decrypts the new data coming from the DB, we need to pull it to get the new generated UUID
                     if (key !== 'id' && responseData.hasOwnProperty(key)) {
                         responseData[key] = decryptData(responseData[key], base64Key)
                     }
                 }
-
-                console.log("THIS IS THE RESPONSE AFTER DECRYPTION", responseData);
-
 
                 setSearchArray((prevSearchArray) => [...prevSearchArray, responseData]);
 
@@ -173,7 +169,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     }
 
     useEffect(() => {
-        // Log the searchArray state whenever it changes
         console.log("Updated searchArray:", searchArray);
     }, [searchArray]);
 
