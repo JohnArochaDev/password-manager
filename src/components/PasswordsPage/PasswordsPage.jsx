@@ -46,6 +46,8 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
                                         setDarkMode={setDarkMode}
                                         darkMode={darkMode}
                                         handleDelete={() => handleDelete(data.id)}
+                                        credentials={credentials}
+                                        setCredentials={setCredentials}
                                     />
                                 </Card>
                             ) : (

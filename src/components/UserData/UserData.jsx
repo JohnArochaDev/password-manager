@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { FaCopy } from 'react-icons/fa'; // Import the icon
 import './UserData.css';
 
-export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete }) {
+export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials }) {
     const [passShow, setPassShow] = useState(false)
     const [buttonSwitch, setButtonSwitch] = useState(false);
 
@@ -20,6 +20,14 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
         if(!buttonSwitch) {
             setPassShow(!passShow)
         }
+    }
+
+    function updateCredentialArray(updatedCredential) {
+        setCredentials((prevCredentials) =>
+            prevCredentials.map((credential) =>
+                credential.id === updatedCredential.id ? updatedCredential : credential
+            )
+        );
     }
 
     useEffect(() => {
@@ -54,9 +62,13 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
         setButtonSwitch(true);
 
         let updatedData = {
+            id: secureData.id,
             username: username,
-            password: password
+            password: password,
+            website: secureData.website
         };
+
+        console.log("THIS IS THE UPDATE OBJECT", updatedData)
 
         try {
             const response = await fetch(`http://localhost:8080/credentials/${credentialId}`, {
@@ -71,6 +83,9 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 console.log("SUCCESSFUL UPDATE");
                 setButtonSwitch(false)
             }
+            // update the credentials array here
+            updateCredentialArray(updatedData)
+
         } catch (error) {
             console.error('Error:', error);
         }
