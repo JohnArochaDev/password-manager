@@ -183,7 +183,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         <>
             <h1 style={headerStyle} className={darkMode ? "doto-title" : "light-mode-doto-title"}>SafePass</h1>
             <hr style={{ width: '90%', borderColor: '#37383a' }} />
-            {search ? (
                 <Container className="rounded-3 p-3 pb-2 pt-0 shadow-sm d-flex justify-content-center align-items-center">
                     <Form className="d-flex w-100">
                         <FormControl
@@ -196,9 +195,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                         />
                     </Form>
                 </Container>
-            ) : (
-                ''
-            )}
             {loading ? (
                 "Loading...."
             ) : error ? (

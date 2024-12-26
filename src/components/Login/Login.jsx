@@ -41,10 +41,12 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
         makeLogin()
 
         const registerData = {
-            username: username,
             name: name,
+            username: username,
             password: password
         }
+
+        console.log("REGISTER OBJ", registerData)
 
         try {
             const response = await fetch('http://localhost:8080/users/register', {
@@ -57,6 +59,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
 
             if (!response.ok) {
                 setLoginError('Invalid email address or password');
+                console.log("REGISTER OBJ", registerData)
                 throw new Error('Network response was not ok');
             }
             makeLogin()
@@ -201,11 +204,11 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                             </Form.Group>
 
                             <div className="d-flex justify-content-between mt-4">
-                                <Button type="submit" className={darkMode ? "login-form-button" : "light-login-form-button"} onClick={makeLogin}>
-                                    Login
-                                </Button>
                                 <Button type="submit" className={darkMode ? "login-form-button" : "light-login-form-button"}>
                                     Register
+                                </Button>
+                                <Button type="submit" className={darkMode ? "login-form-button" : "light-login-form-button"} onClick={makeLogin}>
+                                    Back
                                 </Button>
                             </div>
                         </Form>)}

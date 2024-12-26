@@ -16,7 +16,7 @@ export default function Main() {
 
     const [settingsPage, setSettingsPage] = useState(false)
     const [darkMode, setDarkMode] = useState(true)
-    const [search, setSearch] = useState(false)
+    const [search, setSearch] = useState(true)
 
     function handleLogout() {
         chrome.storage.local.set({ jwtToken: null, userId: null }, function() {
@@ -71,7 +71,6 @@ export default function Main() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu className={darkMode ? "custom-dropdown-menu" : "light-mode-custom-dropdown-menu"}>
-                                    <Dropdown.Item onClick={() => setSearch(!search)}>Search</Dropdown.Item>
                                     { settingsPage ? (<Dropdown.Item onClick={() => setSettingsPage(!settingsPage)}>Home</Dropdown.Item>) : (<Dropdown.Item onClick={() => setSettingsPage(!settingsPage)}>Settings</Dropdown.Item>) }
                                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
