@@ -83,7 +83,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 console.log("SUCCESSFUL UPDATE");
                 setButtonSwitch(false)
             }
-            // update the credentials array here
+            // update the credentials array here, this forces state to update with the DB without having to call the DB again
             updateCredentialArray(updatedData)
 
         } catch (error) {
