@@ -33,9 +33,7 @@ export default function Main() {
             if (token) {
                 try {
                     const decodedToken = jwtDecode(token)
-                    console.log("DECODED TOKEN : \n" + decodedToken.exp)
                     const currentTime = Date.now() / 1000 // Time in seconds
-                    console.log("TIME NOW : \n" + currentTime)
 
 
                     if(decodedToken.exp < currentTime) {

@@ -154,15 +154,14 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 setSearchArray((prevSearchArray) => [...prevSearchArray, responseData]);
                 handleCloseModal();
                 setReload(!reload);
+                setUsername('')
+                setPassword('')
+                setWebsite('')
             } catch (error) {
                 console.error('Error:', error);
             }
         });
     }
-
-    useEffect(() => {
-        console.log("Updated searchArray:", searchArray); // remove when the search is flawless with all other features
-    }, [searchArray]);
 
     useEffect(() => {
         if(data) {
@@ -179,11 +178,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
             setDataArray(decryptedData)
         }
     }, [data]);
-
-    useEffect(() => {
-        // Log the dataArray state whenever it changes
-        console.log("Updated dataArray:", dataArray);
-    }, [dataArray]);
 
     return (
         <>
@@ -259,7 +253,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                                 required
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="mt-4">
+                        <Button variant="primary" type="submit" className="mt-4" onClick={() => console.log('hit')}>
                             Save
                         </Button>
                     </Form>

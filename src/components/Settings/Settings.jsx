@@ -69,12 +69,10 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
         }
         
         chrome.storage.local.set({ jwtToken: null }, function() {
-            console.log('Token removed')
         })
 
         // Optionally, store the user ID
         chrome.storage.local.set({ userId: null }, function() {
-            console.log('User ID removed')
         })
 
         // Update the UI or redirect as needed
@@ -83,7 +81,6 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
         setReload(!reload)
         handleCloseSureModal()
         handleCloseForm()
-        console.log("SHOULD RELOAD EVERTHING")
     }
 
     return (

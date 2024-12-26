@@ -59,11 +59,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                 setLoginError('Invalid email address or password');
                 throw new Error('Network response was not ok');
             }
-
-            console.log('Succesful register:')
-
             makeLogin()
-            console.log("MADE A REGISTRATION END BBY")
         } catch (error) {
             console.error('Error:', error)
         }
@@ -92,16 +88,13 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
             }
 
             const data = await response.json()
-            console.log('Success:', data)
 
             // Store the token in chrome.storage
             chrome.storage.local.set({ jwtToken: data.token }, function() {
-                console.log('Token saved')
             })
 
             // Optionally, store the user ID
             chrome.storage.local.set({ userId: data.userId }, function() {
-                console.log('User ID saved')
             })
 
             // Update the UI or redirect as needed

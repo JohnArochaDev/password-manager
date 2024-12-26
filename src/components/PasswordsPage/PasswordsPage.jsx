@@ -12,7 +12,6 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
 
     useEffect(() => {
         if (secureData) {
-            console.log("SECUREDATA", secureData)
 
             if (keepRendering.current) {
                 if (isInitialRender.current) {

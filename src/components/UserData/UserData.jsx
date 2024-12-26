@@ -68,8 +68,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             website: secureData.website
         };
 
-        console.log("THIS IS THE UPDATE OBJECT", updatedData)
-
         try {
             const response = await fetch(`http://localhost:8080/credentials/${credentialId}`, {
                 method: 'PUT',
@@ -80,7 +78,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 body: JSON.stringify(updatedData)
             });
             if (response.ok) {
-                console.log("SUCCESSFUL UPDATE");
                 setButtonSwitch(false)
                 setDataArray((prevDataArray) => prevDataArray.map((credential) => { // updates the original array
                     if(credential.id == updatedData.id){
