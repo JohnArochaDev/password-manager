@@ -6,12 +6,14 @@ import Card from 'react-bootstrap/Card'
 import decryptData from '../../utils/decryption.js'
 import "./passwordPage.css"
 
-export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
+export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray }) {
     const [credentials, setCredentials] = useState([])
+
     const base64Key = import.meta.env.VITE_SECRET_KEY
 
     useEffect(() => {
         if (secureData) {
+            console.log("SECURE DATA", secureData)
             const decryptedDataArray = secureData.map(dataObj => {
                 const decryptedDataObj = { ...dataObj }
                 for (const key in decryptedDataObj) {
@@ -23,6 +25,7 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode }) {
             })
 
             setCredentials(decryptedDataArray)
+            // setSearchArray((prevSearchArray) => [...prevSearchArray, secureData])
         }
     }, [secureData])
 

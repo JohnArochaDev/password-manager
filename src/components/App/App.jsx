@@ -67,6 +67,8 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     const [showModal, setShowModal] = useState(false);
 
+    const [searchArray, setSearchArray] = useState([])
+
     function handleShowModal() {
         setShowModal(true);
     }
@@ -146,7 +148,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 <p>{error}</p>
             ) : ( // add a turnery here that checks if a user has typed anything into the search bar, AND if its open exe... (search && search.input != null)
                 Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
-                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} className="mb-2" />
+                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} className="mb-2" />
                 ))
             )}
             <Container >
