@@ -13,8 +13,6 @@ export default function SearchPasswordsPage({ secureData, setDarkMode, darkMode,
 
     useEffect(() => {
         if (secureData) {
-            // console.log("SECURE DATA", secureData)
-
             setCredentials(secureData)
         }
     }, [secureData])

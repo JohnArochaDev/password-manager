@@ -70,23 +70,19 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     const [showModal, setShowModal] = useState(false);
 
-    const [searchArray, setSearchArray] = useState([])
-    const [searchBar, setSearchBar] = useState('')
-    const [searchOptions, setSearchOptions] = useState([])
+    const [searchArray, setSearchArray] = useState([]) // this is the array of objects, a copyed, decrypted version of the data
+    const [searchBar, setSearchBar] = useState('') // this is the search bar state
+    const [searchOptions, setSearchOptions] = useState([]) // this is the filtered array from the options above
 
     let filteredCredentials = []
 
-    useEffect(() => {
-        console.log("SA LENGTH", searchArray.length)
-        console.log("DATA LENGTH", data?.loginCredentials.length)
+    useEffect(() => { // this prevents a re-render of passwords page when the necessary data has ben recieved
         if (searchArray.length == data?.loginCredentials.length) {
             keepRendering.current = false
-            console.log("THIS SHOULDBE FALSE!!!!", keepRendering.current)
         }
     }, [searchArray])
 
-    useEffect(() => {
-  
+    useEffect(() => { // this grabbs the filtered data and updates the state
         if (searchBar == '') {
             setSearchOptions(filteredCredentials)
         } else {

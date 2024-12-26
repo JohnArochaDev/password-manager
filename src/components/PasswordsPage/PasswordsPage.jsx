@@ -13,11 +13,8 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
 
     const base64Key = import.meta.env.VITE_SECRET_KEY
 
-    let count = 0
-
     useEffect(() => {
         if (secureData) {
-            // console.log("SECURE DATA", secureData)
             const decryptedDataArray = secureData.map(dataObj => {
                 const decryptedDataObj = { ...dataObj }
                 for (const key in decryptedDataObj) {
@@ -32,8 +29,6 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                 if (isInitialRender.current) {
                     isInitialRender.current = false;
                     setSearchArray((prevSearchArray) => [...prevSearchArray, decryptedDataArray[0]]);
-                    count ++
-                    console.log("COUNT", count)
                 }
             }
 
