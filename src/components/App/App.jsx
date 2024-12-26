@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
 import PasswordsPage from "../PasswordsPage/PasswordsPage";
-import SearchPasswordsPage from '../SearchPasswordsPage/SearchPasswordsPage';
 import {Card, Container, Modal, Button, Form, Row, Col, FormControl} from 'react-bootstrap';
 import decryptData from '../../utils/decryption.js'
 
