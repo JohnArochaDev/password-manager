@@ -1,4 +1,4 @@
-MAKE .toLowerCase() ON BACKEND AND THE FRONT END ARRAYS FOR THE WEBSITE, AFTER SEARCH LOOK INTO OPENAPI!!!
+MAKE DARK MODE FOR THE ADD CREDENTIAL !!!!! ORDER THE DATA IN THE CARD LIST, MAKE .toLowerCase() ON BACKEND AND THE FRONT END ARRAYS FOR THE WEBSITE, AFTER SEARCH LOOK INTO OPENAPI!!!
 
 1. MAKE SURE A USER CANT DELETE OTHER ACCOUNTS IF IT HAS THE LOGIN INFORMATION
 
@@ -40,7 +40,7 @@ MAKE .toLowerCase() ON BACKEND AND THE FRONT END ARRAYS FOR THE WEBSITE, AFTER S
 
 ADDITIONAL features
 
-1. auto populate / auto saving / asking to save if a user logs in
+1. auto populate / auto saving / asking to save if a user logs in, bttn if its nblocked by google
 
 2. favicon saving for closed card display
 
@@ -50,6 +50,9 @@ ADDITIONAL features
 
 5. openAPI for a spring boot backend, this will write docs for your backend for you!!!!!
 
+6. export data
+
+7. password generator
 
 
 
