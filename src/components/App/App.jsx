@@ -89,8 +89,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
             filteredCredentials = searchArray.filter(credential => 
                 credential.website.toLowerCase().includes(searchBar.toLowerCase())
             );
-            console.log("FILTERED CREDENTIALS",filteredCredentials)
-            console.log("SEARCH ARRAY",searchArray)
         }
         setSearchOptions(filteredCredentials);
     }, [searchBar]);
@@ -175,9 +173,9 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
             ) : error ? (
                 <p>{error}</p>
             ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
-                (searchOptions.map((secureData, idx) => {console.log("SEARCH OPTIONS", searchOptions); return (
+                (searchOptions.map((secureData, idx) => (
                     <SearchPasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} className="mb-2" />
-                )}))
+                )))
             ) : (Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
                     <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} className="mb-2" />
                 )))
