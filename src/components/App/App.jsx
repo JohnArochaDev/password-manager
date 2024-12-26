@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import PasswordsPage from "../PasswordsPage/PasswordsPage";
 import SearchPasswordsPage from '../SearchPasswordsPage/SearchPasswordsPage';
 import {Card, Container, Modal, Button, Form, Row, Col, FormControl} from 'react-bootstrap';
+import decryptData from '../../utils/decryption.js'
 
 import "./App.css";
 
@@ -57,9 +58,13 @@ function useBackgroundData(reload) {
 
 
 export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch }) {
+    const base64Key = import.meta.env.VITE_SECRET_KEY
+
     const keepRendering = useRef(true);
 
     const { data, loading, error } = useBackgroundData(reload);
+
+    const [manualReload, setManualReload] = useState(false)
 
     const [userId, setUserId] = useState()
     const [userToken, setUserToken] = useState()
@@ -76,8 +81,12 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     let filteredCredentials = []
 
+    useEffect(() => {
+        setManualReload(!manualReload);
+    }, []);
+
     useEffect(() => { // this prevents a re-render of passwords page when the necessary data has ben recieved
-        if (searchArray.length == data?.loginCredentials.length) {
+        if (searchArray.length >= data?.loginCredentials.length) { // if more are added it may show larger than the inital render
             keepRendering.current = false
         }
     }, [searchArray])
@@ -140,6 +149,21 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                     throw new Error('Network response was not ok');
                 }
 
+                const responseData = await response.json();
+                console.log("THIS IS THE RESPONSE", responseData);
+
+                for (const key in responseData) {
+                    if (key !== 'id' && responseData.hasOwnProperty(key)) {
+                        responseData[key] = decryptData(responseData[key], base64Key)
+                    }
+                }
+
+                console.log("THIS IS THE RESPONSE AFTER DECRYPTION", responseData);
+
+
+                setSearchArray((prevSearchArray) => [...prevSearchArray, responseData]);
+
+
                 handleCloseModal();
                 setReload(!reload);
             } catch (error) {
@@ -147,6 +171,11 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
             }
         });
     }
+
+    useEffect(() => {
+        // Log the searchArray state whenever it changes
+        console.log("Updated searchArray:", searchArray);
+    }, [searchArray]);
 
     return (
         <>
@@ -177,7 +206,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                     <SearchPasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} className="mb-2" />
                 )))
             ) : (Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
-                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} className="mb-2" />
+                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} setManualReload={setManualReload} manualReload={manualReload} className="mb-2" />
                 )))
             )}
             <Container >
