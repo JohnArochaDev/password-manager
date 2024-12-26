@@ -18,7 +18,6 @@ export default function Main() {
     const [darkMode, setDarkMode] = useState(true)
     const [search, setSearch] = useState(false)
 
-
     function handleLogout() {
         chrome.storage.local.set({ jwtToken: null, userId: null }, function() {
             setLoggedin(false);
@@ -30,8 +29,6 @@ export default function Main() {
         chrome.storage.local.get(['jwtToken', 'userId'], function(result) {
             const token = result.jwtToken;
             const id = result.userId;
-
-
 
             if (token) {
                 try {

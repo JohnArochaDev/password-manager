@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card'
 import decryptData from '../../utils/decryption.js'
 import "./passwordPage.css"
 
-export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray, keepRendering, setManualReload, manualReload }) {
+export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray, keepRendering }) {
     const [credentials, setCredentials] = useState([])
 
     const isInitialRender = useRef(true);

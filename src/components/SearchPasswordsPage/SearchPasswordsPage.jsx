@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card'
 import decryptData from '../../utils/decryption.js'
 import "./searchPasswordPage.css"
 
-export default function SearchPasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray }) {
+export default function SearchPasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray, setReload, reload }) {
     const [credentials, setCredentials] = useState([])
 
     const isInitialRender = useRef(true);
@@ -21,6 +21,7 @@ export default function SearchPasswordsPage({ secureData, setDarkMode, darkMode,
 
     function handleDelete(id) {
         setCredentials((prevCredentials) => prevCredentials.filter((credential) => credential.id !== id))
+        // setReload(!reload)
     }
 
     return (

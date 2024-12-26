@@ -64,8 +64,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     const { data, loading, error } = useBackgroundData(reload);
 
-    const [manualReload, setManualReload] = useState(false)
-
     const [userId, setUserId] = useState()
     const [userToken, setUserToken] = useState()
 
@@ -80,10 +78,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     const [searchOptions, setSearchOptions] = useState([]) // this is the filtered array from the options above
 
     let filteredCredentials = []
-
-    useEffect(() => {
-        setManualReload(!manualReload);
-    }, []);
 
     useEffect(() => { // this prevents a re-render of passwords page when the necessary data has ben recieved
         if (searchArray.length >= data?.loginCredentials.length) { // if more are added it may show larger than the inital render
@@ -196,10 +190,10 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 <p>{error}</p>
             ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
                 (searchOptions.map((secureData, idx) => (
-                    <SearchPasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} className="mb-2" />
+                    <SearchPasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} setReload={setReload} reload={reload} className="mb-2" />
                 )))
             ) : (Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
-                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} setManualReload={setManualReload} manualReload={manualReload} className="mb-2" />
+                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} className="mb-2" />
                 )))
             )}
             <Container >
