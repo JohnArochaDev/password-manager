@@ -4,40 +4,18 @@ import UserData from "../UserData/UserData"
 import Card from 'react-bootstrap/Card'
 
 import decryptData from '../../utils/decryption.js'
-import "./passwordPage.css"
+import "./searchPasswordPage.css"
 
-export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray, keepRendering }) {
+export default function SearchPasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray }) {
     const [credentials, setCredentials] = useState([])
 
     const isInitialRender = useRef(true);
 
-    const base64Key = import.meta.env.VITE_SECRET_KEY
-
-    let count = 0
-
     useEffect(() => {
         if (secureData) {
             // console.log("SECURE DATA", secureData)
-            const decryptedDataArray = secureData.map(dataObj => {
-                const decryptedDataObj = { ...dataObj }
-                for (const key in decryptedDataObj) {
-                    if (key !== 'id' && decryptedDataObj.hasOwnProperty(key)) {
-                        decryptedDataObj[key] = decryptData(decryptedDataObj[key], base64Key)
-                    }
-                }
-                return decryptedDataObj
-            })
 
-            if (keepRendering.current) {
-                if (isInitialRender.current) {
-                    isInitialRender.current = false;
-                    setSearchArray((prevSearchArray) => [...prevSearchArray, decryptedDataArray[0]]);
-                    count ++
-                    console.log("COUNT", count)
-                }
-            }
-
-            setCredentials(decryptedDataArray)
+            setCredentials(secureData)
         }
     }, [secureData])
 

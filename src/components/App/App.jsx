@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import PasswordsPage from "../PasswordsPage/PasswordsPage";
+import SearchPasswordsPage from '../SearchPasswordsPage/SearchPasswordsPage';
 import {Card, Container, Modal, Button, Form, Row, Col, FormControl} from 'react-bootstrap';
 
 import "./App.css";
@@ -56,6 +57,8 @@ function useBackgroundData(reload) {
 
 
 export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch }) {
+    const keepRendering = useRef(true);
+
     const { data, loading, error } = useBackgroundData(reload);
 
     const [userId, setUserId] = useState()
@@ -69,6 +72,32 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     const [searchArray, setSearchArray] = useState([])
     const [searchBar, setSearchBar] = useState('')
+    const [searchOptions, setSearchOptions] = useState([])
+
+    let filteredCredentials = []
+
+    useEffect(() => {
+        console.log("SA LENGTH", searchArray.length)
+        console.log("DATA LENGTH", data?.loginCredentials.length)
+        if (searchArray.length == data?.loginCredentials.length) {
+            keepRendering.current = false
+            console.log("THIS SHOULDBE FALSE!!!!", keepRendering.current)
+        }
+    }, [searchArray])
+
+    useEffect(() => {
+  
+        if (searchBar == '') {
+            setSearchOptions(filteredCredentials)
+        } else {
+            filteredCredentials = searchArray.filter(credential => 
+                credential.website.toLowerCase().includes(searchBar.toLowerCase())
+            );
+            console.log("FILTERED CREDENTIALS",filteredCredentials)
+            console.log("SEARCH ARRAY",searchArray)
+        }
+        setSearchOptions(filteredCredentials);
+    }, [searchBar]);
 
     function handleShowModal() {
         setShowModal(true);
@@ -149,10 +178,13 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 "Loading...."
             ) : error ? (
                 <p>{error}</p>
-            ) : ( // add a turnery here that checks if a user has typed anything into the search bar, AND if its open exe... (search && search.input != null)
-                Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
-                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} className="mb-2" />
-                ))
+            ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
+                (searchOptions.map((secureData, idx) => {console.log("SEARCH OPTIONS", searchOptions); return (
+                    <SearchPasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} className="mb-2" />
+                )}))
+            ) : (Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
+                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} className="mb-2" />
+                )))
             )}
             <Container >
                 <Card className={darkMode ? "rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover mb-3" : "rounded-3 p-3 shadow-sm mx-1 my-2 text-black d-flex justify-content-center align-items-center light-mode-card-hover mb-3"} onClick={handleShowModal}>
