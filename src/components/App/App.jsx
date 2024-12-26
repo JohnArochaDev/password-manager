@@ -63,6 +63,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     const keepRendering = useRef(true);
 
     const { data, loading, error } = useBackgroundData(reload);
+    const [dataArray, setDataArray] = useState([])
 
     const [userId, setUserId] = useState()
     const [userToken, setUserToken] = useState()
@@ -164,6 +165,27 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         console.log("Updated searchArray:", searchArray); // remove when the search is flawless with all other features
     }, [searchArray]);
 
+    useEffect(() => {
+        if(data) {
+            let decryptedData = data?.loginCredentials
+            decryptedData = decryptedData.map((credential) => {
+                for (const key in credential) {
+                    if (key !== 'id' && credential.hasOwnProperty(key)) {
+                        credential[key] = decryptData(credential[key], base64Key)
+                    }
+                }
+                return credential
+            })
+
+            setDataArray(decryptedData)
+        }
+    }, [data]);
+
+    useEffect(() => {
+        // Log the dataArray state whenever it changes
+        console.log("Updated dataArray:", dataArray);
+    }, [dataArray]);
+
     return (
         <>
             <h1 style={headerStyle} className={darkMode ? "doto-title" : "light-mode-doto-title"}>SafePass</h1>
@@ -190,12 +212,12 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 <p>{error}</p>
             ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
                 (searchOptions.map((secureData, idx) => (
-                    <SearchPasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} setReload={setReload} reload={reload} className="mb-2" />
+                    <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} className="mb-2" />
                 )))
-            ) : (Array.isArray(data?.loginCredentials) && data.loginCredentials.map((secureData, idx) => (
-                    <PasswordsPage key={idx} secureData={[secureData]} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} className="mb-2" />
-                )))
-            )}
+            ) : (dataArray.map((secureData, idx) => (
+                    <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} className="mb-2" />
+                ))
+            ))}
             <Container >
                 <Card className={darkMode ? "rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover mb-3" : "rounded-3 p-3 shadow-sm mx-1 my-2 text-black d-flex justify-content-center align-items-center light-mode-card-hover mb-3"} onClick={handleShowModal}>
                     <h1>+</h1>

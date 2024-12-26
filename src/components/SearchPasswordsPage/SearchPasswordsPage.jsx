@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card'
 import decryptData from '../../utils/decryption.js'
 import "./searchPasswordPage.css"
 
-export default function SearchPasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, searchArray, setReload, reload }) {
+export default function SearchPasswordsPage({ secureData, setDarkMode, darkMode, setDataArray, dataArray }) {
     const [credentials, setCredentials] = useState([])
 
     const isInitialRender = useRef(true);
@@ -20,9 +20,20 @@ export default function SearchPasswordsPage({ secureData, setDarkMode, darkMode,
     const [clicked, setClicked] = useState(null)
 
     function handleDelete(id) {
-        setCredentials((prevCredentials) => prevCredentials.filter((credential) => credential.id !== id))
-        // setReload(!reload)
+        const updatedCredentials = credentials.filter((credential) => credential.id !== id);
+        const updatedDataArray = dataArray.filter((credential) => credential.id !== id);
+
+        console.log("Updated Credentials:", updatedCredentials);
+        console.log("Updated DataArray:", updatedDataArray);
+
+        setCredentials(updatedCredentials);
+        setDataArray(updatedDataArray);
     }
+
+    useEffect(() => {
+        // Log the dataArray state whenever it changes
+        console.log("Updated credentials:", credentials);
+    }, [credentials]);
 
     return (
         <>
