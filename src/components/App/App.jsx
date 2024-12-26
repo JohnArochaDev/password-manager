@@ -195,7 +195,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                         />
                     </Form>
                 </Container>
-            <div style={{overflowY: 'scroll', width: '100%', height: '400px'}} >
+            <div style={{overflowY: 'scroll', width: '100%', height: '390px'}} >
                 {loading ? (
                     "Loading...."
                 ) : error ? (
