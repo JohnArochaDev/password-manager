@@ -211,10 +211,10 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 <p>{error}</p>
             ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
                 (searchOptions.map((secureData, idx) => (
-                    <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} className="mb-2" />
+                    <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} className="mb-2" />
                 )))
             ) : (dataArray.map((secureData, idx) => (
-                    <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} className="mb-2" />
+                    <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} className="mb-2" />
                 ))
             ))}
             <Container >

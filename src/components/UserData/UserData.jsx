@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { FaCopy } from 'react-icons/fa'; // Import the icon
 import './UserData.css';
 
-export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials }) {
+export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions }) {
     const [passShow, setPassShow] = useState(false)
     const [buttonSwitch, setButtonSwitch] = useState(false);
 
@@ -23,7 +23,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     }
 
     function updateCredentialArray(updatedCredential) {
-        setCredentials((prevCredentials) =>
+        setDataArray((prevCredentials) =>
             prevCredentials.map((credential) =>
                 credential.id === updatedCredential.id ? updatedCredential : credential
             )
@@ -82,9 +82,27 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             if (response.ok) {
                 console.log("SUCCESSFUL UPDATE");
                 setButtonSwitch(false)
+                setDataArray((prevDataArray) => prevDataArray.map((credential) => { // updates the original array
+                    if(credential.id == updatedData.id){
+                        return updatedData
+                    } 
+                    return credential
+                }))
+                setSearchArray((prevSearchArray) => prevSearchArray.map((credential) => { // updates the clones decrypted array
+                    if(credential.id === updatedData.id){
+                        return updatedData
+                    } 
+                    return credential
+                }))
+                setSearchOptions((prevSearchOptions) => prevSearchOptions.map((credential) => { // updates the clone array thats filtered
+                    if(credential.id === updatedData.id){
+                        return updatedData
+                    } 
+                    return credential
+                }))
             }
             // update the credentials array here, this forces state to update with the DB without having to call the DB again
-            updateCredentialArray(updatedData)
+            // updateCredentialArray(updatedData)
 
         } catch (error) {
             console.error('Error:', error);

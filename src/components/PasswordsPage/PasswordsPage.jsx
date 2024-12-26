@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 
 import "./passwordPage.css"
 
-export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, dataArray, setDataArray, keepRendering }) {
+export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, dataArray, setDataArray, keepRendering, setSearchOptions }) {
     const [credentials, setCredentials] = useState([])
 
     const isInitialRender = useRef(true);
@@ -30,6 +30,8 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
     function handleDelete(id) {
         setCredentials()
         setDataArray((prevDataArray) => prevDataArray.filter((credential) => credential.id !== id))
+        setSearchArray((prevSearchArray) => prevSearchArray.filter((credential) => credential.id !== id))
+
     }
 
     return (
@@ -46,6 +48,10 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                                 handleDelete={() => handleDelete(credentials?.id)}
                                 credentials={credentials}
                                 setCredentials={setCredentials}
+                                setDataArray={setDataArray}
+                                dataArray={dataArray}
+                                setSearchArray={setSearchArray}
+                                setSearchOptions={setSearchOptions}
                             />
                         </Card>
                     ) : (
