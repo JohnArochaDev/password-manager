@@ -48,7 +48,7 @@ ADDITIONAL features
 
 5. [DONE] openAPI for a spring boot backend, this will write docs for your backend for you!!!!!
 
-6. export data
+6. [MOSTLYDONE] export data
 
 7. [DONE] password generator
 
