@@ -87,6 +87,8 @@ FEATURES
 
 16. [NOTDONE] soon will have the ability to export the password data into a pdf or something
 
+17. opinionated endpoints
+
 
 
 This is the object to send data to the password manager : 
