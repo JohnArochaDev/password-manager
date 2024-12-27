@@ -39,7 +39,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             setPassword(secureData.password);
             if (showCompromisedPasswords) {
                 checkForCompromise(secureData.password).then(isCompromised => {
-                    console.log(isCompromised)
                     if (isCompromised) {
                         setCompromised(true)
                     } else {
