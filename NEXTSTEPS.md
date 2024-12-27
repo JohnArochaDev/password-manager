@@ -1,4 +1,4 @@
-1. ORDER THE DATA IN THE CARD LIST,  AFTER THIS ITS TIME TO FIGURE OUT HOW TO HOST BABY
+1. FIGURE OUT HOW TO HOST BABY
 
 2. [DONE] DARK MODE IS STARTED, WHEN YOU GET BACK FINISH IT. WERE STARTING IN settings.css. FINISH DARK MODE, THEN MOVE TO BELOW STUFF
 
@@ -30,9 +30,9 @@
 
 17. [DONE] add login failed information, register button
 
-18. Add a search option at the top that will look through the websites and find the site the user is looking for. partial and full searches
+18. [DONE] Add a search option at the top that will look through the websites and find the site the user is looking for. partial and full searches
 
-19. finalize styling
+19. [DONE] finalize styling
 
 (JWT AUTO-LOGGOUT WORKS!!)
 
