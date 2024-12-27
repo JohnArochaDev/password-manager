@@ -78,4 +78,6 @@ form .light-input::placeholder {
     right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
+    z-index: 1000;
+
 }

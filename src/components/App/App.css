@@ -53,3 +53,12 @@
   border-color: #23c19d !important; /* Change this to your desired focus border color */
   box-shadow: 0 0 0 0.2rem rgba(35, 193, 157, 0.25) !important; /* Optional: Add a shadow effect */
 }
+
+.password-toggle-icon-with-generate {
+  position: absolute;
+  top: 50%;
+  right: 100px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1000;
+}

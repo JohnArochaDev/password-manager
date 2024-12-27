@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import PasswordsPage from "../PasswordsPage/PasswordsPage";
-import {Card, Container, Modal, Button, Form, Row, Col, FormControl} from 'react-bootstrap';
+import {Card, Container, Modal, Button, Form, Row, Col, FormControl, InputGroup} from 'react-bootstrap';
 import decryptData from '../../utils/decryption.js'
+import generatePassword from '../../utils/passwordGenerator.js';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import "./App.css";
 
@@ -73,6 +75,9 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     const [showModal, setShowModal] = useState(false);
 
+    const [showRegisterPassword, setShowRegisterPassword] = useState(false)
+    
+
     const [searchArray, setSearchArray] = useState([]) // this is the array of objects, a copyed, decrypted version of the data
     const [searchBar, setSearchBar] = useState('') // this is the search bar state
     const [searchOptions, setSearchOptions] = useState([]) // this is the filtered array from the options above
@@ -95,6 +100,10 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         }
         setSearchOptions(filteredCredentials);
     }, [searchBar]);
+
+    function toggleRegisterPasswordVisibility() {
+        setShowRegisterPassword(!showRegisterPassword)
+    }
 
     function handleShowModal() {
         setShowModal(true);
@@ -244,18 +253,25 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                                 />
                             </Form.Group>
                             <Form.Group controlId="formPassword" className="mt-3">
-                                <Form.Label className={darkMode ? "field text-white" : "field text-black"} >Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Enter password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                    className={darkMode ? 'dark-input' : 'light-input'}
-
-                                />
+                            <Form.Label className={darkMode ? "field text-white" : "field text-black"}>Password</Form.Label>
+                                <InputGroup>
+                                    <Form.Control
+                                        type={showRegisterPassword ? "text" : "password"}
+                                        placeholder="Enter password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                        className={darkMode ? 'dark-input' : 'light-input'}
+                                    />
+                                    <span className="password-toggle-icon-with-generate" onClick={toggleRegisterPasswordVisibility}>
+                                        {showRegisterPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </span>
+                                    <Button variant="secondary" onClick={() => setPassword(generatePassword())}>
+                                        Generate
+                                    </Button>
+                                </InputGroup>
                             </Form.Group>
-                            <Button variant="primary" type="submit" className={darkMode ? 'custom-form-button mt-4' : 'light-mode-custom-form-button mt-4'} onClick={() => console.log('hit')}>
+                            <Button variant="primary" type="submit" className={darkMode ? 'custom-form-button mt-4' : 'light-mode-custom-form-button mt-4'}>
                                 Save
                             </Button>
                         </Form>
