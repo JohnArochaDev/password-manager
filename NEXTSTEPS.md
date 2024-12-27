@@ -1,4 +1,4 @@
-1. FIGURE OUT HOW TO HOST BABY
+1. FIGURE OUT HOW TO HOST BABY/ RENDER MAY BE GOOD, BUT IT HAS A SPIN UP TIME
 
 2. [DONE] DARK MODE IS STARTED, WHEN YOU GET BACK FINISH IT. WERE STARTING IN settings.css. FINISH DARK MODE, THEN MOVE TO BELOW STUFF
 
@@ -128,3 +128,6 @@ for json use url : http://localhost:8080/api-docs
 
 
 for docs use url : http://localhost:8080/swagger-ui/index.html
+
+
+fly.io deploy : [url](https://www.codecentric.de/wissens-hub/blog/spring-boot-flyio)
