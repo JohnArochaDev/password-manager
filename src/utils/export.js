@@ -10,17 +10,17 @@ export default function exportToPDF(credentialArray) {
 
     img.onload = function() {
         // Add the image to the PDF
-        PDF.addImage(img, 'PNG', 10, 16, 7, 7);
+        PDF.addImage(img, 'PNG', 14, 16, 7, 7);
 
         //title
         PDF.setFontSize(18)
-        PDF.text('SAFEPASS', 20, 22)
+        PDF.text('SAFEPASS', 24, 22)
 
         //subtitle
         PDF.setFont('helvetica', 'normal')
         PDF.setFontSize(12)
         PDF.setTextColor(100)
-        PDF.text('Exported Passwords', 14, 30)
+        PDF.text('Exported Passwords', 14, 32)
 
         //table
         const tableColumn = ["Website", "Username", "Password"]
