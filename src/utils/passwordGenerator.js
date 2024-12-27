@@ -8,15 +8,11 @@ const chars = [
 export default function generatePassword() {
     let newPass = ''
 
-
     while (newPass.length < 15) {
         let randomArr = chars[Math.floor(Math.random() * chars.length)]
         let randomChar = randomArr[Math.floor(Math.random() * randomArr.length)]
 
         newPass += randomChar
     }
-    console.log(newPass)
     return newPass
 }
-
-generatePassword()

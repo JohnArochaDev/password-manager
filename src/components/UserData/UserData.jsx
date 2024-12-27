@@ -1,12 +1,14 @@
 import { Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
 import { FaCopy } from 'react-icons/fa';
+import checkForCompromise from '../../utils/checkForCompromise';
 import './UserData.css';
 
 export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions }) {
     const [passShow, setPassShow] = useState(false)
     const [buttonSwitch, setButtonSwitch] = useState(false);
 
+    const [compromised, setCompromised] = useState(false)
 
     const [credentialId, setCredentialId] = useState('');
     const [userToken, setUserToken] = useState('');
@@ -35,7 +37,17 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             isInitialRender.current = false;
             setUsername(secureData.username);
             setPassword(secureData.password);
+            checkForCompromise(secureData.password).then(isCompromised => {
+                console.log(isCompromised)
+                if (isCompromised) {
+                    setCompromised(true)
+                } else {
+                    setCompromised(false)
+                }
+            })
+
         }
+
 
     }, []);
 
@@ -142,6 +154,8 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     <Col xs={8} className="text-end">
                         <InputGroup>
                             <Form.Control
+                                id="username" // Added id attribute
+                                name="username" // Added name attribute                        
                                 type="text"
                                 value={username}
                                 readOnly={!buttonSwitch}
@@ -161,10 +175,12 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     <Col xs={8}>
                         <InputGroup>
                             <Form.Control
+                                id="password" // Added id attribute
+                                name="password" // Added name attribute
                                 type={buttonSwitch || passShow ? "text" : "password"}
                                 value={password}
                                 readOnly={!buttonSwitch}
-                                className={darkMode ? "form-control dark-input field" : "form-control light-input field"}
+                                className={darkMode ? `form-control dark-input field ${compromised ? 'compromised' : ''}` : `form-control light-input field ${compromised ? 'compromised' : ''}`}
                                 onChange={(e) => setPassword(e.target.value)}
                                 onClick={() => showPass()}
                             />

@@ -46,11 +46,11 @@ ADDITIONAL features
 
 4. maybe inpliment an API that has common passwords and runs the users by it to tell them if its been in a data breech or if its too common
 
-5. openAPI for a spring boot backend, this will write docs for your backend for you!!!!!
+5. [DONE] openAPI for a spring boot backend, this will write docs for your backend for you!!!!!
 
 6. export data
 
-7. password generator
+7. [DONE] password generator
 
 
 

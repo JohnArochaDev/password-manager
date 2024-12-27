@@ -40,6 +40,7 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                     {clicked === credentials?.id ? (
                         <Card className={darkMode ? "rounded-3 p-3 shadow-sm mx-1 my-2 text-white d-flex justify-content-center align-items-center card-hover" : "rounded-3 p-3 shadow-sm mx-1 my-2 text-black d-flex justify-content-center align-items-center light-mode-card-hover"}>
                             <UserData
+                                id={credentials.id}
                                 secureData={credentials}
                                 setClicked={setClicked}
                                 setDarkMode={setDarkMode}

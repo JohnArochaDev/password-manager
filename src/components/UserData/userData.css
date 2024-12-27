@@ -97,3 +97,7 @@
   border-color: transparent !important;
   outline: none !important;
 }
+
+.compromised {
+  border: 3px solid #e74c3c !important; /* Nice neutral red */
+}
