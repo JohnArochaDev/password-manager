@@ -58,7 +58,7 @@ function useBackgroundData(reload) {
 
 
 
-export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch }) {
+export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch, showCompromisedPasswords, setShowCompromisedPasswords }) {
     const base64Key = import.meta.env.VITE_SECRET_KEY
 
     const keepRendering = useRef(true);
@@ -213,10 +213,10 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                     <p>{error}</p>
                 ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
                     (searchOptions.map((secureData, idx) => (
-                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} className="mb-2" />
+                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} className="mb-2" />
                     )))
                 ) : (dataArray.map((secureData, idx) => (
-                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} className="mb-2" />
+                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} className="mb-2" />
                     ))
                 ))}
                 <Container >

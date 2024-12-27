@@ -16,6 +16,7 @@ export default function Main() {
 
     const [settingsPage, setSettingsPage] = useState(false)
     const [darkMode, setDarkMode] = useState(true)
+    const [showCompromisedPasswords, setShowCompromisedPasswords] = useState(false)
     const [search, setSearch] = useState(true)
 
     function handleLogout() {
@@ -77,7 +78,7 @@ export default function Main() {
                             </Dropdown>
                         </Col>
                     </Row>
-                    {loggedin ? ( settingsPage ? (<Settings setDarkMode={setDarkMode} darkMode={darkMode} setReload={setReload} reload={reload} setSettingsPage={setSettingsPage} settingsPage={settingsPage} setLoggedin={setLoggedin} />) : (<App reload={reload} setReload={setReload} setDarkMode={setDarkMode} darkMode={darkMode} search={search} setSearch={setSearch} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} setDarkMode={setDarkMode} darkMode={darkMode} /> ) }
+                    {loggedin ? ( settingsPage ? (<Settings setDarkMode={setDarkMode} darkMode={darkMode} setReload={setReload} reload={reload} setSettingsPage={setSettingsPage} settingsPage={settingsPage} setLoggedin={setLoggedin} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} />) : (<App reload={reload} setReload={setReload} setDarkMode={setDarkMode} darkMode={darkMode} search={search} setSearch={setSearch} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} setDarkMode={setDarkMode} darkMode={darkMode} /> ) }
                 </Container>
             </div>
         </StrictMode>

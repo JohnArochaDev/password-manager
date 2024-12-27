@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import './settings.css'
 
-export default function Settings({ setReload, reload, setSettingsPage, settingsPage, setLoggedin, darkMode, setDarkMode }) {
+export default function Settings({ setReload, reload, setSettingsPage, settingsPage, setLoggedin, darkMode, setDarkMode, showCompromisedPasswords, setShowCompromisedPasswords }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -96,6 +96,16 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     label="Dark Mode"
                     checked={darkMode}
                     onChange={() => setDarkMode(!darkMode)}
+                />
+            </Form>
+            <Form className="mb-4">
+                <Form.Check 
+                    type="switch"
+                    id="custom-switch"
+                    className={darkMode ? "font" : "light-mode-font"}
+                    label="Check Breaches"
+                    checked={showCompromisedPasswords}
+                    onChange={() => setShowCompromisedPasswords(!showCompromisedPasswords)}
                 />
             </Form>
 

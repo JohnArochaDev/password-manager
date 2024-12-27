@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 
 import "./passwordPage.css"
 
-export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, dataArray, setDataArray, keepRendering, setSearchOptions }) {
+export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, dataArray, setDataArray, keepRendering, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords }) {
     const [credentials, setCredentials] = useState([])
 
     const isInitialRender = useRef(true);
@@ -52,6 +52,8 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                                 dataArray={dataArray}
                                 setSearchArray={setSearchArray}
                                 setSearchOptions={setSearchOptions}
+                                setShowCompromisedPasswords={setShowCompromisedPasswords} 
+                                showCompromisedPasswords={showCompromisedPasswords}
                             />
                         </Card>
                     ) : (

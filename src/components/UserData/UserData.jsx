@@ -4,7 +4,7 @@ import { FaCopy } from 'react-icons/fa';
 import checkForCompromise from '../../utils/checkForCompromise';
 import './UserData.css';
 
-export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions }) {
+export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords }) {
     const [passShow, setPassShow] = useState(false)
     const [buttonSwitch, setButtonSwitch] = useState(false);
 
@@ -37,15 +37,16 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             isInitialRender.current = false;
             setUsername(secureData.username);
             setPassword(secureData.password);
-            checkForCompromise(secureData.password).then(isCompromised => {
-                console.log(isCompromised)
-                if (isCompromised) {
-                    setCompromised(true)
-                } else {
-                    setCompromised(false)
-                }
-            })
-
+            if (showCompromisedPasswords) {
+                checkForCompromise(secureData.password).then(isCompromised => {
+                    console.log(isCompromised)
+                    if (isCompromised) {
+                        setCompromised(true)
+                    } else {
+                        setCompromised(false)
+                    }
+                })
+            }
         }
 
 
@@ -110,14 +111,16 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     return credential
                 }))
             }
-            checkForCompromise(updatedData.password).then(isCompromised => {
-                console.log(isCompromised)
-                if (isCompromised) {
-                    setCompromised(true)
-                } else {
-                    setCompromised(false)
-                }
-            })
+            if (showCompromisedPasswords) {
+                checkForCompromise(updatedData.password).then(isCompromised => {
+                    console.log(isCompromised)
+                    if (isCompromised) {
+                        setCompromised(true)
+                    } else {
+                        setCompromised(false)
+                    }
+                })
+            }
 
         } catch (error) {
             console.error('Error:', error);
