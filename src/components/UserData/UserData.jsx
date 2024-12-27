@@ -110,8 +110,14 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     return credential
                 }))
             }
-            // update the credentials array here, this forces state to update with the DB without having to call the DB again
-            // updateCredentialArray(updatedData)
+            checkForCompromise(updatedData.password).then(isCompromised => {
+                console.log(isCompromised)
+                if (isCompromised) {
+                    setCompromised(true)
+                } else {
+                    setCompromised(false)
+                }
+            })
 
         } catch (error) {
             console.error('Error:', error);
@@ -188,20 +194,25 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                                 <FaCopy />
                             </Button>
                         </InputGroup>
+                        {compromised && (
+                        <div className="popup">
+                            Your password has been found in a data breach
+                        </div>
+                    )}
                     </Col>
                 </Row>
                 <Row className="w-100 d-flex justify-content-between align-items-center" style={{ marginLeft: '0px' }}> {/* this is needed to overwrite something in boostrap that forces an uneven margin */}
                     <Col xs="auto">
                         {buttonSwitch ? 
-                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => {setButtonSwitch(false); setPassShow(false)}}>Cancel</Button> :
-                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => {setButtonSwitch(true); setPassShow(false)}}>Edit</Button>
+                            <Button className={darkMode ? `text-white ${compromised ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={() => {setButtonSwitch(false); setPassShow(false)}}>Cancel</Button> :
+                            <Button className={darkMode ? `text-white ${compromised ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={() => {setButtonSwitch(true); setPassShow(false)}}>Edit</Button>
                         }
-                        {/* <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={() => setButtonSwitch(true)}>Edit</Button> */}
+                        {/* <Button className={darkMode ? `card-button text-white` : `light-card-button text-black`} style={{ width: `100px` }} onClick={() => setButtonSwitch(true)}>Edit</Button> */}
                     </Col>
                     <Col xs="auto">
                         {buttonSwitch ? 
-                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} type="submit" style={{ width: '100px' }}>Confirm</Button> : 
-                            <Button className={darkMode ? 'card-button text-white' : 'light-card-button text-black'} style={{ width: '100px' }} onClick={handleDeleteClick}>Delete</Button>
+                            <Button className={darkMode ? `text-white ${compromised ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised ? 'compromised-bigger-light' : 'light-card-button'}`} type="submit" style={{ width: `100px` }}>Confirm</Button> : 
+                            <Button className={darkMode ? `text-white ${compromised ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={handleDeleteClick}>Delete</Button>
                         }
                     </Col>
                 </Row>
