@@ -1,4 +1,4 @@
-MAKE DARK MODE FOR THE ADD CREDENTIAL !!!!! ORDER THE DATA IN THE CARD LIST, MAKE .toLowerCase() ON BACKEND AND THE FRONT END ARRAYS FOR THE WEBSITE, AFTER SEARCH LOOK INTO OPENAPI!!!
+ORDER THE DATA IN THE CARD LIST, MAKE .toLowerCase() ON BACKEND AND THE FRONT END ARRAYS FOR THE WEBSITE, AFTER THIS ITS TIME TO FIGURE OUT HOW TO HOST BABY
 
 1. MAKE SURE A USER CANT DELETE OTHER ACCOUNTS IF IT HAS THE LOGIN INFORMATION
 
@@ -91,3 +91,8 @@ to login :
   "username": "jparocha777@gmail.com",
   "password": "testPassword"
 }
+
+for json use url : http://localhost:8080/api-docs
+
+
+for docs use url : http://localhost:8080/swagger-ui/index.html

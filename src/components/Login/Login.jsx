@@ -16,6 +16,10 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
 
     const [loginError, setLoginError] = useState('')
 
+    function handleLowerCaseEmail(e) {
+        setUsername(e.target.value.toLowerCase())
+    }
+
     function togglePasswordVisibility() {
         setShowPassword(!showPassword)
     }
@@ -121,7 +125,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     type="email"
                                     placeholder="Enter email"
                                     value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    onChange={handleLowerCaseEmail}
                                     isInvalid={!!loginError}
                                     required
                                     className={darkMode ? "dark-input" : "light-input"}
@@ -180,7 +184,7 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     type="email" // this was username
                                     placeholder="Enter email"
                                     value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    onChange={handleLowerCaseEmail}
                                     required
                                     className={darkMode ? "dark-input" : "light-input"}
                                 />

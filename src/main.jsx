@@ -1,7 +1,7 @@
 import { StrictMode, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Col, Row, Container, Dropdown } from 'react-bootstrap';
-import {jwtDecode} from 'jwt-decode'; // Import jwt-decode library
+import {jwtDecode} from 'jwt-decode';
 
 import App from './components/App/App.jsx';
 import Login from './components/Login/Login.jsx';
@@ -33,7 +33,7 @@ export default function Main() {
             if (token) {
                 try {
                     const decodedToken = jwtDecode(token)
-                    const currentTime = Date.now() / 1000 // Time in seconds
+                    const currentTime = Date.now() / 1000 // this is time in seconds
 
 
                     if(decodedToken.exp < currentTime) {

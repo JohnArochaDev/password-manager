@@ -1,6 +1,6 @@
 import { Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
-import { FaCopy } from 'react-icons/fa'; // Import the icon
+import { FaCopy } from 'react-icons/fa';
 import './UserData.css';
 
 export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions }) {
