@@ -38,7 +38,7 @@ export default function exportToPDF(credentialArray) {
     }))
 
     PDF.autoTable({
-        head: tableColumn,
+        head: [tableColumn],
         body: tableRows,
         startY: 40,
         theme: 'striped',
