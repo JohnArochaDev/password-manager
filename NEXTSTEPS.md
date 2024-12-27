@@ -53,7 +53,37 @@ ADDITIONAL features
 7. [DONE] password generator
 
 
+FEATURES 
 
+1. back end docs have been created for development
+
+2. encrypted database holds all usernames and passwords
+
+3. data remains encrypted when traveling between the API and the front end for security
+
+4. protected routes require JWT auth for access, the only open routes are /login and /register
+
+5. hashed login password and encrypted login username
+
+6. front end is secure and is the sole-access point through CORS allowed to talk with the API
+
+7. front end is visually stunning
+
+8. dark andlight mode features
+
+9. search bar
+
+10. turning on a setting checks passwords for breeches, and alerts the user
+
+11. auto password-generator if the user wants to use it
+
+12. ability to delete account in the settings page
+
+13. full crud functionality
+
+14. is a chrome extension
+
+15. [NOTDONE] soon will have a password checker for weak passwords as well
 
 
 
