@@ -85,6 +85,8 @@ FEATURES
 
 15. [NOTDONE] soon will have a password checker for weak passwords as well
 
+16. [NOTDONE] soon will have the ability to export the password data into a pdf or something
+
 
 
 This is the object to send data to the password manager : 
