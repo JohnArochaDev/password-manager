@@ -190,10 +190,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         }
     }, [data]);
 
-    useEffect(() => {
-        console.log("DATA ARRAY", dataArray)
-    }, [dataArray]);
-
     return (
         <>
             <h1 style={headerStyle} className={darkMode ? `${showCompromisedPasswords && anyCompromised.length > 0 ? 'title-compromised' : 'doto-title'}` : `${showCompromisedPasswords && anyCompromised.length > 0 ? 'title-compromised' : 'light-mode-doto-title'}`}>SafePass</h1>

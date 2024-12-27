@@ -44,11 +44,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
 
     }, []);
 
-    useEffect(() => {
-        console.log("COMRPOMISED LIST",anyCompromised)
-
-    },[anyCompromised])
-
     async function handleDeleteClick() {
         try {
             const response = await fetch(`http://localhost:8080/credentials/${credentialId}`, {
