@@ -58,7 +58,7 @@ function useBackgroundData(reload) {
 
 
 
-export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch, showCompromisedPasswords, setShowCompromisedPasswords }) {
+export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch, showCompromisedPasswords, setShowCompromisedPasswords, setSearchArray, searchArray }) {
     const base64Key = import.meta.env.VITE_SECRET_KEY
 
     const keepRendering = useRef(true);
@@ -80,7 +80,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     const [anyCompromised, setAnyCompromised] = useState([]) // an array of compromised passwords
     
 
-    const [searchArray, setSearchArray] = useState([]) // this is the array of objects, a copyed, decrypted version of the data
+    // const [searchArray, setSearchArray] = useState([]) // this is the array of objects, a copyed, decrypted version of the data
     const [searchBar, setSearchBar] = useState('') // this is the search bar state
     const [searchOptions, setSearchOptions] = useState([]) // this is the filtered array from the options above
 

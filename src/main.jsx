@@ -19,6 +19,11 @@ export default function Main() {
     const [showCompromisedPasswords, setShowCompromisedPasswords] = useState(false) // in settings, shows comp or no snow comp
     const [search, setSearch] = useState(true)
 
+    const [searchArray, setSearchArray] = useState([]) // this is the array of objects, a copyed, decrypted version of the data
+
+    useEffect(()=>{console.log("SEARCHARRAY", searchArray)},[searchArray])
+
+
     function handleLogout() {
         chrome.storage.local.set({ jwtToken: null, userId: null }, function() {
             setLoggedin(false);
@@ -78,7 +83,7 @@ export default function Main() {
                             </Dropdown>
                         </Col>
                     </Row>
-                    {loggedin ? ( settingsPage ? (<Settings setDarkMode={setDarkMode} darkMode={darkMode} setReload={setReload} reload={reload} setSettingsPage={setSettingsPage} settingsPage={settingsPage} setLoggedin={setLoggedin} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} />) : (<App reload={reload} setReload={setReload} setDarkMode={setDarkMode} darkMode={darkMode} search={search} setSearch={setSearch} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} setDarkMode={setDarkMode} darkMode={darkMode} /> ) }
+                    {loggedin ? ( settingsPage ? (<Settings setDarkMode={setDarkMode} darkMode={darkMode} setReload={setReload} reload={reload} setSettingsPage={setSettingsPage} settingsPage={settingsPage} setLoggedin={setLoggedin} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} setSearchArray={setSearchArray} searchArray={searchArray} />) : (<App reload={reload} setReload={setReload} setDarkMode={setDarkMode} darkMode={darkMode} search={search} setSearch={setSearch} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} setSearchArray={setSearchArray} searchArray={searchArray} />) ) : ( <Login reload={reload} setReload={setReload} setLoggedin={setLoggedin} setDarkMode={setDarkMode} darkMode={darkMode} /> ) }
                 </Container>
             </div>
         </StrictMode>

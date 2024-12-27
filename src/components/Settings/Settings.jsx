@@ -3,7 +3,7 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import exportToPDF from '../../utils/export.js'
 import './settings.css'
 
-export default function Settings({ setReload, reload, setSettingsPage, settingsPage, setLoggedin, darkMode, setDarkMode, showCompromisedPasswords, setShowCompromisedPasswords }) {
+export default function Settings({ setReload, reload, setSettingsPage, settingsPage, setLoggedin, darkMode, setDarkMode, showCompromisedPasswords, setShowCompromisedPasswords, setSearchArray, searchArray }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -84,6 +84,14 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
         handleCloseForm()
     }
 
+    function handleExport() {
+        if (searchArray.length > 0) {
+            exportToPDF(searchArray);
+        } else {
+            console.error('No data to export');
+        }
+    }
+
     return (
         <>
             <h1 className={darkMode ? "font" : "light-mode-font"} >Settings</h1>
@@ -110,7 +118,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 />
             </Form>
 
-            <Button className={darkMode ? 'custom-form-button mb-4' : 'light-mode-custom-form-button mb-4'} onClick={() => exportToPDF()}>
+            <Button className={darkMode ? 'custom-form-button mb-4' : 'light-mode-custom-form-button mb-4'} onClick={handleExport}>
                 Export Data
             </Button>
 
