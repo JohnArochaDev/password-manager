@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import exportToPDF from '../../utils/export.js'
 import './settings.css'
 
 export default function Settings({ setReload, reload, setSettingsPage, settingsPage, setLoggedin, darkMode, setDarkMode, showCompromisedPasswords, setShowCompromisedPasswords }) {
@@ -108,6 +109,10 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     onChange={() => setShowCompromisedPasswords(!showCompromisedPasswords)}
                 />
             </Form>
+
+            <Button className={darkMode ? 'custom-form-button mb-4' : 'light-mode-custom-form-button mb-4'} onClick={() => exportToPDF()}>
+                Export Data
+            </Button>
 
             <Button className={darkMode ? 'custom-form-button' : 'light-mode-custom-form-button'} onClick={handleShowForm}>
                 Delete Account
