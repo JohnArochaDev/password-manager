@@ -21,9 +21,6 @@ export default function Main() {
 
     const [searchArray, setSearchArray] = useState([]) // this is the array of objects, a copyed, decrypted version of the data
 
-    useEffect(()=>{console.log("SEARCHARRAY", searchArray)},[searchArray])
-
-
     function handleLogout() {
         chrome.storage.local.set({ jwtToken: null, userId: null }, function() {
             setLoggedin(false);

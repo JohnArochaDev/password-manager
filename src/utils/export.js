@@ -9,8 +9,6 @@ import 'jspdf-autotable';
 // }]);
 
 export default function exportToPDF(credentialArray) {
-
-    console.log("ARRAY BEING ENTERED", credentialArray)
     const PDF = new jsPDF()
 
     //title
