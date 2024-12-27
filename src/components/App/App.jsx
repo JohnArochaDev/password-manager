@@ -76,6 +76,8 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     const [showModal, setShowModal] = useState(false);
 
     const [showRegisterPassword, setShowRegisterPassword] = useState(false)
+
+    const [anyCompromised, setAnyCompromised] = useState([]) // an array of compromised passwords
     
 
     const [searchArray, setSearchArray] = useState([]) // this is the array of objects, a copyed, decrypted version of the data
@@ -188,9 +190,13 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         }
     }, [data]);
 
+    useEffect(() => {
+        console.log("DATA ARRAY", dataArray)
+    }, [dataArray]);
+
     return (
         <>
-            <h1 style={headerStyle} className={darkMode ? "doto-title" : "light-mode-doto-title"}>SafePass</h1>
+            <h1 style={headerStyle} className={darkMode ? `${showCompromisedPasswords && anyCompromised.length > 0 ? 'title-compromised' : 'doto-title'}` : `${showCompromisedPasswords && anyCompromised.length > 0 ? 'title-compromised' : 'light-mode-doto-title'}`}>SafePass</h1>
             <hr style={{ width: '90%', borderColor: '#37383a' }} />
                 <Container className="rounded-3 p-3 pb-2 pt-0 shadow-sm d-flex justify-content-center align-items-center">
                     <Form className="d-flex w-100">
@@ -213,10 +219,10 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                     <p>{error}</p>
                 ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
                     (searchOptions.map((secureData, idx) => (
-                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} className="mb-2" />
+                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} anyCompromised={anyCompromised} setAnyCompromised={setAnyCompromised} className="mb-2" />
                     )))
                 ) : (dataArray.map((secureData, idx) => (
-                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} className="mb-2" />
+                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} anyCompromised={anyCompromised} setAnyCompromised={setAnyCompromised} className="mb-2" />
                     ))
                 ))}
                 <Container >

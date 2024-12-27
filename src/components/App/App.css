@@ -62,3 +62,7 @@
   cursor: pointer;
   z-index: 1000;
 }
+
+.title-compromised {
+  color: #e74c3c !important;
+}

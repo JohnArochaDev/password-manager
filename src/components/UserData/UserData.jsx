@@ -4,7 +4,7 @@ import { FaCopy } from 'react-icons/fa';
 import checkForCompromise from '../../utils/checkForCompromise';
 import './UserData.css';
 
-export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords }) {
+export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords, anyCompromised, setAnyCompromised }) {
     const [passShow, setPassShow] = useState(false)
     const [buttonSwitch, setButtonSwitch] = useState(false);
 
@@ -24,32 +24,30 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
         }
     }
 
-    function updateCredentialArray(updatedCredential) {
-        setDataArray((prevCredentials) =>
-            prevCredentials.map((credential) =>
-                credential.id === updatedCredential.id ? updatedCredential : credential
-            )
-        );
-    }
-
     useEffect(() => {
         if (isInitialRender.current) {
             isInitialRender.current = false;
             setUsername(secureData.username);
             setPassword(secureData.password);
-            if (showCompromisedPasswords) {
-                checkForCompromise(secureData.password).then(isCompromised => {
-                    if (isCompromised) {
-                        setCompromised(true)
-                    } else {
-                        setCompromised(false)
-                    }
-                })
-            }
+            
+            checkForCompromise(secureData.password).then(isCompromised => {
+                if (isCompromised) {
+                    // setAnyCompromised((prevAnyCompromised) => [...prevAnyCompromised, secureData])
+                    setCompromised(true)
+                } else {
+                    // setDataArray(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id))
+                    setCompromised(false)
+                }
+            })
         }
 
 
     }, []);
+
+    useEffect(() => {
+        console.log("COMRPOMISED LIST",anyCompromised)
+
+    },[anyCompromised])
 
     async function handleDeleteClick() {
         try {
@@ -110,17 +108,16 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     return credential
                 }))
             }
-            if (showCompromisedPasswords) {
-                checkForCompromise(updatedData.password).then(isCompromised => {
-                    console.log(isCompromised)
-                    if (isCompromised) {
-                        setCompromised(true)
-                    } else {
-                        setCompromised(false)
-                    }
-                })
-            }
 
+            checkForCompromise(updatedData.password).then(isCompromised => {
+                if (isCompromised) {
+                    setAnyCompromised((prevAnyCompromised) => [...prevAnyCompromised, updatedData])
+                    setCompromised(true)
+                } else {
+                    setAnyCompromised(prevDataArray => prevDataArray.filter(data => data.id !== updatedData.id))
+                    setCompromised(false)
+                }
+            })
         } catch (error) {
             console.error('Error:', error);
         }
@@ -188,7 +185,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                                 type={buttonSwitch || passShow ? "text" : "password"}
                                 value={password}
                                 readOnly={!buttonSwitch}
-                                className={darkMode ? `form-control dark-input field ${compromised ? 'compromised' : ''}` : `form-control light-input field ${compromised ? 'compromised' : ''}`}
+                                className={darkMode ? `form-control dark-input field ${compromised && showCompromisedPasswords ? 'compromised' : ''}` : `form-control light-input field ${compromised ? 'compromised' : ''}`}
                                 onChange={(e) => setPassword(e.target.value)}
                                 onClick={() => showPass()}
                             />
@@ -196,7 +193,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                                 <FaCopy />
                             </Button>
                         </InputGroup>
-                        {compromised && (
+                        {compromised && showCompromisedPasswords && (
                         <div className="popup">
                             Your password has been found in a data breach
                         </div>
@@ -206,15 +203,15 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 <Row className="w-100 d-flex justify-content-between align-items-center" style={{ marginLeft: '0px' }}> {/* this is needed to overwrite something in boostrap that forces an uneven margin */}
                     <Col xs="auto">
                         {buttonSwitch ? 
-                            <Button className={darkMode ? `text-white ${compromised ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={() => {setButtonSwitch(false); setPassShow(false)}}>Cancel</Button> :
-                            <Button className={darkMode ? `text-white ${compromised ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={() => {setButtonSwitch(true); setPassShow(false)}}>Edit</Button>
+                            <Button className={darkMode ? `text-white ${compromised && showCompromisedPasswords ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised && showCompromisedPasswords ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={() => {setButtonSwitch(false); setPassShow(false)}}>Cancel</Button> :
+                            <Button className={darkMode ? `text-white ${compromised && showCompromisedPasswords ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised && showCompromisedPasswords ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={() => {setButtonSwitch(true); setPassShow(false)}}>Edit</Button>
                         }
                         {/* <Button className={darkMode ? `card-button text-white` : `light-card-button text-black`} style={{ width: `100px` }} onClick={() => setButtonSwitch(true)}>Edit</Button> */}
                     </Col>
                     <Col xs="auto">
                         {buttonSwitch ? 
-                            <Button className={darkMode ? `text-white ${compromised ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised ? 'compromised-bigger-light' : 'light-card-button'}`} type="submit" style={{ width: `100px` }}>Confirm</Button> : 
-                            <Button className={darkMode ? `text-white ${compromised ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={handleDeleteClick}>Delete</Button>
+                            <Button className={darkMode ? `text-white ${compromised && showCompromisedPasswords ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised && showCompromisedPasswords ? 'compromised-bigger-light' : 'light-card-button'}`} type="submit" style={{ width: `100px` }}>Confirm</Button> : 
+                            <Button className={darkMode ? `text-white ${compromised && showCompromisedPasswords ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised && showCompromisedPasswords ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={handleDeleteClick}>Delete</Button>
                         }
                     </Col>
                 </Row>

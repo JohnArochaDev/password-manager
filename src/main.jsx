@@ -16,7 +16,7 @@ export default function Main() {
 
     const [settingsPage, setSettingsPage] = useState(false)
     const [darkMode, setDarkMode] = useState(true)
-    const [showCompromisedPasswords, setShowCompromisedPasswords] = useState(false)
+    const [showCompromisedPasswords, setShowCompromisedPasswords] = useState(false) // in settings, shows comp or no snow comp
     const [search, setSearch] = useState(true)
 
     function handleLogout() {
