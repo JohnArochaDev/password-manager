@@ -124,10 +124,10 @@ to login :
   "password": "testPassword"
 }
 
-for json use url : http://localhost:8080/api-docs
+for json use url : [url](http://localhost:8080/api-docs)
 
 
-for docs use url : http://localhost:8080/swagger-ui/index.html
+for docs use url : [url](http://localhost:8080/swagger-ui/index.html)
 
 
 fly.io deploy : [url](https://www.codecentric.de/wissens-hub/blog/spring-boot-flyio)

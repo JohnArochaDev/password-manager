@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import PasswordsPage from "../PasswordsPage/PasswordsPage";
-import {Card, Container, Modal, Button, Form, Row, Col, FormControl, InputGroup} from 'react-bootstrap';
+import {Card, Container, Modal, Button, Form, Row, Col, FormControl, InputGroup, Toast} from 'react-bootstrap';
 import decryptData from '../../utils/decryption.js'
 import generatePassword from '../../utils/passwordGenerator.js';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -174,6 +174,23 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         });
     }
 
+    const [showToast, setShowToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState('')
+
+    function handleInvalid(e) {
+        if (!e.target.value.startsWith('www.')) {
+            e.target.setCustomValidity('The website should start with "www."')
+            setToastMessage('The website should start with "www."')
+        } else if (!e.target.value.endsWith('.com') && !e.target.value.endsWith('.org')) {
+            e.target.setCustomValidity('The website should end with ".com" or ".org"')
+            setToastMessage('The website should end with ".com" or ".org"')
+        } else {
+            e.target.setCustomValidity('This field is required. Please enter a valid website.')
+            setToastMessage('This field is required. Please enter a valid website.')
+        }
+        setShowToast(true)
+    }
+
     useEffect(() => {
         if(data) {
             let decryptedData = data?.loginCredentials
@@ -239,8 +256,10 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                                     type="text"
                                     placeholder="Enter website"
                                     value={website}
-                                    onChange={(e) => setWebsite(e.target.value)}
+                                    onChange={(e) => {e.target.setCustomValidity(''); setWebsite(e.target.value)}}
+                                    onInvalid={handleInvalid}
                                     required
+                                    pattern="^www\..*\.(com|org)$"
                                     className={darkMode ? 'dark-input' : 'light-input'}
                                 />
                             </Form.Group>
@@ -281,6 +300,9 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                         </Form>
                     </Modal.Body>
                 </Modal>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                    <Toast.Body>{toastMessage}</Toast.Body>
+                </Toast>
             </div>
         </>
     );
