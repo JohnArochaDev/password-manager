@@ -38,7 +38,7 @@
 
 ADDITIONAL features
 
-1. auto populate / auto saving / asking to save if a user logs in, bttn if its nblocked by google
+1. auto populate / auto saving / asking to save if a user logs in, bttn if its blocked by google
 
 2. favicon saving for closed card display
 
