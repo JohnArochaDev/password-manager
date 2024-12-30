@@ -78,7 +78,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     const [showRegisterPassword, setShowRegisterPassword] = useState(false)
 
     const [anyCompromised, setAnyCompromised] = useState([]) // an array of compromised passwords
-    const [anyWeak, setAnyWeak] = useState([])
+    const [anyWeak, setAnyWeak] = useState([]) // array of weak passwords
     
     const [searchBar, setSearchBar] = useState('') // this is the search bar state
     const [searchOptions, setSearchOptions] = useState([]) // this is the filtered array from the options above
