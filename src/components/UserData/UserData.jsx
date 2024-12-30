@@ -35,7 +35,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             checkForCompromise(secureData.password).then(isCompromised => {
                 if (isCompromised) {
                     setCompromised(true)
-                    console.log('compromised set true', compromised)
                 } else {
                     if (!anyWeak.find(object => 
                         object.website === secureData.website &&
@@ -44,17 +43,13 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     )) {
                         setCompromised(false)
                     }    
-                    console.log('compromised set false', compromised)
-
                 }
 
                 const responseObject = checkForWeakPassword(secureData.password)
 
                 if(responseObject.weak === true) {
                     setCompromised(true)
-                    setWeak(true)
-                    console.log('weak password set true', compromised)
-    
+                    setWeak(true)    
                 } else {
                     if (!anyCompromised.find(object => 
                         object.website === secureData.website &&
@@ -64,14 +59,11 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                         setCompromised(false)
                     }    
                     setWeak(false)
-                    console.log('weak password set false', compromised)
                 }
             })
         }
     }, []);
     
-        useEffect(()=>{console.log("COMPROMISED STATE : \n", compromised)},[compromised]) // may use in the future
-
     async function handleDeleteClick() {
         try {
             const response = await fetch(`http://localhost:8080/credentials/${credentialId}`, {

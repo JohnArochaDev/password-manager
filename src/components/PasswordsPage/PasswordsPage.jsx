@@ -22,7 +22,7 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                 if (isInitialRender.current) {
                     isInitialRender.current = false;
 
-                    setSearchArray((prevSearchArray) => { //this prevents the data from doubling every  time the home page is rendered
+                    setSearchArray((prevSearchArray) => { //this prevents the data from doubling every time the home page is rendered
                         const exists = prevSearchArray.find(object => 
                             object.website === secureData.website &&
                             object.username === secureData.username &&
@@ -84,8 +84,6 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
             setCredentials(secureData)
         }
     }, [secureData])
-
-    useEffect(()=>{console.log("ANY WEAK", anyWeak)},[anyWeak])
 
     const [clicked, setClicked] = useState(null)
 
