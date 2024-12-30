@@ -2,15 +2,15 @@ import { Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
 import { FaCopy } from 'react-icons/fa';
 import checkForCompromise from '../../utils/checkForCompromise';
-import checkForWeakPassword from "../../utils/checkForWeakPassword"
+import checkForWeakPassword from "../../utils/checkForWeakPassword";
 import './UserData.css';
 
 export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords, anyCompromised, setAnyCompromised, setAnyWeak, anyWeak }) {
-    const [passShow, setPassShow] = useState(false)
+    const [passShow, setPassShow] = useState(false);
     const [buttonSwitch, setButtonSwitch] = useState(false);
 
-    const [compromised, setCompromised] = useState(false)
-    const [weak, setWeak] = useState(false)
+    const [compromised, setCompromised] = useState(false);
+    const [weak, setWeak] = useState(false);
 
     const [credentialId, setCredentialId] = useState('');
     const [userToken, setUserToken] = useState('');
@@ -20,9 +20,11 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
 
     const isInitialRender = useRef(true);
 
+    const [responseObject, setResponseObject] = useState({});
+
     function showPass() {
-        if(!buttonSwitch) {
-            setPassShow(!passShow)
+        if (!buttonSwitch) {
+            setPassShow(!passShow);
         }
     }
 
@@ -34,33 +36,34 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             
             checkForCompromise(secureData.password).then(isCompromised => {
                 if (isCompromised) {
-                    setCompromised(true)
+                    setCompromised(true);
                 } else {
                     if (!anyWeak.find(object => 
                         object.website === secureData.website &&
                         object.username === secureData.username &&
                         object.password === secureData.password
                     )) {
-                        setCompromised(false)
+                        setCompromised(false);
                     }    
                 }
 
-                const responseObject = checkForWeakPassword(secureData.password)
+                const responseObject = checkForWeakPassword(secureData.password);
+                setResponseObject(responseObject);
 
-                if(responseObject.weak === true) {
-                    setCompromised(true)
-                    setWeak(true)    
+                if (responseObject.weak === true) {
+                    setCompromised(true);
+                    setWeak(true);    
                 } else {
                     if (!anyCompromised.find(object => 
                         object.website === secureData.website &&
                         object.username === secureData.username &&
                         object.password === secureData.password
                     )) {
-                        setCompromised(false)
+                        setCompromised(false);
                     }    
-                    setWeak(false)
+                    setWeak(false);
                 }
-            })
+            });
         }
     }, []);
     
@@ -138,6 +141,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     
                         // Check for weak password after updating anyCompromised
                         const responseObject = checkForWeakPassword(updatedData.password);
+                        setResponseObject(responseObject);
                         if (responseObject.weak === true) {
                             setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData]);
                             setCompromised(true);
@@ -175,6 +179,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     
                         // Check for weak password after updating anyCompromised
                         const responseObject = checkForWeakPassword(updatedData.password);
+                        setResponseObject(responseObject);
                         if (responseObject.weak === true) {
                             setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData]);
                             setCompromised(true);
@@ -201,9 +206,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
         }
     }
     
-        useEffect(()=>{console.log("ANY COMPROMISED: \n", anyCompromised)},[anyCompromised]) // may use in the future
-
-
     useEffect(() => {
         setCredentialId(secureData.id);
 
@@ -277,14 +279,16 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                         {weak ? (
                             showCompromisedPasswords && (
                                 <div className="popup">
-                                    Your password is too weak
-                                </div>)
+                                    {responseObject?.reason ? responseObject.reason : 'working on it'}
+                                </div>
+                            )
                         ) : (
                             compromised && showCompromisedPasswords && (
                                 <div className="popup">
                                     Your password has been found in a data breach
                                 </div>
-                    ))}
+                            )
+                        )}
                     </Col>
                 </Row>
                 <Row className="w-100 d-flex justify-content-between align-items-center" style={{ marginLeft: '0px' }}> {/* this is needed to overwrite something in boostrap that forces an uneven margin */}
@@ -293,7 +297,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                             <Button className={darkMode ? `text-white ${compromised && showCompromisedPasswords ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised && showCompromisedPasswords ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={() => {setButtonSwitch(false); setPassShow(false)}}>Cancel</Button> :
                             <Button className={darkMode ? `text-white ${compromised && showCompromisedPasswords ? 'compromised-bigger' : 'card-button'}` : `text-black ${compromised && showCompromisedPasswords ? 'compromised-bigger-light' : 'light-card-button'}`} style={{ width: `100px` }} onClick={() => {setButtonSwitch(true); setPassShow(false)}}>Edit</Button>
                         }
-                        {/* <Button className={darkMode ? `card-button text-white` : `light-card-button text-black`} style={{ width: `100px` }} onClick={() => setButtonSwitch(true)}>Edit</Button> */}
                     </Col>
                     <Col xs="auto">
                         {buttonSwitch ? 
