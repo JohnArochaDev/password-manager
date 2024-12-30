@@ -88,6 +88,8 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     let filteredCredentials = []
 
+        useEffect(()=>{console.log("anyCompromised : \n", anyCompromised)},[anyCompromised]) // may use in the future
+
     useEffect(() => { // this prevents a re-render of passwords page when the necessary data has ben recieved
         if (searchArray.length >= data?.loginCredentials.length) { // if more are added it may show larger than the inital render
             keepRendering.current = false

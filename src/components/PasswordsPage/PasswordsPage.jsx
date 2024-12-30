@@ -17,75 +17,151 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
 
     useEffect(() => {
         if (secureData) {
-
             if (keepRendering.current) {
                 if (isInitialRender.current) {
                     isInitialRender.current = false;
-
+    
                     setSearchArray((prevSearchArray) => { //this prevents the data from doubling every time the home page is rendered
                         const exists = prevSearchArray.find(object => 
                             object.website === secureData.website &&
                             object.username === secureData.username &&
                             object.password === secureData.password
-                        )
+                        );
                         if (!exists) {
-                            return [...prevSearchArray, secureData]
+                            return [...prevSearchArray, secureData];
                         }
-                        return prevSearchArray
-                    })
+                        return prevSearchArray;
+                    });
                 }
             }
-
+    
             checkForCompromise(secureData.password).then(isCompromised => {
                 if (isCompromised) {
-                    if (!anyCompromised.find(object => 
-                        object.website === secureData.website &&
-                        object.username === secureData.username &&
-                        object.password === secureData.password
-                    )) {
-                        setAnyCompromised((prevAnyCompromised) => [...prevAnyCompromised, secureData])
-                    }
-                    setRedIcon(true)
-                } else {
-                    setAnyCompromised(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id))
-                    if (!anyWeak.find(object => // this will only remove the icon if its not in the array of weak passwords
-                        object.website === secureData.website &&
-                        object.username === secureData.username &&
-                        object.password === secureData.password
-                    )) {
-                        setRedIcon(false)
-                    }
-                }
-
-                const responseObject = checkForWeakPassword(secureData.password)
-            
-                if (responseObject.weak == true) { // prevents creating duplicates
-                    if (!anyWeak.find(object => 
-                        object.website === secureData.website &&
-                        object.username === secureData.username &&
-                        object.password === secureData.password
-                    )) {
-                        setAnyWeak((prevAnyWeak) => [...prevAnyWeak, secureData])
-                    }
-                    setRedIcon(true)
-                    console.log('RED ICON TRUE FOR WEAK PASS')
-                } else {
-                    setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id))
-                    if(!anyCompromised.find(object => // this will only remove the icon if its not in the array of compromised passwords
-                        object.website === secureData.website &&
-                        object.username === secureData.username &&
-                        object.password === secureData.password
-                    )) {
-                        setRedIcon(false)
-                        console.log('RED ICON FALSE FOR WEAK PASS')
+                    new Promise((resolve) => {
+                        setAnyCompromised((prevAnyCompromised) => {
+                            console.log("ADDING TO COMPROMISED ARRAY");
+                            const exists = prevAnyCompromised.find(object => 
+                                object.website === secureData.website &&
+                                object.username === secureData.username &&
+                                object.password === secureData.password
+                            );
+                            if (!exists) {
+                                const updatedCompromised = [...prevAnyCompromised, secureData];
+                                resolve(updatedCompromised);
+                                return updatedCompromised;
+                            }
+                            resolve(prevAnyCompromised);
+                            return prevAnyCompromised;
+                        });
+                    }).then((updatedCompromised) => {
+                        if (secureData.website === "www.test.com") {
+                            console.log("HITTTTTTTTTTTTT");
+                        }
+                        setRedIcon(true);
+                        if (secureData.website === "www.test.com") {
+                            console.log("RED ICON SET TRUE IN COMPROMISE CHECK", secureData);
+                        }
     
-                    }
+                        // Check for weak password after updating anyCompromised
+                        const responseObject = checkForWeakPassword(secureData.password);
+                        if (secureData.website === "www.test.com") {
+                            console.log("RESPONSE DATA", responseObject);
+                        }
+                        if (responseObject.weak === true) {
+                            if (secureData.website === "www.test.com") {
+                                console.log("HIT");
+                            }
+                            if (!anyWeak.find(object => 
+                                object.website === secureData.website &&
+                                object.username === secureData.username &&
+                                object.password === secureData.password
+                            )) {
+                                setAnyWeak((prevAnyWeak) => [...prevAnyWeak, secureData]);
+                                if (secureData.website === "www.test.com") {
+                                    console.log("ADDED TO WEAK");
+                                }
+                            }
+                            setRedIcon(true);
+                            if (secureData.website === "www.test.com") {
+                                console.log('RED ICON TRUE FOR WEAK PASS', secureData);
+                            }
+                        } else {
+                            setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id));
+                            if (!updatedCompromised.find(object => 
+                                object.website === secureData.website &&
+                                object.username === secureData.username &&
+                                object.password === secureData.password
+                            )) {
+                                setRedIcon(false);
+                                if (secureData.website === "www.test.com") {
+                                    console.log('RED ICON FALSE FOR WEAK PASS', secureData);
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    new Promise((resolve) => {
+                        setAnyCompromised((prevDataArray) => {
+                            console.log("REMOVING FROM COMPROMISED ARRAY");
+                            const updatedCompromised = prevDataArray.filter(data => data.id !== secureData.id);
+                            resolve(updatedCompromised);
+                            return updatedCompromised;
+                        });
+                    }).then((updatedCompromised) => {
+                        if (!anyWeak.find(object => 
+                            object.website === secureData.website &&
+                            object.username === secureData.username &&
+                            object.password === secureData.password
+                        )) {
+                            setRedIcon(false);
+                            if (secureData.website === "www.test.com") {
+                                console.log("RED ICON SET FALSE IN COMPROMISE CHECK", secureData);
+                            }
+                        }
+    
+                        // Check for weak password after updating anyCompromised
+                        const responseObject = checkForWeakPassword(secureData.password);
+                        if (responseObject.weak === true) {
+                            if (!anyWeak.find(object => 
+                                object.website === secureData.website &&
+                                object.username === secureData.username &&
+                                object.password === secureData.password
+                            )) {
+                                setAnyWeak((prevAnyWeak) => [...prevAnyWeak, secureData]);
+                            }
+                            setRedIcon(true);
+                            if (secureData.website === "www.test.com") {
+                                console.log('RED ICON TRUE FOR WEAK PASS', secureData);
+                            }
+                        } else {
+                            setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id));
+                            if (!updatedCompromised.find(object => 
+                                object.website === secureData.website &&
+                                object.username === secureData.username &&
+                                object.password === secureData.password
+                            )) {
+                                setRedIcon(false);
+                                if (secureData.website === "www.test.com") {
+                                    console.log('RED ICON FALSE FOR WEAK PASS', secureData);
+                                }
+                            }
+                        }
+                    });
                 }
-            })
-
-            setCredentials(secureData)
+            });
+    
+            setCredentials(secureData);
         }
-    }, [secureData])
+    }, [secureData]);
+
+        // useEffect(()=>{
+        //     if (secureData.website === "www.test.com") {
+        //         console.log("RED ICON : \n", redIcon)
+        //     }
+        // },[redIcon]) // may use in the future
+
+        useEffect(()=>{console.log("WEAK ARRAY : \n", anyWeak)},[anyWeak]) // may use in the future
+
 
     const [clicked, setClicked] = useState(null)
 

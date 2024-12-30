@@ -172,6 +172,26 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                             setCompromised(false);
                             console.log("THE UPDATED PASS IS NOT COMPROMISED");
                         }
+    
+                        // Check for weak password after updating anyCompromised
+                        const responseObject = checkForWeakPassword(updatedData.password);
+                        if (responseObject.weak === true) {
+                            setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData]);
+                            setCompromised(true);
+                            console.log("THE UPDATED PASS IS COMPROMISED IN WEAK LOGIC");
+                            setWeak(true);
+                        } else {
+                            setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== updatedData.id));
+                            setWeak(false);
+                            if (!updatedCompromised.find(object => 
+                                object.website === updatedData.website &&
+                                object.username === updatedData.username &&
+                                object.password === updatedData.password
+                            )) {
+                                setCompromised(false);
+                                console.log("THE UPDATED PASS IS NOT COMPROMISED IN WEAK LOGIC");
+                            }
+                        }
                     });
                 }
             });
