@@ -24,7 +24,7 @@
 
 14. [DONE] 4.5 Add a feature to encrypt the users saved credentials in the DB
 
-15. [DONE] add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password (Will look like this ******)
+15. [DONE] add a feature that encrypts the data going back and forth from the API call, make sure it stays encryped when in the browser until the button is pressed to show the user the password
 
 16. [DONE] add a hamburger menu on the ... button for logging out, and light/dark mode
 
