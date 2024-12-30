@@ -33,10 +33,8 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
             
             checkForCompromise(secureData.password).then(isCompromised => {
                 if (isCompromised) {
-                    // setAnyCompromised((prevAnyCompromised) => [...prevAnyCompromised, secureData])
                     setCompromised(true)
                 } else {
-                    // setDataArray(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id))
                     setCompromised(false)
                 }
             })
