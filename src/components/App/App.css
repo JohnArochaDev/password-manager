@@ -5,9 +5,7 @@
   font-style: normal;
   font-variation-settings:
     "ROND" 0;
-    /* color: #23c19d; */
     color: #5bcd04;
-    /* color: #ff9f34; */
 }
 
 .light-mode-doto-title {
@@ -64,5 +62,11 @@
 }
 
 .title-compromised {
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-variation-settings:
+    "ROND" 0;
   color: #e74c3c !important;
 }

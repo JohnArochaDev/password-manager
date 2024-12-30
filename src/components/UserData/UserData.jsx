@@ -9,6 +9,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     const [buttonSwitch, setButtonSwitch] = useState(false);
 
     const [compromised, setCompromised] = useState(false)
+    const [weak, setWeak] = useState(false)
 
     const [credentialId, setCredentialId] = useState('');
     const [userToken, setUserToken] = useState('');
