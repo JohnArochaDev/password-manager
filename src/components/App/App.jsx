@@ -208,7 +208,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     return (
         <>
-            <h1 style={headerStyle} className={darkMode ? `${showCompromisedPasswords && anyCompromised.length > 0 ? 'title-compromised' : 'doto-title'}` : `${showCompromisedPasswords && anyCompromised.length > 0 ? 'title-compromised' : 'light-mode-doto-title'}`}>SafePass</h1>
+            <h1 style={headerStyle} className={darkMode ? `${showCompromisedPasswords && (anyCompromised.length > 0 || anyWeak.length > 0) ? 'title-compromised' : 'doto-title'}` : `${showCompromisedPasswords && (anyCompromised.length > 0 || anyWeak.length > 0) ? 'title-compromised' : 'light-mode-doto-title'}`}>SafePass</h1>
             <hr style={{ width: '90%', borderColor: '#37383a' }} />
                 <Container className="rounded-3 p-3 pb-2 pt-0 shadow-sm d-flex justify-content-center align-items-center">
                     <Form className="d-flex w-100">

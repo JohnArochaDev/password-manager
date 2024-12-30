@@ -56,30 +56,32 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                         setRedIcon(false)
                     }
                 }
-            })
 
-            const responseObject = checkForWeakPassword(secureData.password)
+                const responseObject = checkForWeakPassword(secureData.password)
             
-            if (responseObject.weak == true) { // prevents creating duplicates
-                if (!anyWeak.find(object => 
-                    object.website === secureData.website &&
-                    object.username === secureData.username &&
-                    object.password === secureData.password
-                )) {
-                    setAnyWeak((prevAnyWeak) => [...prevAnyWeak, secureData])
+                if (responseObject.weak == true) { // prevents creating duplicates
+                    if (!anyWeak.find(object => 
+                        object.website === secureData.website &&
+                        object.username === secureData.username &&
+                        object.password === secureData.password
+                    )) {
+                        setAnyWeak((prevAnyWeak) => [...prevAnyWeak, secureData])
+                    }
+                    setRedIcon(true)
+                    console.log('RED ICON TRUE FOR WEAK PASS')
+                } else {
+                    setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id))
+                    if(!anyCompromised.find(object => // this will only remove the icon if its not in the array of compromised passwords
+                        object.website === secureData.website &&
+                        object.username === secureData.username &&
+                        object.password === secureData.password
+                    )) {
+                        setRedIcon(false)
+                        console.log('RED ICON FALSE FOR WEAK PASS')
+    
+                    }
                 }
-                setRedIcon(true)
-            } else {
-                setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id))
-                if(!anyCompromised.find(object => // this will only remove the icon if its not in the array of compromised passwords
-                    object.website === secureData.website &&
-                    object.username === secureData.username &&
-                    object.password === secureData.password
-                )) {
-                    setRedIcon(false)
-                }
-            }
-            
+            })
 
             setCredentials(secureData)
         }
