@@ -59,6 +59,8 @@ export default function Main() {
         });
     }, []);
 
+    // useEffect(()=>{console.log("SEARCH ARRAY : \n", searchArray)},[searchArray]) // may use in the future
+
     return (
         <StrictMode>
             <div className={darkMode ? "custom-bg" : "light-mode-custom-bg"}>

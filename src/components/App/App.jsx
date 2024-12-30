@@ -78,11 +78,13 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     const [showRegisterPassword, setShowRegisterPassword] = useState(false)
 
     const [anyCompromised, setAnyCompromised] = useState([]) // an array of compromised passwords
+    const [anyWeak, setAnyWeak] = useState([])
     
-
-    // const [searchArray, setSearchArray] = useState([]) // this is the array of objects, a copyed, decrypted version of the data
     const [searchBar, setSearchBar] = useState('') // this is the search bar state
     const [searchOptions, setSearchOptions] = useState([]) // this is the filtered array from the options above
+
+    const [showToast, setShowToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState('')
 
     let filteredCredentials = []
 
@@ -174,9 +176,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         });
     }
 
-    const [showToast, setShowToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState('')
-
     function handleInvalid(e) {
         if (!e.target.value.startsWith('www.')) {
             e.target.setCustomValidity('The website should start with "www."')
@@ -232,10 +231,10 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                     <p>{error}</p>
                 ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
                     (searchOptions.map((secureData, idx) => (
-                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} anyCompromised={anyCompromised} setAnyCompromised={setAnyCompromised} className="mb-2" />
+                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} anyCompromised={anyCompromised} setAnyCompromised={setAnyCompromised} setAnyWeak={setAnyWeak} anyWeak={anyWeak} className="mb-2" />
                     )))
                 ) : (dataArray.map((secureData, idx) => (
-                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} anyCompromised={anyCompromised} setAnyCompromised={setAnyCompromised} className="mb-2" />
+                        <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} anyCompromised={anyCompromised} setAnyCompromised={setAnyCompromised} setAnyWeak={setAnyWeak} anyWeak={anyWeak} className="mb-2" />
                     ))
                 ))}
                 <Container >

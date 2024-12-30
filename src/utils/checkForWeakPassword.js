@@ -14,8 +14,8 @@ export default function checkForWeakPassword(password) {
     const hasUpperCase = /[A-Z]/.test(password)
     const hasLowerCase = /[a-z]/.test(password)
     const hasNumbers = /[0-9]/.test(password)
-    const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(password)
-
+    const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>;]/.test(password)
+    
     if(!hasUpperCase) {
         responseObject.weak = true
         responseObject.reason = 'Password should include capital letters'

@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from "react"
 import { Container } from 'react-bootstrap'
-import { FaExclamationCircle } from 'react-icons/fa';
-import checkForCompromise from '../../utils/checkForCompromise';
+import { FaExclamationCircle } from 'react-icons/fa'
+import checkForCompromise from '../../utils/checkForCompromise'
+import checkForWeakPassword from "../../utils/checkForWeakPassword"
 import UserData from "../UserData/UserData"
 import Card from 'react-bootstrap/Card'
 
 import "./passwordPage.css"
 
-export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, dataArray, setDataArray, keepRendering, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords, anyCompromised, setAnyCompromised }) {
+export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, dataArray, setDataArray, keepRendering, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords, anyCompromised, setAnyCompromised, setAnyWeak, anyWeak }) {
     const [credentials, setCredentials] = useState([])
 
     const [redIcon, setRedIcon] = useState(false)
@@ -20,13 +21,30 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
             if (keepRendering.current) {
                 if (isInitialRender.current) {
                     isInitialRender.current = false;
-                    setSearchArray((prevSearchArray) => [...prevSearchArray, secureData])
+
+                    setSearchArray((prevSearchArray) => { //this prevents the data from doubling every  time the home page is rendered
+                        const exists = prevSearchArray.find(object => 
+                            object.website === secureData.website &&
+                            object.username === secureData.username &&
+                            object.password === secureData.password
+                        )
+                        if (!exists) {
+                            return [...prevSearchArray, secureData]
+                        }
+                        return prevSearchArray
+                    })
                 }
             }
 
             checkForCompromise(secureData.password).then(isCompromised => {
                 if (isCompromised) {
-                    setAnyCompromised((prevAnyCompromised) => [...prevAnyCompromised, secureData])
+                    if (!anyCompromised.find(object => 
+                        object.website === secureData.website &&
+                        object.username === secureData.username &&
+                        object.password === secureData.password
+                    )) {
+                        setAnyCompromised((prevAnyCompromised) => [...prevAnyCompromised, secureData])
+                    }
                     setRedIcon(true)
                 } else {
                     setAnyCompromised(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id))
@@ -34,9 +52,28 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                 }
             })
 
+            const responseObject = checkForWeakPassword(secureData.password)
+            
+            if (responseObject.weak == true) { // prevents creating duplicates
+                if (!anyWeak.find(object => 
+                    object.website === secureData.website &&
+                    object.username === secureData.username &&
+                    object.password === secureData.password
+                )) {
+                    setAnyWeak((prevAnyWeak) => [...prevAnyWeak, secureData])
+                }
+                // setRedIcon(true) replace both of these with a different visual effect than the !
+            } else {
+                setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== secureData.id))
+                // setRedIcon(false) replace both of these with a different visual effect than the !
+            }
+            
+
             setCredentials(secureData)
         }
     }, [secureData])
+
+    useEffect(()=>{console.log("ANY WEAK", anyWeak)},[anyWeak])
 
     const [clicked, setClicked] = useState(null)
 
