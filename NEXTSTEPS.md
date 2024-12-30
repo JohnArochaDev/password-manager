@@ -83,7 +83,7 @@ FEATURES
 
 14. is a chrome extension
 
-15. [NOTDONE] soon will have a password checker for weak passwords as well
+15. password checker for weak passwords
 
 16. ability to export the password data into a pdf
 
