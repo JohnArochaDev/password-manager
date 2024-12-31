@@ -131,7 +131,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     {loginError}
                                 </Form.Control.Feedback>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicPassword" className="mt-3">
                                 <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Password</Form.Label>
                                 <div className="password-input-container">
@@ -152,7 +151,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     {loginError}
                                 </Form.Control.Feedback>
                             </Form.Group>
-
                             <div className="d-flex justify-content-between mt-4">
                             <Button variant="danger" type="submit" className={darkMode ? "login-form-button" : "light-login-form-button"}>
                                 Login
@@ -174,7 +172,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     className={darkMode ? "dark-input" : "light-input"}
                                 />
                             </Form.Group>
-
                             <Form.Group controlId="formBasicUsername">
                                 <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Email</Form.Label>
                                 <Form.Control
@@ -186,7 +183,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     className={darkMode ? "dark-input" : "light-input"}
                                 />
                             </Form.Group>
-
                             <Form.Group controlId="formBasicPassword" className="mt-3">
                                 <Form.Label className={darkMode ? 'text-white' : 'text-black'}>Password</Form.Label>
                                 <div className="password-input-container">
@@ -203,7 +199,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     </span>
                                 </div>
                             </Form.Group>
-
                             <div className="d-flex justify-content-between mt-4">
                                 <Button type="submit" className={darkMode ? "login-form-button" : "light-login-form-button"}>
                                     Register

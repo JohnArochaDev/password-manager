@@ -96,7 +96,6 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
         <>
             <h1 className={darkMode ? "font" : "light-mode-font"} >Settings</h1>
             <hr style={{ width: '90%', borderColor: '#37383a', marginBottom: '15%' }} />
-
             <Form className="my-4 custom-form-check">
                 <Form.Check 
                     type="switch"
@@ -117,15 +116,12 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     onChange={() => setShowCompromisedPasswords(!showCompromisedPasswords)}
                 />
             </Form>
-
             <Button className={darkMode ? 'custom-form-button mt-4 mb-4' : 'light-mode-custom-form-button mt-4 mb-4'} onClick={handleExport}>
                 Export Data
             </Button>
-
             <Button className={darkMode ? 'custom-form-button' : 'light-mode-custom-form-button'} onClick={handleShowForm}>
                 Delete Account
             </Button>
-
             <Modal show={showForm} onHide={handleCloseForm} size="lg" centered className={darkMode ? "custom-modal" : "light-custom-modal"} >
                 <Modal.Header closeButton>
                     <Modal.Title style={{color : '#b0b3b8'}} >Verify credentials</Modal.Title>
@@ -147,7 +143,6 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                             {loginError}
                         </Form.Control.Feedback>
                     </Form.Group>
-
                     <Form.Group controlId="formBasicPassword" className="mt-3">
                         <Form.Label style={{color : '#b0b3b8'}} >Password</Form.Label>
                         <Form.Control
@@ -171,7 +166,6 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 </Form>
                 </Modal.Body>
             </Modal>
-
             <Modal show={sureFrom} onHide={handleCloseSureModal} centered className={darkMode ? "custom-modal" : "light-custom-modal"}>
                 <Modal.Header closeButton>
                     <Modal.Title>Are you sure?</Modal.Title>

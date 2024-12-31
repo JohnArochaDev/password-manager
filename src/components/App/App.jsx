@@ -242,7 +242,6 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                         <h1>+</h1>
                     </Card>
                 </Container>
-
                 <Modal show={showModal} onHide={handleCloseModal} centered className={darkMode ? "custom-modal" : "light-custom-modal"}>
                     <Modal.Header closeButton>
                         <Modal.Title className={darkMode ? "field text-white" : "field text-black"}>Add New Credential</Modal.Title>
