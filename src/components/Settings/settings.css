@@ -3,6 +3,7 @@
     color: white !important;
     border: none !important;
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+    width: 135.07px;
 }
 
 .light-mode-custom-form-button {
@@ -10,6 +11,7 @@
     color: black !important;
     border: none !important;
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+    width: 135.07px;
 }
 
 .custom-form-button:hover {
@@ -94,7 +96,6 @@ form .light-input::placeholder {
     border-radius: 8px !important;
 }
 
-
 .custom-modal .modal-content {
     background-color: #202124 !important;
     color: #ecf0f1; /* Optional: Change text color */
@@ -129,7 +130,6 @@ form .light-input::placeholder {
     background-color: #ff4d4d !important;
     border-color: transparent !important;
     outline: none !important;
-
 }
 
 .sureNo:active {
@@ -144,4 +144,33 @@ form .light-input::placeholder {
 
 .light-mode-font {
     color: black;
+}
+
+.custom-form-check {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-left: 50%;
+}
+
+.custom-form-check .form-check-input {
+    margin-right: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.custom-form-check .form-check-input:checked {
+    background-color: #5bcd04;
+    border-color: #5bcd04;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.custom-form-check .form-check-input:focus,
+.custom-form-check .form-check-input:active {
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
 }

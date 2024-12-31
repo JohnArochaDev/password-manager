@@ -95,9 +95,9 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
     return (
         <>
             <h1 className={darkMode ? "font" : "light-mode-font"} >Settings</h1>
-            <hr style={{ width: '90%', borderColor: '#37383a' }} />
+            <hr style={{ width: '90%', borderColor: '#37383a', marginBottom: '15%' }} />
 
-            <Form className="my-4">
+            <Form className="my-4 custom-form-check">
                 <Form.Check 
                     type="switch"
                     id="custom-switch"
@@ -107,10 +107,10 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     onChange={() => setDarkMode(!darkMode)}
                 />
             </Form>
-            <Form className="mb-4">
+            <Form className="mb-4 custom-form-check">
                 <Form.Check 
                     type="switch"
-                    id="custom-switch"
+                    id="custom-switch-security"
                     className={darkMode ? "font" : "light-mode-font"}
                     label="Check Breaches"
                     checked={showCompromisedPasswords}
@@ -118,7 +118,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 />
             </Form>
 
-            <Button className={darkMode ? 'custom-form-button mb-4' : 'light-mode-custom-form-button mb-4'} onClick={handleExport}>
+            <Button className={darkMode ? 'custom-form-button mt-4 mb-4' : 'light-mode-custom-form-button mt-4 mb-4'} onClick={handleExport}>
                 Export Data
             </Button>
 
