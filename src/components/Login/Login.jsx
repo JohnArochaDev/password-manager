@@ -93,15 +93,15 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
 
             const data = await response.json()
 
-            // Store the token in chrome.storage
+            // store the token in chrome.storage
             chrome.storage.local.set({ jwtToken: data.token }, function() {
             })
 
-            // Optionally, store the user ID
+            // store the id in chrome.storage
             chrome.storage.local.set({ userId: data.userId }, function() {
             })
 
-            // Update the UI or redirect as needed
+            // updates the UI 
             setLoggedin(true)
             setReload(!reload)
         } catch (error) {
@@ -212,7 +212,8 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
                                     Back
                                 </Button>
                             </div>
-                        </Form>)}
+                        </Form>
+                    )}
                 </Col>
             </Row>
         </Container>
