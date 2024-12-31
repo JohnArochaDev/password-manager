@@ -112,7 +112,7 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                     type="switch"
                     id="custom-switch-security"
                     className={darkMode ? "font" : "light-mode-font"}
-                    label="Check Breaches"
+                    label="Secure Passwords"
                     checked={showCompromisedPasswords}
                     onChange={() => setShowCompromisedPasswords(!showCompromisedPasswords)}
                 />
