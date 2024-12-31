@@ -14,7 +14,4 @@ export default defineConfig({
       },
     },
   }
-  // define: {
-  //   'chrome': 'chrome', // Declare chrome as a global variable (for development only)
-  // },
 });
