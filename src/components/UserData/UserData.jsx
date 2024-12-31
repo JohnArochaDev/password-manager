@@ -29,7 +29,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     }
 
     useEffect(() => {
-        if (isInitialRender.current) { //prevents data from being overwritten, and only writes on the every first load
+        if (isInitialRender.current) { // prevents data from being overwritten, and only writes on the every first load
             isInitialRender.current = false
             setUsername(secureData.username)
             setPassword(secureData.password)

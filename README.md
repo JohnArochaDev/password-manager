@@ -106,8 +106,8 @@ src/
 
 <a href="http://localhost:8080/swagger-ui/index.html#/" target="_blank">Docs</a> (Available when back-end is up and running)
 
-### License
-This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International Public License.
-
 ### Disclaimer
 While this project strives to offer secure password management, the author is not responsible for any security breaches, data loss, or financial loss that may result from the use of this software. Users are responsible for implementing their own security practices and safeguarding their data. This project was developed as part of a school assignment to demonstrate proficiency in web development and security practices.
+
+### License
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International Public License.
