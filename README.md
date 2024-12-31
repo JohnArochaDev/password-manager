@@ -31,7 +31,7 @@ This project is a secure password manager Chrome extension, built with React and
     npm install
     ```
 
-3. Create a [`.env`](https://www.npmjs.com/package/dotenv) file in the root directory and add your environment variables:
+3. Create a <a href="https://www.npmjs.com/package/dotenv" target="_blank">`.env`</a> file in the root directory and add your environment variables:
     ```env
     VITE_SECRET_KEY=your_secret_key
     ```
@@ -104,7 +104,7 @@ src/
 
 ### API Docs
 
-[`Docs`](http://localhost:8080/swagger-ui/index.html#/) (Available when back-end is up and running)
+<a href="http://localhost:8080/swagger-ui/index.html#/" target="_blank">Docs</a> (Available when back-end is up and running)
 
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International Public License.
