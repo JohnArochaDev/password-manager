@@ -11,11 +11,11 @@ import "./passwordPage.css"
 export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSearchArray, dataArray, setDataArray, keepRendering, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords, anyCompromised, setAnyCompromised, setAnyWeak, anyWeak }) {
     const [credentials, setCredentials] = useState([])
 
-    const [redIcon, setRedIcon] = useState(false)
+    const [redIcon, setRedIcon] = useState(false) // this is the red icon that displays if the settings have security turned on and the user has either a comromised or weak password
 
     const isInitialRender = useRef(true);
 
-    useEffect(() => {
+    useEffect(() => { // this updates the search array so the user can search and still maintain the same data as the DB
         if (secureData) {
             if (keepRendering.current) {
                 if (isInitialRender.current) {
@@ -35,7 +35,7 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                 }
             }
     
-            checkForCompromise(secureData.password).then(isCompromised => {
+            checkForCompromise(secureData.password).then(isCompromised => { // checks for a comrpomised password via commonality or data breach
                 if (isCompromised) {
                     new Promise((resolve) => {
                         setAnyCompromised((prevAnyCompromised) => {
@@ -54,9 +54,8 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                         });
                     }).then((updatedCompromised) => {
                         setRedIcon(true);
-                        
-                        // Check for weak password after updating anyCompromised
-                        const responseObject = checkForWeakPassword(secureData.password);
+
+                        const responseObject = checkForWeakPassword(secureData.password); // checks for weak password after updating anyCompromised
                         if (responseObject.weak === true) {
                             if (!anyWeak.find(object => 
                                 object.website === secureData.website &&
@@ -94,8 +93,7 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                             setRedIcon(false);
                         }
     
-                        // Check for weak password after updating anyCompromised
-                        const responseObject = checkForWeakPassword(secureData.password);
+                        const responseObject = checkForWeakPassword(secureData.password); // checks for weak password after updating anyCompromised in the other control flow of this logic
                         if (responseObject.weak === true) {
                             if (!anyWeak.find(object => 
                                 object.website === secureData.website &&

@@ -29,7 +29,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
     }
 
     useEffect(() => {
-        if (isInitialRender.current) {
+        if (isInitialRender.current) { //prevents data from being overwritten, and only writes on the every first load
             isInitialRender.current = false;
             setUsername(secureData.username);
             setPassword(secureData.password);
@@ -200,7 +200,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
         }
     }
     
-    useEffect(() => {
+    useEffect(() => { // grabs the users token every time the card opens
         setCredentialId(secureData.id);
 
         chrome.storage.local.get(['jwtToken', 'userId'], function(result) {
@@ -208,7 +208,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
         });
     }, [secureData.id]);
 
-    const copyToClipboard = (text) => {
+    function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
         }).catch(err => {
             console.error('Failed to copy:', err);
@@ -236,8 +236,8 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     <Col xs={8} className="text-end">
                         <InputGroup>
                             <Form.Control
-                                id="username" // Added id attribute
-                                name="username" // Added name attribute                        
+                                id="username" 
+                                name="username"                         
                                 type="text"
                                 value={username}
                                 readOnly={!buttonSwitch}
@@ -257,8 +257,8 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     <Col xs={8}>
                         <InputGroup>
                             <Form.Control
-                                id="password" // Added id attribute
-                                name="password" // Added name attribute
+                                id="password" 
+                                name="password" 
                                 type={buttonSwitch || passShow ? "text" : "password"}
                                 value={password}
                                 readOnly={!buttonSwitch}

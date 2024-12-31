@@ -28,7 +28,7 @@ export default function Main() {
         });
     }
 
-    useEffect(() => {
+    useEffect(() => { // checks if a users jwt token is outdated, and logs a user out if it is
         chrome.storage.local.get(['jwtToken', 'userId'], function(result) {
             const token = result.jwtToken;
             const id = result.userId;

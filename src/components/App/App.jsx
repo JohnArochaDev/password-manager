@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import "./App.css";
 
-function useBackgroundData(reload) {
+function useBackgroundData(reload) { // grabs the data from the background.js script
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -59,7 +59,7 @@ function useBackgroundData(reload) {
 
 
 export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch, showCompromisedPasswords, setShowCompromisedPasswords, setSearchArray, searchArray }) {
-    const base64Key = import.meta.env.VITE_SECRET_KEY
+    const base64Key = import.meta.env.VITE_SECRET_KEY // key for decryption
 
     const keepRendering = useRef(true);
 
@@ -75,7 +75,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     const [showModal, setShowModal] = useState(false);
 
-    const [showRegisterPassword, setShowRegisterPassword] = useState(false)
+    const [showRegisterPassword, setShowRegisterPassword] = useState(false) //shows ******** or password
 
     const [anyCompromised, setAnyCompromised] = useState([]) // an array of compromised passwords
     const [anyWeak, setAnyWeak] = useState([]) // array of weak passwords
@@ -94,7 +94,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         }
     }, [searchArray])
 
-    useEffect(() => { // this grabbs the filtered data and updates the state
+    useEffect(() => { // this grabs the filtered data and updates the state
         if (searchBar == '') {
             setSearchOptions(filteredCredentials)
         } else {
@@ -117,14 +117,14 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         setShowModal(false);
     }
 
-    const headerStyle = {
+    const headerStyle = { // outdated, I should put this in css
         marginBottom: '2vh',
         textAlign: 'center',
         fontSize: '2rem',
         fontWeight: 'bold',
     };
 
-    async function newCredential(e) {
+    async function newCredential(e) { // adds a new credential to the 2 arrays, search array and the decrypted data array, then adds to the db
         e.preventDefault();
 
         let newCredentialForm = {
@@ -176,7 +176,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         });
     }
 
-    function handleInvalid(e) {
+    function handleInvalid(e) { // ensures the correct format for url's
         if (!e.target.value.startsWith('www.')) {
             e.target.setCustomValidity('The website should start with "www."')
             setToastMessage('The website should start with "www."')
@@ -190,7 +190,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         setShowToast(true)
     }
 
-    useEffect(() => {
+    useEffect(() => { // decrypts the data
         if(data) {
             let decryptedData = data?.loginCredentials
             decryptedData = decryptedData.map((credential) => {
@@ -229,7 +229,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                     "Loading...."
                 ) : error ? (
                     <p>{error}</p>
-                ) : ( search && searchBar != '' ? ( ///////////////////////////////////////////////////////////////////////////////////////////
+                ) : ( search && searchBar != '' ? (
                     (searchOptions.map((secureData, idx) => (
                         <PasswordsPage key={idx} secureData={secureData} setDarkMode={setDarkMode} darkMode={darkMode} setSearchArray={setSearchArray} searchArray={searchArray} keepRendering={keepRendering} dataArray={dataArray} setDataArray={setDataArray} setSearchOptions={setSearchOptions} setShowCompromisedPasswords={setShowCompromisedPasswords} showCompromisedPasswords={showCompromisedPasswords} anyCompromised={anyCompromised} setAnyCompromised={setAnyCompromised} setAnyWeak={setAnyWeak} anyWeak={anyWeak} className="mb-2" />
                     )))
