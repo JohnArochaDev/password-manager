@@ -1,59 +1,59 @@
-import { useEffect, useState, useRef } from 'react';
-import PasswordsPage from "../PasswordsPage/PasswordsPage";
-import {Card, Container, Modal, Button, Form, Row, Col, FormControl, InputGroup, Toast} from 'react-bootstrap';
+import { useEffect, useState, useRef } from 'react'
+import PasswordsPage from "../PasswordsPage/PasswordsPage"
+import {Card, Container, Modal, Button, Form, Row, Col, FormControl, InputGroup, Toast} from 'react-bootstrap'
 import decryptData from '../../utils/decryption.js'
-import generatePassword from '../../utils/passwordGenerator.js';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import generatePassword from '../../utils/passwordGenerator.js'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
-import "./App.css";
+import "./App.css"
 
 function useBackgroundData(reload) { // grabs the data from the background.js script
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const isInitialRender = useRef(true);
+    const [data, setData] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+    const isInitialRender = useRef(true)
 
     const fetchDataFromBackground = () => {
         return new Promise((resolve, reject) => {
             chrome.runtime.sendMessage({ action: 'fetchData' }, (response) => {
                 if (response.status === 'success') {
-                    resolve(response);
+                    resolve(response)
                 } else {
-                    console.error('Failed to fetch data:', response.message);
-                    reject(new Error(response.message || 'Failed to fetch data'));
+                    console.error('Failed to fetch data:', response.message)
+                    reject(new Error(response.message || 'Failed to fetch data'))
                 }
-            });
-        });
-    };
+            })
+        })
+    }
 
     const fetchData = async () => {
         try {
-            await fetchDataFromBackground();
+            await fetchDataFromBackground()
             chrome.storage.local.get('usersData', (result) => {
                 if (result.usersData && JSON.stringify(result.usersData) !== JSON.stringify(data)) {
-                    setData(result.usersData);
+                    setData(result.usersData)
                 } else {
-                    setError('No data found.');
+                    setError('No data found.')
                 }
-                setLoading(false);
-            });
+                setLoading(false)
+            })
         } catch (error) {
-            console.error('Failed to fetch data:', error);
-            setError('Failed to fetch data');
-            setLoading(false);
+            console.error('Failed to fetch data:', error)
+            setError('Failed to fetch data')
+            setLoading(false)
         }
-    };
+    }
 
     useEffect(() => {
         if (isInitialRender.current) {
-            isInitialRender.current = false;
-            fetchData();
+            isInitialRender.current = false
+            fetchData()
         } else {
-            fetchData();
+            fetchData()
         }
-    }, [reload]);
+    }, [reload])
 
-    return { data, loading, error };
+    return { data, loading, error }
 }
 
 
@@ -61,9 +61,9 @@ function useBackgroundData(reload) { // grabs the data from the background.js sc
 export default function App({ reload, setReload, setDarkMode, darkMode, search, setSearch, showCompromisedPasswords, setShowCompromisedPasswords, setSearchArray, searchArray }) {
     const base64Key = import.meta.env.VITE_SECRET_KEY // key for decryption
 
-    const keepRendering = useRef(true);
+    const keepRendering = useRef(true)
 
-    const { data, loading, error } = useBackgroundData(reload);
+    const { data, loading, error } = useBackgroundData(reload)
     const [dataArray, setDataArray] = useState([])
 
     const [userId, setUserId] = useState()
@@ -73,7 +73,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     const [password, setPassword] = useState('')
     const [website, setWebsite] = useState('')
 
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false)
 
     const [showRegisterPassword, setShowRegisterPassword] = useState(false) //shows ******** or password
 
@@ -100,21 +100,21 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         } else {
             filteredCredentials = searchArray.filter(credential => 
                 credential.website.toLowerCase().includes(searchBar.toLowerCase())
-            );
+            )
         }
-        setSearchOptions(filteredCredentials);
-    }, [searchBar]);
+        setSearchOptions(filteredCredentials)
+    }, [searchBar])
 
     function toggleRegisterPasswordVisibility() {
         setShowRegisterPassword(!showRegisterPassword)
     }
 
     function handleShowModal() {
-        setShowModal(true);
+        setShowModal(true)
     }
 
     function handleCloseModal() {
-        setShowModal(false);
+        setShowModal(false)
     }
 
     const headerStyle = { // outdated, I should put this in css
@@ -122,24 +122,24 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
         textAlign: 'center',
         fontSize: '2rem',
         fontWeight: 'bold',
-    };
+    }
 
     async function newCredential(e) { // adds a new credential to the 2 arrays, search array and the decrypted data array, then adds to the db
-        e.preventDefault();
+        e.preventDefault()
 
         let newCredentialForm = {
             username: username,
             password: password,
             website: website
-        };
+        }
 
         chrome.storage.local.get(['jwtToken', 'userId'], async function(result) {
-            const userToken = result.jwtToken;
-            const userId = result.userId;
+            const userToken = result.jwtToken
+            const userId = result.userId
 
             if (!userToken || !userId) {
-                console.error('User token or ID is missing');
-                return;
+                console.error('User token or ID is missing')
+                return
             }
 
             try {
@@ -150,13 +150,13 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(newCredentialForm)
-                });
+                })
 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response was not ok')
                 }
 
-                const responseData = await response.json();
+                const responseData = await response.json()
 
                 for (const key in responseData) { // this decrypts the new data coming from the DB, we need to pull it to get the new generated UUID
                     if (key !== 'id' && responseData.hasOwnProperty(key)) {
@@ -164,16 +164,16 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                     }
                 }
 
-                setSearchArray((prevSearchArray) => [...prevSearchArray, responseData]);
-                handleCloseModal();
-                setReload(!reload);
+                setSearchArray((prevSearchArray) => [...prevSearchArray, responseData])
+                handleCloseModal()
+                setReload(!reload)
                 setUsername('')
                 setPassword('')
                 setWebsite('')
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error:', error)
             }
-        });
+        })
     }
 
     function handleInvalid(e) { // ensures the correct format for url's
@@ -204,7 +204,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
             setDataArray(decryptedData)
         }
-    }, [data]);
+    }, [data])
 
     return (
         <>
@@ -304,5 +304,5 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                 </Toast>
             </div>
         </>
-    );
+    )
 }

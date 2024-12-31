@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
-import './login.css' // Ensure this import is correct
+import './login.css'
 
 export default function Login({ darkMode, reload, setReload, setLoggedin }) {
     const [showPassword, setShowPassword] = useState(false)
@@ -60,8 +60,8 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
             })
 
             if (!response.ok) {
-                setLoginError('Invalid email address or password');
-                throw new Error('Network response was not ok');
+                setLoginError('Invalid email address or password')
+                throw new Error('Network response was not ok')
             }
             makeLogin()
         } catch (error) {
@@ -87,8 +87,8 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
             })
 
             if (!response.ok) {
-                setLoginError('Invalid email address or password');
-                throw new Error('Network response was not ok');
+                setLoginError('Invalid email address or password')
+                throw new Error('Network response was not ok')
             }
 
             const data = await response.json()

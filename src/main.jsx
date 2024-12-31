@@ -1,18 +1,18 @@
-import { StrictMode, useState, useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
-import { Col, Row, Container, Dropdown } from 'react-bootstrap';
-import {jwtDecode} from 'jwt-decode';
+import { StrictMode, useState, useEffect } from 'react'
+import { createRoot } from 'react-dom/client'
+import { Col, Row, Container, Dropdown } from 'react-bootstrap'
+import {jwtDecode} from 'jwt-decode'
 
-import App from './components/App/App.jsx';
-import Login from './components/Login/Login.jsx';
+import App from './components/App/App.jsx'
+import Login from './components/Login/Login.jsx'
 import Settings from './components/Settings/Settings.jsx'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './main.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './main.css'
 
 export default function Main() {
-    const [loggedin, setLoggedin] = useState(false);
-    const [reload, setReload] = useState(false);
+    const [loggedin, setLoggedin] = useState(false)
+    const [reload, setReload] = useState(false)
 
     const [settingsPage, setSettingsPage] = useState(false)
     const [darkMode, setDarkMode] = useState(true)
@@ -23,15 +23,15 @@ export default function Main() {
 
     function handleLogout() {
         chrome.storage.local.set({ jwtToken: null, userId: null }, function() {
-            setLoggedin(false);
-            setReload(!reload);
-        });
+            setLoggedin(false)
+            setReload(!reload)
+        })
     }
 
     useEffect(() => { // checks if a users jwt token is outdated, and logs a user out if it is
         chrome.storage.local.get(['jwtToken', 'userId'], function(result) {
-            const token = result.jwtToken;
-            const id = result.userId;
+            const token = result.jwtToken
+            const id = result.userId
 
             if (token) {
                 try {
@@ -46,18 +46,18 @@ export default function Main() {
 
                         chrome.runtime.sendMessage({ action: 'fetchData' }, (response) => {
                             if (response.status === 'success') {
-                                setReload(!reload);
+                                setReload(!reload)
                             } else {
-                                console.error('Failed to fetch data');
+                                console.error('Failed to fetch data')
                             }
-                        });
+                        })
                     }
                 } catch (error) {
-                    console.error('Failed to fetch data');
+                    console.error('Failed to fetch data')
                 }
             }
-        });
-    }, []);
+        })
+    }, [])
 
     return (
         <StrictMode>
@@ -84,7 +84,7 @@ export default function Main() {
                 </Container>
             </div>
         </StrictMode>
-    );
+    )
 }
 
-createRoot(document.getElementById('root')).render(<Main />);
+createRoot(document.getElementById('root')).render(<Main />)

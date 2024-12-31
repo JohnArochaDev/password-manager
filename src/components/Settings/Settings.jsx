@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Button, Modal } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Form, Button, Modal } from 'react-bootstrap'
 import exportToPDF from '../../utils/export.js'
 import './settings.css'
 
@@ -7,20 +7,20 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const [loginError, setLoginError] = useState('');
+    const [loginError, setLoginError] = useState('')
     
     
-    const [showForm, setShowForm] = useState(false);
+    const [showForm, setShowForm] = useState(false)
     const [sureFrom, setSureForm] = useState(false)
 
-    const [userIdForDeletion, setUserIdForDeletion] = useState(null); // Use state
-    const [userTokenForDeletion, setUserTokenForDeletion] = useState(null); // Use state
+    const [userIdForDeletion, setUserIdForDeletion] = useState(null)
+    const [userTokenForDeletion, setUserTokenForDeletion] = useState(null)
 
 
-    const handleShowForm = () => setShowForm(true);
-    const handleCloseForm = () => setShowForm(false);
-    const handleShowSureModal = () => setSureForm(true);
-    const handleCloseSureModal = () => setSureForm(false);
+    const handleShowForm = () => setShowForm(true)
+    const handleCloseForm = () => setShowForm(false)
+    const handleShowSureModal = () => setSureForm(true)
+    const handleCloseSureModal = () => setSureForm(false)
 
     async function handleDeleteSubmit(e) {
         e.preventDefault()
@@ -45,8 +45,8 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
             setUserTokenForDeletion(data.token)
 
             if (!response.ok) {
-                setLoginError('Invalid email address or password');
-                throw new Error('Network response was not ok');
+                setLoginError('Invalid email address or password')
+                throw new Error('Network response was not ok')
             }
 
             handleShowSureModal()
@@ -86,9 +86,9 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
 
     function handleExport() {
         if (searchArray.length > 0) {
-            exportToPDF(searchArray);
+            exportToPDF(searchArray)
         } else {
-            console.error('No data to export');
+            console.error('No data to export')
         }
     }
 
@@ -191,5 +191,5 @@ export default function Settings({ setReload, reload, setSettingsPage, settingsP
                 </Modal.Footer>
             </Modal>
         </>
-    );
+    )
 }

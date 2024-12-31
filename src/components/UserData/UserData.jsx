@@ -1,71 +1,71 @@
-import { Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
-import { useState, useEffect, useRef } from 'react';
-import { FaCopy } from 'react-icons/fa';
-import checkForCompromise from '../../utils/checkForCompromise';
-import checkForWeakPassword from "../../utils/checkForWeakPassword";
-import './UserData.css';
+import { Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap'
+import { useState, useEffect, useRef } from 'react'
+import { FaCopy } from 'react-icons/fa'
+import checkForCompromise from '../../utils/checkForCompromise'
+import checkForWeakPassword from "../../utils/checkForWeakPassword"
+import './UserData.css'
 
 export default function UserData({ secureData, setClicked, setDarkMode, darkMode, handleDelete, credentials, setCredentials, setDataArray, dataArray, setSearchArray, setSearchOptions, showCompromisedPasswords, setShowCompromisedPasswords, anyCompromised, setAnyCompromised, setAnyWeak, anyWeak }) {
-    const [passShow, setPassShow] = useState(false);
-    const [buttonSwitch, setButtonSwitch] = useState(false);
+    const [passShow, setPassShow] = useState(false)
+    const [buttonSwitch, setButtonSwitch] = useState(false)
 
-    const [compromised, setCompromised] = useState(false);
-    const [weak, setWeak] = useState(false);
+    const [compromised, setCompromised] = useState(false)
+    const [weak, setWeak] = useState(false)
 
-    const [credentialId, setCredentialId] = useState('');
-    const [userToken, setUserToken] = useState('');
+    const [credentialId, setCredentialId] = useState('')
+    const [userToken, setUserToken] = useState('')
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
-    const isInitialRender = useRef(true);
+    const isInitialRender = useRef(true)
 
-    const [responseObject, setResponseObject] = useState({});
+    const [responseObject, setResponseObject] = useState({})
 
     function showPass() {
         if (!buttonSwitch) {
-            setPassShow(!passShow);
+            setPassShow(!passShow)
         }
     }
 
     useEffect(() => {
         if (isInitialRender.current) { //prevents data from being overwritten, and only writes on the every first load
-            isInitialRender.current = false;
-            setUsername(secureData.username);
-            setPassword(secureData.password);
+            isInitialRender.current = false
+            setUsername(secureData.username)
+            setPassword(secureData.password)
             
             checkForCompromise(secureData.password).then(isCompromised => {
                 if (isCompromised) {
-                    setCompromised(true);
+                    setCompromised(true)
                 } else {
                     if (!anyWeak.find(object => 
                         object.website === secureData.website &&
                         object.username === secureData.username &&
                         object.password === secureData.password
                     )) {
-                        setCompromised(false);
+                        setCompromised(false)
                     }    
                 }
 
-                const responseObject = checkForWeakPassword(secureData.password);
-                setResponseObject(responseObject);
+                const responseObject = checkForWeakPassword(secureData.password)
+                setResponseObject(responseObject)
 
                 if (responseObject.weak === true) {
-                    setCompromised(true);
-                    setWeak(true);    
+                    setCompromised(true)
+                    setWeak(true)    
                 } else {
                     if (!anyCompromised.find(object => 
                         object.website === secureData.website &&
                         object.username === secureData.username &&
                         object.password === secureData.password
                     )) {
-                        setCompromised(false);
+                        setCompromised(false)
                     }    
-                    setWeak(false);
+                    setWeak(false)
                 }
-            });
+            })
         }
-    }, []);
+    }, [])
     
     async function handleDeleteClick() {
         try {
@@ -75,26 +75,26 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     'Authorization': `Bearer ${userToken}`,
                     'Content-Type': 'application/json'
                 },
-            });
+            })
             if (response.ok) {
-                handleDelete();
+                handleDelete()
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', error)
         }
     }
 
     async function handleEdit(e) {
-        e.preventDefault();
-        setPassShow(false);
-        setButtonSwitch(true);
+        e.preventDefault()
+        setPassShow(false)
+        setButtonSwitch(true)
     
         let updatedData = {
             id: secureData.id,
             username: username,
             password: password,
             website: secureData.website
-        };
+        }
     
         try {
             const response = await fetch(`http://localhost:8080/credentials/${credentialId}`, {
@@ -104,116 +104,116 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(updatedData)
-            });
+            })
             if (response.ok) {
-                setButtonSwitch(false);
+                setButtonSwitch(false)
                 setDataArray((prevDataArray) => prevDataArray.map((credential) => { // updates the original array
                     if (credential.id === updatedData.id) {
-                        return updatedData;
+                        return updatedData
                     }
-                    return credential;
-                }));
+                    return credential
+                }))
                 setSearchArray((prevSearchArray) => prevSearchArray.map((credential) => { // updates the clones decrypted array
                     if (credential.id === updatedData.id) {
-                        return updatedData;
+                        return updatedData
                     }
-                    return credential;
-                }));
+                    return credential
+                }))
                 setSearchOptions((prevSearchOptions) => prevSearchOptions.map((credential) => { // updates the clone array thats filtered
                     if (credential.id === updatedData.id) {
-                        return updatedData;
+                        return updatedData
                     }
-                    return credential;
-                }));
+                    return credential
+                }))
             }
     
             await checkForCompromise(updatedData.password).then(isCompromised => {
                 if (isCompromised) {
                     new Promise((resolve) => {
                         setAnyCompromised((prevAnyCompromised) => {
-                            const updatedCompromised = [...prevAnyCompromised, updatedData];
-                            resolve(updatedCompromised);
-                            return updatedCompromised;
-                        });
+                            const updatedCompromised = [...prevAnyCompromised, updatedData]
+                            resolve(updatedCompromised)
+                            return updatedCompromised
+                        })
                     }).then((updatedCompromised) => {
-                        setCompromised(true);
+                        setCompromised(true)
     
                         // Check for weak password after updating anyCompromised
-                        const responseObject = checkForWeakPassword(updatedData.password);
-                        setResponseObject(responseObject);
+                        const responseObject = checkForWeakPassword(updatedData.password)
+                        setResponseObject(responseObject)
                         if (responseObject.weak === true) {
-                            setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData]);
-                            setCompromised(true);
-                            setWeak(true);
+                            setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData])
+                            setCompromised(true)
+                            setWeak(true)
                         } else {
-                            setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== updatedData.id));
-                            setWeak(false);
+                            setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== updatedData.id))
+                            setWeak(false)
                             if (!updatedCompromised.find(object => 
                                 object.website === updatedData.website &&
                                 object.username === updatedData.username &&
                                 object.password === updatedData.password
                             )) {
-                                setCompromised(false);
+                                setCompromised(false)
                             }
                         }
-                    });
+                    })
                 } else {
                     new Promise((resolve) => {
                         setAnyCompromised((prevDataArray) => {
-                            const updatedCompromised = prevDataArray.filter(data => data.id !== updatedData.id);
-                            resolve(updatedCompromised);
-                            return updatedCompromised;
-                        });
+                            const updatedCompromised = prevDataArray.filter(data => data.id !== updatedData.id)
+                            resolve(updatedCompromised)
+                            return updatedCompromised
+                        })
                     }).then((updatedCompromised) => {
                         if (!anyWeak.find(object => 
                             object.website === updatedData.website &&
                             object.username === updatedData.username &&
                             object.password === updatedData.password
                         )) {
-                            setCompromised(false);
+                            setCompromised(false)
                         }
     
                         // Check for weak password after updating anyCompromised
-                        const responseObject = checkForWeakPassword(updatedData.password);
-                        setResponseObject(responseObject);
+                        const responseObject = checkForWeakPassword(updatedData.password)
+                        setResponseObject(responseObject)
                         if (responseObject.weak === true) {
-                            setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData]);
-                            setCompromised(true);
-                            setWeak(true);
+                            setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData])
+                            setCompromised(true)
+                            setWeak(true)
                         } else {
-                            setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== updatedData.id));
-                            setWeak(false);
+                            setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== updatedData.id))
+                            setWeak(false)
                             if (!updatedCompromised.find(object => 
                                 object.website === updatedData.website &&
                                 object.username === updatedData.username &&
                                 object.password === updatedData.password
                             )) {
-                                setCompromised(false);
+                                setCompromised(false)
                             }
                         }
-                    });
+                    })
                 }
-            });
+            })
     
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', error)
         }
     }
     
     useEffect(() => { // grabs the users token every time the card opens
-        setCredentialId(secureData.id);
+        setCredentialId(secureData.id)
 
         chrome.storage.local.get(['jwtToken', 'userId'], function(result) {
-            setUserToken(result.jwtToken);
-        });
-    }, [secureData.id]);
+            setUserToken(result.jwtToken)
+        })
+    }, [secureData.id])
 
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
         }).catch(err => {
-            console.error('Failed to copy:', err);
-        });
-    };
+            console.error('Failed to copy:', err)
+        })
+    }
 
     return (
         <Container className="w-100 d-flex flex-column justify-content-between align-items-center text-white">
@@ -301,5 +301,5 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                 </Row>
             </Form>
         </Container>
-    );
+    )
 }

@@ -175,5 +175,5 @@ export default function PasswordsPage({ secureData, setDarkMode, darkMode, setSe
                 </div>
             </Container>) : ''}
         </>
-    );
+    )
 }
