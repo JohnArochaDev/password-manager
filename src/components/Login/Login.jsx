@@ -50,8 +50,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
             password: password
         }
 
-        console.log("REGISTER OBJ", registerData)
-
         try {
             const response = await fetch('http://localhost:8080/users/register', {
                 method: 'POST',
@@ -63,7 +61,6 @@ export default function Login({ darkMode, reload, setReload, setLoggedin }) {
 
             if (!response.ok) {
                 setLoginError('Invalid email address or password');
-                console.log("REGISTER OBJ", registerData)
                 throw new Error('Network response was not ok');
             }
             makeLogin()

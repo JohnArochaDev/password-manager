@@ -13,8 +13,8 @@ export default defineConfig({
         manualChunks: undefined,
       },
     },
-  },
-  define: {
-    'chrome': 'chrome', // Declare chrome as a global variable (for development only)
-  },
+  }
+  // define: {
+  //   'chrome': 'chrome', // Declare chrome as a global variable (for development only)
+  // },
 });

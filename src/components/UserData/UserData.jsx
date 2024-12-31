@@ -137,7 +137,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                         });
                     }).then((updatedCompromised) => {
                         setCompromised(true);
-                        console.log("THE UPDATED PASS IS COMPROMISED");
     
                         // Check for weak password after updating anyCompromised
                         const responseObject = checkForWeakPassword(updatedData.password);
@@ -145,7 +144,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                         if (responseObject.weak === true) {
                             setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData]);
                             setCompromised(true);
-                            console.log("THE UPDATED PASS IS COMPROMISED IN WEAK LOGIC");
                             setWeak(true);
                         } else {
                             setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== updatedData.id));
@@ -156,7 +154,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                                 object.password === updatedData.password
                             )) {
                                 setCompromised(false);
-                                console.log("THE UPDATED PASS IS NOT COMPROMISED IN WEAK LOGIC");
                             }
                         }
                     });
@@ -174,7 +171,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                             object.password === updatedData.password
                         )) {
                             setCompromised(false);
-                            console.log("THE UPDATED PASS IS NOT COMPROMISED");
                         }
     
                         // Check for weak password after updating anyCompromised
@@ -183,7 +179,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                         if (responseObject.weak === true) {
                             setAnyWeak((prevAnyWeak) => [...prevAnyWeak, updatedData]);
                             setCompromised(true);
-                            console.log("THE UPDATED PASS IS COMPROMISED IN WEAK LOGIC");
                             setWeak(true);
                         } else {
                             setAnyWeak(prevDataArray => prevDataArray.filter(data => data.id !== updatedData.id));
@@ -194,7 +189,6 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                                 object.password === updatedData.password
                             )) {
                                 setCompromised(false);
-                                console.log("THE UPDATED PASS IS NOT COMPROMISED IN WEAK LOGIC");
                             }
                         }
                     });

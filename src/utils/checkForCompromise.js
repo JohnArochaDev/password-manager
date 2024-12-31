@@ -33,7 +33,3 @@ export default async function checkForCompromise(password) {
 function shaHash(password) {
     return CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex).toUpperCase();
 }
-
-// checkForCompromise('password123').then(isCompromised => {
-//     console.log("Is the password compromised? \n", isCompromised ? 'yes' : 'no')
-// })
