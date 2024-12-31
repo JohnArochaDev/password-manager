@@ -102,6 +102,10 @@ src/
     vite.config.js
 ```
 
+### API Docs
+
+[`Docs`](http://localhost:8080/swagger-ui/index.html#/) (Available when back-end is up and running)
+
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International Public License.
 
