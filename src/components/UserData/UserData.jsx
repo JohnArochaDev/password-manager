@@ -262,7 +262,7 @@ export default function UserData({ secureData, setClicked, setDarkMode, darkMode
                                 type={buttonSwitch || passShow ? "text" : "password"}
                                 value={password}
                                 readOnly={!buttonSwitch}
-                                className={darkMode ? `form-control dark-input field ${compromised && showCompromisedPasswords ? 'compromised' : ''}` : `form-control light-input field ${compromised ? 'compromised' : ''}`}
+                                className={darkMode ? `form-control dark-input field ${compromised && showCompromisedPasswords ? 'compromised' : ''}` : `form-control light-input field ${compromised && showCompromisedPasswords ? 'compromised' : ''}`}
                                 onChange={(e) => setPassword(e.target.value)}
                                 onClick={() => showPass()}
                             />
