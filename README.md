@@ -101,6 +101,7 @@ src/
     package.json
     vite.config.js
 ```
+## Additional Information
 
 ### API Docs
 
