@@ -51,6 +51,9 @@ ADDITIONAL features
     6. potentially encrypt data stored in chrome.storage.local if stored that way for extra security
     7. add a check to see if an SVG has been saved under the credential, if not save the new SVG from the object in background.js
     8. Change all SECRET KEYS before any kind of deployment, just in case keys were used in code somewhere during development
+    9. MAYBE CHANGE THELENGH OF TIME BEFORE A USER IS LOGGED OUT
+    10. SECURE THE UUID IN chrome.storage.local
+    11. CHANGE THE API TO REQUIRE HTTPS
 
 2. favicon saving for closed card display
     favicon is stored in the url object in background.js

@@ -1,3 +1,5 @@
+import decryptData from '../src/utils/decryption'
+
 // whenever the broswer is closed, all data in the credentials array will be lost, which is good. data stored in 
 // chrome.storage.local is persistant, and needs to be encrypted.
 // I need to pull data from the API EVERY TIME THE BROWSER OPENS, and store it in the credentials array. 
@@ -6,37 +8,54 @@
 // I can then have access to check if the website is included in the array of credential objects or if it is not included, and run my
 // logic control flow
 
+// Function to decrypt data
+function decryptData(encryptedData, base64Key) {
+    // Decode the base64 encoded key
+    const decodedKey = CryptoJS.enc.Base64.parse(base64Key);
 
-//////////////////////////////////
-let credentials = [];
+    // Decode the base64 encoded encrypted data
+    const decodedEncryptedData = CryptoJS.enc.Base64.parse(encryptedData);
 
-// Load credentials from storage when the extension starts
-chrome.runtime.onStartup.addListener(() => {
-    getCredentials('your-encryption-key', (storedCredentials) => {
-        if (storedCredentials) {
-            credentials = storedCredentials;
+    // Decrypt the data
+    const decryptedData = CryptoJS.AES.decrypt(
+        { ciphertext: decodedEncryptedData },
+        decodedKey,
+        {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
         }
-    });
-});
+    );
 
-// Store credentials in memory and in storage
-function storeAndEncryptCredentials(newCredentials, key) {
-    credentials = newCredentials;
-    storeCredentials(newCredentials, key);
+    // Convert the decrypted data to a string
+    return decryptedData.toString(CryptoJS.enc.Utf8);
 }
 
-// Function to get credentials from memory
-function getStoredCredentials() {
-    return credentials;
-}
-//////////////////////////////////
-
-
-
-// this is used to pull data from chrome.storage.local
-function getFromStorage(key, callback) {
-    chrome.storage.local.get([key], function(result) {
-        callback(result[key]);
+// saves data to chrome.storage.local
+function saveToChrome() {
+    getFromStorage('jwtToken', function(token) {
+        getFromStorage('userId', function(userId) {
+            if (token && userId) {
+                fetch(`http://localhost:8080/users/${userId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Store the fetched data in chrome storage
+                    chrome.storage.local.set({ usersData: data }, () => {
+                        console.log("Encrypted data saved in chrome.storage.local.usersData")
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+            } else {
+                console.error('Token or userId not found in storage.');
+            }
+        });
     });
 }
 
@@ -71,17 +90,76 @@ function fetchData(sendResponse) {
     });
 }
 
-// not setup yet. use in the future
+// this is used to pull data from chrome.storage.local
+function getFromStorage(key, callback) {
+    chrome.storage.local.get([key], function(result) {
+        callback(result[key]);
+    });
+}
 
-// function getFavicon() {
-//     const linkElements = document.querySelectorAll('link[rel~="icon"]');
-//     if (linkElements.length > 0) {
-//         return linkElements[0].href;
-//     } else {
-//         // Fallback to default favicon location
-//         return `${window.location.origin}/favicon.ico`;
-//     }
+// find the users URL
+function activeTabChange() {
+
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        let activeTabObj = tabs[0]
+        let activeTab = activeTabObj.url
+
+        if(activeTab.includes('http://') && activeTabObj.incognito === false) {
+            let activeTabSnippet = activeTab.replace("http://", "")
+            let idx = activeTabSnippet.indexOf(".com")
+            activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
+            return activeTabSnippet
+        } else if (activeTab.includes('https://')  && activeTabObj.incognito === false) {
+            let activeTabSnippet = String(activeTab).replace("https://", "");
+            let idx = activeTabSnippet.indexOf(".com")
+            activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
+            return activeTabSnippet
+        }
+
+        chrome.storage.local.set({ activeUrl: activeTabObj.url })
+        // maybe call a new function to check if the snippet is different than the active tab, need to know if a user is on the same site or a new site
+    })
+}
+
+
+//////////////////////////////////
+
+// Load credentials from storage when the extension starts
+chrome.runtime.onStartup.addListener(() => {
+    saveToChrome()
+});
+
+//////////////////////////////////
+
+// this allows me to see whats in chrome.storage.local when I refresh a page for development
+
+// Function to log usersData from chrome.storage.local
+
+
+// function logUsersData() {
+//     chrome.storage.local.get(['usersData'], (result) => {
+//         if (result.usersData) {
+//             console.log("usersData from chrome.storage.local:", result.usersData);
+//             // credentials = result.usersData.loginCredentials            
+//             console.log("Credentials array encrypted", credentials)
+//         } else {
+//             console.log("No usersData found in chrome.storage.local");
+//         }
+//     });
 // }
+
+// // Add listener for browser startup
+// chrome.runtime.onStartup.addListener(() => {
+//     logUsersData();
+// });
+
+// // Add listener for extension installation or update
+// chrome.runtime.onInstalled.addListener(() => {
+//     logUsersData();
+// });
+
+//////////////////////////////////
+
 
 // Listen for messages from other parts of the extension
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -103,38 +181,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;  // Ensures the message channel remains open for async response
 });
 
-// find the users URL
-function activeTabChange() {
-
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        let activeTabObj = tabs[0]
-        let activeTab = activeTabObj.url
-        
-        console.log("Current URL: \n", activeTab)
-        console.log("Current OBJ: \n", activeTabObj)
-
-        if(activeTab.includes('http://') && activeTabObj.incognito === false) {
-            let activeTabSnippet = activeTab.replace("http://", "")
-            let idx = activeTabSnippet.indexOf(".com")
-            activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
-            console.log("http URL: \n", activeTabSnippet) // need to change now how websites are stored in the DB, remove the www.
-        } else if (activeTab.includes('https://')  && activeTabObj.incognito === false) {
-            let activeTabSnippet = String(activeTab).replace("https://", "");
-            console.log('activeTab no http: ', activeTabSnippet);
-            let idx = activeTabSnippet.indexOf(".com")
-            console.log('idx: ', idx)
-            activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
-            console.log("https URL: \n", activeTabSnippet) // need to change now how websites are stored in the DB, remove the www.
-        }
-
-        chrome.storage.local.set({ activeUrl: activeTabObj.url }, () => {
-            console.log("URL saved in chrome.storage.local")
-        });
-        // maybe call a new function to check if the snippet is different than the active tab, need to know if a user is on the same site or a new site
-    })
-}
-
-// tab URL updates
+// tab URL updates, DECRYPT THE URL FROM chrome.storage.local AND SEE IF THE SNIPPET MATCHES THE URL
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete') {
         activeTabChange();
