@@ -1,3 +1,38 @@
+// whenever the broswer is closed, all data in the credentials array will be lost, which is good. data stored in 
+// chrome.storage.local is persistant, and needs to be encrypted.
+// I need to pull data from the API EVERY TIME THE BROWSER OPENS, and store it in the credentials array. 
+// I need the data to remain encrypted whe nI send it to chrome.storage.local
+// I need to decrypt the data whenever I am working with it, but not alter the initial array, and empty the copied array after use
+// I can then have access to check if the website is included in the array of credential objects or if it is not included, and run my
+// logic control flow
+
+
+//////////////////////////////////
+let credentials = [];
+
+// Load credentials from storage when the extension starts
+chrome.runtime.onStartup.addListener(() => {
+    getCredentials('your-encryption-key', (storedCredentials) => {
+        if (storedCredentials) {
+            credentials = storedCredentials;
+        }
+    });
+});
+
+// Store credentials in memory and in storage
+function storeAndEncryptCredentials(newCredentials, key) {
+    credentials = newCredentials;
+    storeCredentials(newCredentials, key);
+}
+
+// Function to get credentials from memory
+function getStoredCredentials() {
+    return credentials;
+}
+//////////////////////////////////
+
+
+
 // this is used to pull data from chrome.storage.local
 function getFromStorage(key, callback) {
     chrome.storage.local.get([key], function(result) {
