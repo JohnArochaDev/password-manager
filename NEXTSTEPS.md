@@ -43,7 +43,7 @@ ADDITIONAL features
     try and get the extension to recognize if a website is the same as one thats saved in the users credentials
     maybe only save the website.com. discord.com facebook.com
   Needs: 
-    1. active URL
+    1. active URL 
     2. snippeet the URL / save the whole URL and the snipppet. maybe on a click a redirect to login page
     3. find the username / password fields on ANY website at ANY time, record what is put into these fields
     4. ask the user if they want to save on SUCCESSFUL login OR on a submit, if not delete the data retrieved
