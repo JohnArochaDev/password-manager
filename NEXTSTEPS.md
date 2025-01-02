@@ -49,6 +49,7 @@ ADDITIONAL features
     4. ask the user if they want to save on SUCCESSFUL login OR on a submit, if not delete the data retrieved
     5. if the snippetURL meets the same as one of the credential snippets, ask the user to login with a saved credential via modal
     6. potentially encrypt data stored in chrome.storage.local if stored that way for extra security
+    7. add a check to see if an SVG has been saved under the credential, if not save the new SVG from the object in background.js
 
 2. favicon saving for closed card display
     favicon is stored in the url object in background.js

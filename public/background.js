@@ -78,12 +78,12 @@ function activeTabChange() {
         console.log("Current URL: \n", activeTab)
         console.log("Current OBJ: \n", activeTabObj)
 
-        if(activeTab.includes('http://')) {
+        if(activeTab.includes('http://') && activeTabObj.incognito === false) {
             let activeTabSnippet = activeTab.replace("http://", "")
             let idx = activeTabSnippet.indexOf(".com")
             activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
             console.log("http URL: \n", activeTabSnippet) // need to change now how websites are stored in the DB, remove the www.
-        } else if (activeTab.includes('https://')) {
+        } else if (activeTab.includes('https://')  && activeTabObj.incognito === false) {
             let activeTabSnippet = String(activeTab).replace("https://", "");
             console.log('activeTab no http: ', activeTabSnippet);
             let idx = activeTabSnippet.indexOf(".com")
