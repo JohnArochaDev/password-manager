@@ -72,8 +72,31 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete' && tab.active) {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            let activeTab = tabs[0]
-            console.log("Current URL: \n", activeTab.url)
+            let activeTabObj = tabs[0]
+
+            let activeTab = activeTabObj.url
+            
+            console.log("Current URL: \n", activeTab)
+            console.log("Current OBJ: \n", activeTabObj)
+
+            if(activeTab.includes('http://')) {
+                let activeTabSnippet = activeTab.replace("http://", "")
+                let idx = activeTabSnippet.indexOf(".com")
+                activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
+                console.log("http URL: \n", activeTabSnippet)
+            } else if (activeTab.includes('https://')) {
+                let activeTabSnippet = String(activeTab).replace("https://", "");
+                console.log('activeTab no http: ', activeTabSnippet);
+                let idx = activeTabSnippet.indexOf(".com")
+                console.log('idx: ', idx)
+                activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
+                console.log("https URL: \n", activeTabSnippet)
+            }
+
+            chrome.storage.local.set({ activeUrl: activeTabObj.url }, () => {
+                console.log("URL saved in chrome.storage.local")
+            });
+            // maybe call a new function to check if the snippet is different than the active tab, need to know if a user is on the same site or a new site
         })
     }
 })

@@ -39,15 +39,19 @@
 ADDITIONAL features
 
 1. auto populate / auto saving / asking to save if a user logs in, bttn if its blocked by google
-Needs: 
-  1. active URL
-  2. snippeet the URL / save the whole URL and the snipppet. maybe on a click a redirecT to login page
-  3. find the username / password fields on ANY website at ANY time, record what is put into these fields
-  4. ask the user if they want to save on SUCCESSFUL login OR on a submit, if not delete the data retrieved
-  5. if the snippetURL meets the same as one of the credential snippets, ask the user to login with a saved credential via modal
-  6. potentially encrypt data stored in chrome.storage.local if stored that way for extra security
+  Today:
+    try and get the extension to recognize if a website is the same as one thats saved in the users credentials
+    maybe only save the website.com. discord.com facebook.com
+  Needs: 
+    1. active URL
+    2. snippeet the URL / save the whole URL and the snipppet. maybe on a click a redirect to login page
+    3. find the username / password fields on ANY website at ANY time, record what is put into these fields
+    4. ask the user if they want to save on SUCCESSFUL login OR on a submit, if not delete the data retrieved
+    5. if the snippetURL meets the same as one of the credential snippets, ask the user to login with a saved credential via modal
+    6. potentially encrypt data stored in chrome.storage.local if stored that way for extra security
 
 2. favicon saving for closed card display
+    favicon is stored in the url object in background.js
 
 3. [DONE] weak password warning, run the password through a basic formatter that I may have to build, looks for num of characters, special characters, numbers, no repetition, things like that and tells the user the password strength
 
