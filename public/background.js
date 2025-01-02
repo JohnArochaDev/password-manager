@@ -1,9 +1,11 @@
+// this is used to pull data from chrome.storage.local
 function getFromStorage(key, callback) {
     chrome.storage.local.get([key], function(result) {
         callback(result[key]);
     });
 }
 
+// grabs the jwt token and the userid from storage
 function fetchData(sendResponse) {
     getFromStorage('jwtToken', function(token) {
         getFromStorage('userId', function(userId) {
@@ -35,15 +37,16 @@ function fetchData(sendResponse) {
 }
 
 // not setup yet. use in the future
-function getFavicon() {
-    const linkElements = document.querySelectorAll('link[rel~="icon"]');
-    if (linkElements.length > 0) {
-        return linkElements[0].href;
-    } else {
-        // Fallback to default favicon location
-        return `${window.location.origin}/favicon.ico`;
-    }
-}
+
+// function getFavicon() {
+//     const linkElements = document.querySelectorAll('link[rel~="icon"]');
+//     if (linkElements.length > 0) {
+//         return linkElements[0].href;
+//     } else {
+//         // Fallback to default favicon location
+//         return `${window.location.origin}/favicon.ico`;
+//     }
+// }
 
 // Listen for messages from other parts of the extension
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -60,5 +63,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         });
     }
 
+    // write more functions and listeners here
+
     return true;  // Ensures the message channel remains open for async response
 });
+
+// find the users URL
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === 'complete' && tab.active) {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            let activeTab = tabs[0]
+            console.log("Current URL: \n", activeTab.url)
+        })
+    }
+})
