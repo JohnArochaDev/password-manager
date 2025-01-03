@@ -81,29 +81,26 @@
   outline: none !important;
 }
 
-/* Custom scrollbar styles for WebKit browsers */
 .no-change::-webkit-scrollbar {
-  width: 0; /* Hide the scrollbar */
-  height: 0; /* Hide the scrollbar */
+  width: 0;
+  height: 0;
 }
 
 .no-change::-webkit-scrollbar-thumb {
-  background: transparent; /* Make scrollbar thumb transparent */
+  background: transparent;
 }
 
 .no-change::-webkit-scrollbar-track {
-  background: transparent; /* Make scrollbar track transparent */
+  background: transparent;
 }
 
-/* Custom scrollbar styles for Firefox */
 .no-change {
-  scrollbar-width: none; /* Hide the scrollbar */
+  scrollbar-width: none;
 }
 
 .no-change:hover,
 .no-change:active,
 .no-change:focus {
-  /* Ensure no visual changes on hover, active, or focus */
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
