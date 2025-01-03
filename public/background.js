@@ -94,20 +94,22 @@ function activeTabChange() {
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         let activeTabObj = tabs[0]
-        let activeTab = activeTabObj.url
+        let activeTab
+        if(activeTabObj?.url) {
+            activeTab = activeTabObj.url
+        }
 
-        if(activeTab.includes('http://') && activeTabObj.incognito === false) {
-            let activeTabSnippet = activeTab.replace("http://", "")
-            let idx = activeTabSnippet.indexOf(".com")
-            activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
-            // console.log(activeTabSnippet)
-            return activeTabSnippet
-        } else if (activeTab.includes('https://')  && activeTabObj.incognito === false) {
-            let activeTabSnippet = String(activeTab).replace("https://", "");
-            let idx = activeTabSnippet.indexOf(".com")
-            activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
-            // console.log(activeTabSnippet)
-            return activeTabSnippet
+        if ((activeTab.includes('http://') || activeTab.includes('https://')) && activeTabObj.incognito === false) {
+            let activeTabSnippet = activeTab.replace("http://", "").replace("https://", "");
+            let idx = activeTabSnippet.indexOf(".com");
+            activeTabSnippet = activeTabSnippet.substring(0, idx + 4);
+            console.log("SNIPPET: \n", activeTabSnippet)
+            console.log('CREDENTIALS: \n', credentials)
+            for (credential of credentials) {
+                if (credential.website.includes(activeTabSnippet)) {
+                    console.log("THIS IS IN THE CREDENTIAL ARRAY", activeTabSnippet)
+                }
+            }
         }
 
         chrome.storage.local.set({ activeUrl: activeTabObj.url })
@@ -139,6 +141,7 @@ function logUsersData() {
     chrome.storage.local.get(['credentialArray'], (result) => {
         if (result.credentialArray) {
             console.log("credentialArray from chrome.storage.local:", result.credentialArray);
+            credentials = result.credentialArray
         } else {
             console.log("No credentialArray found in chrome.storage.local");
         }
