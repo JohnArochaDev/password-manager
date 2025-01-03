@@ -192,3 +192,84 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 chrome.tabs.onActivated.addListener((activeInfo) => {
     activeTabChange();
 });
+
+
+
+
+
+
+
+
+
+
+
+chrome.runtime.onStartup.addListener(() => {
+    injectPopupOnActiveTab();
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+    injectPopupOnActiveTab();
+});
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === 'complete' && tab.active) {
+        injectPopup(tabId);
+    }
+});
+
+chrome.action.onClicked.addListener((tab) => {
+    injectPopup(tab.id);
+});
+
+function injectPopupOnActiveTab() {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs.length > 0) {
+            injectPopup(tabs[0].id);
+        }
+    });
+}
+
+function injectPopup(tabId) {
+    chrome.tabs.get(tabId, (tab) => {
+        console.log('Injecting popup into tab:', tab.url);
+        if (!tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                func: createAndRenderPopup
+            });
+        } else {
+            console.log('Cannot inject script into a chrome:// or chrome-extension:// URL');
+        }
+    });
+}
+
+function createAndRenderPopup() {
+    const popupStyle = {
+        position: 'fixed',
+        bottom: '10px',
+        right: '10px',
+        width: '300px',
+        height: '150px',
+        backgroundColor: 'white',
+        border: '1px solid #ccc',
+        boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+        zIndex: '10000',
+        padding: '10px',
+    };
+
+    const popup = document.createElement('div');
+    Object.assign(popup.style, popupStyle);
+    popup.innerHTML = `
+        <h3>SafePass Notification</h3>
+        <p>Your extension is closed. Click here to reopen it.</p>
+        <button id="reopen-extension">Reopen</button>
+    `;
+
+    document.body.appendChild(popup);
+
+    document.getElementById('reopen-extension').addEventListener('click', () => {
+        chrome.runtime.sendMessage({ action: 'reopenExtension' });
+    });
+
+    console.log('Popup rendered');
+}
