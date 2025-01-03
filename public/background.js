@@ -9,9 +9,12 @@
 let credentials = []
 
 // saves data to chrome.storage.local
-function saveToChrome() {
+function saveToChrome(callback) {
+    // console.log("saveToChrome called");
     getFromStorage('jwtToken', function(token) {
+        // console.log("jwtToken:", token);
         getFromStorage('userId', function(userId) {
+            // console.log("userId:", userId);
             if (token && userId) {
                 fetch(`http://localhost:8080/users/${userId}`, {
                     method: 'GET',
@@ -20,11 +23,22 @@ function saveToChrome() {
                         'Content-Type': 'application/json'
                     }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    console.log("Fetched data:", data);
                     // Store the fetched data in chrome storage
                     chrome.storage.local.set({ usersData: data }, () => {
-                        console.log("Encrypted data saved in chrome.storage.local.usersData")
+                        console.log("Encrypted data saved in chrome.storage.local.usersData");
+                    });
+                    chrome.storage.local.set({ credentialArray: data.loginCredentials }, () => {
+                        console.log("Credential array saved in chrome.storage.local.credentialArray");
+                        // Call the callback after saving the data
+                        if (callback) callback();
                     });
                 })
                 .catch(error => {
@@ -118,22 +132,27 @@ function logUsersData() {
     chrome.storage.local.get(['usersData'], (result) => {
         if (result.usersData) {
             console.log("usersData from chrome.storage.local:", result.usersData);
-            // credentials = result.usersData.loginCredentials            
-            console.log("Credentials array encrypted", credentials)
         } else {
             console.log("No usersData found in chrome.storage.local");
+        }
+    });
+    chrome.storage.local.get(['credentialArray'], (result) => {
+        if (result.credentialArray) {
+            console.log("credentialArray from chrome.storage.local:", result.credentialArray);
+        } else {
+            console.log("No credentialArray found in chrome.storage.local");
         }
     });
 }
 
 // add listener for browser startup
 chrome.runtime.onStartup.addListener(() => {
-    logUsersData();
+    saveToChrome(logUsersData);
 });
 
 // add listener for extension installation or update
 chrome.runtime.onInstalled.addListener(() => {
-    logUsersData();
+    saveToChrome(logUsersData);
 });
 
 //////////////////////////////////
