@@ -1,5 +1,3 @@
-import decryptData from '../src/utils/decryption'
-
 // whenever the broswer is closed, all data in the credentials array will be lost, which is good. data stored in 
 // chrome.storage.local is persistant, and needs to be encrypted.
 // I need to pull data from the API EVERY TIME THE BROWSER OPENS, and store it in the credentials array. 
@@ -8,27 +6,7 @@ import decryptData from '../src/utils/decryption'
 // I can then have access to check if the website is included in the array of credential objects or if it is not included, and run my
 // logic control flow
 
-// Function to decrypt data
-function decryptData(encryptedData, base64Key) {
-    // Decode the base64 encoded key
-    const decodedKey = CryptoJS.enc.Base64.parse(base64Key);
-
-    // Decode the base64 encoded encrypted data
-    const decodedEncryptedData = CryptoJS.enc.Base64.parse(encryptedData);
-
-    // Decrypt the data
-    const decryptedData = CryptoJS.AES.decrypt(
-        { ciphertext: decodedEncryptedData },
-        decodedKey,
-        {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-        }
-    );
-
-    // Convert the decrypted data to a string
-    return decryptedData.toString(CryptoJS.enc.Utf8);
-}
+let credentials = []
 
 // saves data to chrome.storage.local
 function saveToChrome() {
@@ -108,11 +86,13 @@ function activeTabChange() {
             let activeTabSnippet = activeTab.replace("http://", "")
             let idx = activeTabSnippet.indexOf(".com")
             activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
+            // console.log(activeTabSnippet)
             return activeTabSnippet
         } else if (activeTab.includes('https://')  && activeTabObj.incognito === false) {
             let activeTabSnippet = String(activeTab).replace("https://", "");
             let idx = activeTabSnippet.indexOf(".com")
             activeTabSnippet = activeTabSnippet.substring(0, idx + 4)
+            // console.log(activeTabSnippet)
             return activeTabSnippet
         }
 
@@ -124,7 +104,7 @@ function activeTabChange() {
 
 //////////////////////////////////
 
-// Load credentials from storage when the extension starts
+// load credentials from storage when the extension starts
 chrome.runtime.onStartup.addListener(() => {
     saveToChrome()
 });
@@ -133,30 +113,28 @@ chrome.runtime.onStartup.addListener(() => {
 
 // this allows me to see whats in chrome.storage.local when I refresh a page for development
 
-// Function to log usersData from chrome.storage.local
+// function to log usersData from chrome.storage.local
+function logUsersData() {
+    chrome.storage.local.get(['usersData'], (result) => {
+        if (result.usersData) {
+            console.log("usersData from chrome.storage.local:", result.usersData);
+            // credentials = result.usersData.loginCredentials            
+            console.log("Credentials array encrypted", credentials)
+        } else {
+            console.log("No usersData found in chrome.storage.local");
+        }
+    });
+}
 
+// add listener for browser startup
+chrome.runtime.onStartup.addListener(() => {
+    logUsersData();
+});
 
-// function logUsersData() {
-//     chrome.storage.local.get(['usersData'], (result) => {
-//         if (result.usersData) {
-//             console.log("usersData from chrome.storage.local:", result.usersData);
-//             // credentials = result.usersData.loginCredentials            
-//             console.log("Credentials array encrypted", credentials)
-//         } else {
-//             console.log("No usersData found in chrome.storage.local");
-//         }
-//     });
-// }
-
-// // Add listener for browser startup
-// chrome.runtime.onStartup.addListener(() => {
-//     logUsersData();
-// });
-
-// // Add listener for extension installation or update
-// chrome.runtime.onInstalled.addListener(() => {
-//     logUsersData();
-// });
+// add listener for extension installation or update
+chrome.runtime.onInstalled.addListener(() => {
+    logUsersData();
+});
 
 //////////////////////////////////
 
