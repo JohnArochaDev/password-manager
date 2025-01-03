@@ -28,8 +28,7 @@ export default defineConfig({
       targets: [
         { src: 'public/manifest.json', dest: '' },
         { src: 'public/icon-48.png', dest: 'public' },
-        { src: 'public/background.js', dest: 'public' },
-        { src: 'public/popup-inject.js', dest: 'public' }
+        { src: 'public/background.js', dest: 'public' }
       ]
     })
   ],
