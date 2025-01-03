@@ -6,6 +6,8 @@
 // I can then have access to check if the website is included in the array of credential objects or if it is not included, and run my
 // logic control flow
 
+// Make JWT last for 3 days, and when there is no JWT make a popup telling the user to sign in to regain access to autofill
+
 let credentials = []
 
 // saves data to chrome.storage.local
