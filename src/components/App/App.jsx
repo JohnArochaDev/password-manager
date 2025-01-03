@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import PasswordsPage from "../PasswordsPage/PasswordsPage"
 import {Card, Container, Modal, Button, Form, Row, Col, FormControl, InputGroup, Toast} from 'react-bootstrap'
-import decryptData from '../../utils/decryption.js'
+// import decryptData from '../../utils/decryption.js'
 import generatePassword from '../../utils/passwordGenerator.js'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
@@ -158,11 +158,13 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
                 const responseData = await response.json()
 
-                for (const key in responseData) { // this decrypts the new data coming from the DB, we need to pull it to get the new generated UUID
-                    if (key !== 'id' && responseData.hasOwnProperty(key)) {
-                        responseData[key] = decryptData(responseData[key], base64Key)
-                    }
-                }
+                console.log("RESPONSE IN CREATE: \n", responseData)
+
+                // for (const key in responseData) { // this decrypts the new data coming from the DB, we need to pull it to get the new generated UUID
+                //     if (key !== 'id' && responseData.hasOwnProperty(key)) {
+                //         responseData[key] = decryptData(responseData[key], base64Key)
+                //     }
+                // }
 
                 setSearchArray((prevSearchArray) => [...prevSearchArray, responseData])
                 handleCloseModal()
@@ -175,6 +177,8 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
             }
         })
     }
+
+    useEffect(() => {console.log("SEARCH ARRAY: \n", searchArray)}, [searchArray])
 
     function handleInvalid(e) { // ensures the correct format for url's
         if (!e.target.value.startsWith('www.')) {
@@ -192,17 +196,18 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
 
     useEffect(() => { // decrypts the data
         if(data) {
-            let decryptedData = data?.loginCredentials
-            decryptedData = decryptedData.map((credential) => {
-                for (const key in credential) {
-                    if (key !== 'id' && credential.hasOwnProperty(key)) {
-                        credential[key] = decryptData(credential[key], base64Key)
-                    }
-                }
-                return credential
-            })
+            // let decryptedData = data?.loginCredentials
+            // decryptedData = decryptedData.map((credential) => {
+            //     for (const key in credential) {
+            //         if (key !== 'id' && credential.hasOwnProperty(key)) {
+            //             credential[key] = decryptData(credential[key], base64Key)
+            //         }
+            //     }
+            //     return credential
+            // })
 
-            setDataArray(decryptedData)
+            // setDataArray(decryptedData)
+            setDataArray(data?.loginCredentials)
         }
     }, [data])
 
