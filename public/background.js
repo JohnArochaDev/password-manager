@@ -191,39 +191,80 @@ function injectPopup(tabId) {
 function createAndRenderPopup(credentialAndActiveTab) {
     const popupStyle = {
         position: 'fixed',
-        bottom: '10px',
-        right: '10px',
+        top: '50%',
+        left: '50%',
         width: '300px',
-        height: '150px',
-        backgroundColor: 'white',
+        height: '230px',
+        backgroundColor: 'rgb(32, 33, 36)',
+        color: 'rgb(255, 255, 255)',
         border: '1px solid #ccc',
         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
         zIndex: '10000',
-        padding: '10px',
+        padding: '20px',
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '10px',
+        textAlign: 'center',
     };
+
+    const closeButtonStyle = {
+        position: 'absolute',
+        top: '10px',
+        right: '15px',
+        backgroundColor: 'transparent',
+        border: 'none',
+        color: 'white',
+        fontSize: '16px',
+        cursor: 'pointer',
+    };
+
+    const buttonStyle = `
+        background-color: rgb(50, 50, 50);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 30px;
+    `;
 
     const popup = document.createElement('div');
     Object.assign(popup.style, popupStyle);
     popup.innerHTML = `
-        <h3>SafePass</h3>
-        <p>Would you like to securely autofill?</p>
-        <button id="autofill-passwords">Yes</button>
+        <button id="close-popup" style="${Object.entries(closeButtonStyle).map(([k, v]) => `${k}:${v}`).join(';')}">x</button>
+        <h3 style="font-size: 24px;">SafePass</h3>
+        <p style="margin-top: 20px;">Would you like to autofill your credentials?</p>
+        <button id="autofill-passwords" style="${buttonStyle}">Yes</button>
     `;
 
     document.body.appendChild(popup);
 
+    const closeButton = document.getElementById('close-popup');
+    closeButton.addEventListener('click', () => {
+        document.body.removeChild(popup);
+    });
+
     const button = document.getElementById('autofill-passwords');
-    const usernameField = document.querySelector('input[type="text"], input[type="email"], input[name*="email"]');
-    // const usernameField = document.querySelector('input[type="text"], input[type="email"], input[name*="email"], input[id="user_email"], input[name="user[email]"], input[name*="user"]');
+    button.addEventListener('mouseover', () => {
+        button.style.backgroundColor = 'rgb(70, 70, 70)';
+    });
+    button.addEventListener('mouseout', () => {
+        button.style.backgroundColor = 'rgb(50, 50, 50)';
+    });
+
+    const usernameField = document.querySelector('input[type="text"], input[type="email"], input[name*="email"], input[id="user_email"], input[name="user[email]"]');
     const passwordField = document.querySelector('input[type="password"]');
-    console.log("USER FIELD", usernameField)
-    console.log("PASS FIELD", passwordField)
+    console.log("USER FIELD", usernameField);
+    console.log("PASS FIELD", passwordField);
     if (button) {
         button.addEventListener('click', () => {
-            usernameField.value = credentialAndActiveTab.username;
-            passwordField.value = credentialAndActiveTab.password;
-            console.log("CREDENTIAL OBJECT: \n", credentialAndActiveTab)
+            if (usernameField && passwordField) {
+                usernameField.value = credentialAndActiveTab.username;
+                passwordField.value = credentialAndActiveTab.password;
+            }
+
+            console.log("CREDENTIAL OBJECT: \n", credentialAndActiveTab);
             console.log("Button clicked");
+            document.body.removeChild(popup);
         });
     } else {
         console.error('Button with ID "autofill-passwords" not found.');
