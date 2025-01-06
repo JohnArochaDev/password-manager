@@ -1,3 +1,13 @@
+SECURITY:
+
+1. only a user with the same id as the credentials owner can make changes or post or get
+
+2. look into ways to encrypt the data in chrome.local.storage and decrypt in background.js
+
+3. look into ways to block curl scripts as a whole
+
+TO DO:
+
 1. [DONE] COMPLETE THE WEB URL'S SO IT LOOKS CLEAN ON THE CARDS AND ON THE EXPORT SHEET. ALWAYS REMOVE HTTPS://, DO IT ON FRONT OR BACK END
 
 2. [DONE] DARK MODE IS STARTED, WHEN YOU GET BACK FINISH IT. WERE STARTING IN settings.css. FINISH DARK MODE, THEN MOVE TO BELOW STUFF
@@ -39,21 +49,17 @@
 ADDITIONAL features
 
 1. auto populate / auto saving / asking to save if a user logs in, bttn if its blocked by google
-  Today:
-    try and get the extension to recognize if a website is the same as one thats saved in the users credentials
-    maybe only save the website.com. discord.com facebook.com
   Needs: 
     1. [DONE] active URL 
-    2. snippet the URL / save the whole URL and the snipppet. maybe on a click a redirect to login page
-    3. find the username / password fields on ANY website at ANY time, record what is put into these fields
-    4. ask the user if they want to save on SUCCESSFUL login OR on a submit, if not delete the data retrieved
-    5. if the snippetURL meets the same as one of the credential snippets, ask the user to login with a saved credential via modal
-    6. potentially encrypt data stored in chrome.storage.local if stored that way for extra security
-    7. add a check to see if an SVG has been saved under the credential, if not save the new SVG from the object in background.js
-    8. Change all SECRET KEYS before any kind of deployment, just in case keys were used in code somewhere during development
-    9. MAYBE CHANGE THELENGH OF TIME BEFORE A USER IS LOGGED OUT
-    10. SECURE THE UUID IN chrome.storage.local
-    11. CHANGE THE API TO REQUIRE HTTPS
+    2. [DONE] snippet the URL / save the whole URL and the snipppet.
+    3. [DONE] find the username / password fields on ANY website at ANY time, record what is put into these fields
+    4. [DONE] ask the user if they want to save on SUCCESSFUL login OR on a submit, if not delete the data retrieved
+    5. [DONE] if the snippetURL meets the same as one of the credential snippets, ask the user to login with a saved credential via modal
+    6. [NOTDONE] potentially encrypt data stored in chrome.storage.local if stored that way for extra security
+    7. [NOTDONE] add a check to see if an SVG has been saved under the credential, if not save the new SVG from the object in background.js
+    8. [NOTDONE] Change all SECRET KEYS before any kind of deployment, just in case keys were used in code somewhere during development
+    9. [NOTDONE] MAYBE CHANGE THELENGH OF TIME BEFORE A USER IS LOGGED OUT
+    10. [DONE] SECURE THE UUID IN chrome.storage.local
 
 2. favicon saving for closed card display
     favicon is stored in the url object in background.js

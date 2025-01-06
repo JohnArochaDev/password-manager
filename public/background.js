@@ -49,15 +49,7 @@ function saveToChrome(callback) {
                     console.error('Error fetching data:', error)
                 })
             } else {
-                console.error('Token or userId not found in storage.')
-                // add a popup here to remind the user to login
-
-
-
-                injectPopupOnActiveTabLogin()
-
-
-
+                console.error("User not logged in")
             }
         })
     })
