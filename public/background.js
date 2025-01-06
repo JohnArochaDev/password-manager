@@ -40,12 +40,12 @@ function saveToChrome(callback) {
                     return response.json();
                 })
                 .then(data => {
-                    console.log("Fetched data:", data);
+                    // console.log("Fetched data:", data);
                     chrome.storage.local.set({ usersData: data }, () => {
-                        console.log("Encrypted data saved in chrome.storage.local.usersData");
+                        // console.log("Encrypted data saved in chrome.storage.local.usersData");
                     });
                     chrome.storage.local.set({ credentialArray: data.loginCredentials }, () => {
-                        console.log("Credential array saved in chrome.storage.local.credentialArray");
+                        // console.log("Credential array saved in chrome.storage.local.credentialArray");
                         if (callback) callback();
                     });
                 })
@@ -66,7 +66,7 @@ function newCredentialFunc(newCredential) {
         website: newCredential.website
     };
 
-    console.log("NEW CREDENTIAL OBJECT ON REQUEST", newCredentialForm)
+    // console.log("NEW CREDENTIAL OBJECT ON REQUEST", newCredentialForm)
 
     chrome.storage.local.get(['jwtToken', 'userId'], async function(result) {
         const userToken = result.jwtToken;
@@ -93,7 +93,7 @@ function newCredentialFunc(newCredential) {
 
             const responseData = await response.json();
 
-            console.log("RESPONSE IN CREATE: \n", responseData);
+            // console.log("RESPONSE IN CREATE: \n", responseData);
 
         } catch (error) {
             console.error('Error:', error);
@@ -151,18 +151,18 @@ function activeTabChange() {
             }
         
             currentTab = activeTabSnippet;
-            console.log("THIS IS THE CURRENT TAB: ", currentTab);
+            // console.log("THIS IS THE CURRENT TAB: ", currentTab);
         
             for (const credential of credentials) {
                 if (credential.website.includes(activeTabSnippet)) {
-                    console.log("THIS IS IN THE CREDENTIAL ARRAY", activeTabSnippet);
+                    // console.log("THIS IS IN THE CREDENTIAL ARRAY", activeTabSnippet);
                     credentialAndActiveTab = credential;
                     checkForLoginFields();
                     showNewCredentialPopup = false;
-                    console.log("DONT SHOW NEW CREDENTIAL ON SUBMIT", showNewCredentialPopup);
+                    // console.log("DONT SHOW NEW CREDENTIAL ON SUBMIT", showNewCredentialPopup);
                 } else {
                     showNewCredentialPopup = true;
-                    console.log("SHOW NEW CREDENTIAL ON SUBMIT", showNewCredentialPopup);
+                    // console.log("SHOW NEW CREDENTIAL ON SUBMIT", showNewCredentialPopup);
                 }
             }
         }
@@ -181,19 +181,19 @@ function checkForLoginFields() {
                     const usernameField = document.querySelector('input[type="text"], input[type="email"], input[name*="email"], input[id="user_email"], input[name="user[email]"]');
                     const passwordField = document.querySelector('input[type="password"]');
                     if (usernameField && passwordField) {
-                        console.log("Username and password fields found on the page.");
+                        // console.log("Username and password fields found on the page.");
                         return true;
                     } else {
-                        console.log("Username or password field not found on the page.");
+                        // console.log("Username or password field not found on the page.");
                         return false;
                     }
                 }
             }, (results) => {
                 if (results && results[0] && results[0].result) {
-                    console.log("Login fields are present on the page.");
+                    // console.log("Login fields are present on the page.");
                     injectPopupOnActiveTab();
                 } else {
-                    console.log("Login fields are not present on the page.");
+                    // console.log("Login fields are not present on the page.");
                     // check for data in username and password fields, maybe on a submit a popup appears asking if the user wants to save that data.
                     if (usernameField && passwordField) {
                         injectPopupOnActiveTabNewCredential()
@@ -242,7 +242,7 @@ function injectPopupOnActiveTabNewCredential() {
 
 function injectPopup(tabId) {
     chrome.tabs.get(tabId, (tab) => {
-        console.log('Injecting popup into tab:', tab.url);
+        // console.log('Injecting popup into tab:', tab.url);
         if (!tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
             chrome.scripting.executeScript({
                 target: { tabId: tab.id },
@@ -250,21 +250,21 @@ function injectPopup(tabId) {
                 args: [credentialAndActiveTab]
             });
         } else {
-            console.log('Cannot inject script into a chrome:// or chrome-extension:// URL');
+            // console.log('Cannot inject script into a chrome:// or chrome-extension:// URL');
         }
     });
 }
 
 function injectPopupNewCredential(tabId) {
     chrome.tabs.get(tabId, (tab) => {
-        console.log('Injecting popup into tab:', tab.url);
+        // console.log('Injecting popup into tab:', tab.url);
         if (!tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
             chrome.scripting.executeScript({
                 target: { tabId: tab.id },
                 func: createAndRenderPopupNewCredential
             });
         } else {
-            console.log('Cannot inject script into a chrome:// or chrome-extension:// URL');
+            // console.log('Cannot inject script into a chrome:// or chrome-extension:// URL');
         }
     });
 }
@@ -334,8 +334,8 @@ function createAndRenderPopup(credentialAndActiveTab) {
 
     const usernameField = document.querySelector('input[type="text"], input[type="email"], input[name*="email"], input[id="user_email"], input[name="user[email]"]');
     const passwordField = document.querySelector('input[type="password"]');
-    console.log("USER FIELD", usernameField);
-    console.log("PASS FIELD", passwordField);
+    // console.log("USER FIELD", usernameField);
+    // console.log("PASS FIELD", passwordField);
     if (button) {
         button.addEventListener('click', () => {
             if (usernameField && passwordField) {
@@ -345,15 +345,15 @@ function createAndRenderPopup(credentialAndActiveTab) {
                 passwordField.style.backgroundColor = 'rgb(200, 255, 200)';
             }
 
-            console.log("CREDENTIAL OBJECT: \n", credentialAndActiveTab);
-            console.log("Button clicked");
+            // console.log("CREDENTIAL OBJECT: \n", credentialAndActiveTab);
+            // console.log("Button clicked");
             document.body.removeChild(popup);
         });
     } else {
         console.error('Button with ID "autofill-passwords" not found.');
     }
 
-    console.log('Popup rendered');
+    // console.log('Popup rendered');
 }
 
 // Event Listeners
@@ -378,7 +378,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                             website: currentTab
                         };
 
-                        console.log("OBJECT WHEN ITS CREATED, LOOK FOR WEBSITE", newCredential);
+                        // console.log("OBJECT WHEN ITS CREATED, LOOK FOR WEBSITE", newCredential);
 
                         chrome.runtime.sendMessage({ action: 'showSaveCredentialsPopup', newCredential });
                     }
@@ -470,7 +470,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         console.error('Button with ID "save-credentials" not found.');
                     }
 
-                    console.log('Popup rendered');
+                    // console.log('Popup rendered');
                 }
 
                 createAndRenderPopupNewCredential(newCredential);
@@ -493,11 +493,13 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete') {
         activeTabChange();
+        saveToChrome(logUsersData);
     }
 });
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
     activeTabChange();
+    saveToChrome(logUsersData);
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
