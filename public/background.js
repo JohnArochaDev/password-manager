@@ -356,86 +356,6 @@ function createAndRenderPopup(credentialAndActiveTab) {
     console.log('Popup rendered');
 }
 
-// function createAndRenderPopupNewCredential(newCredential) {
-//     const popupStyle = {
-//         position: 'fixed',
-//         top: '50%',
-//         left: '50%',
-//         width: '300px',
-//         height: '230px',
-//         backgroundColor: 'rgb(32, 33, 36)',
-//         color: 'rgb(255, 255, 255)',
-//         border: '1px solid #ccc',
-//         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-//         zIndex: '10000',
-//         padding: '20px',
-//         transform: 'translate(-50%, -50%)',
-//         borderRadius: '10px',
-//         textAlign: 'center',
-//     };
-
-//     const closeButtonStyle = {
-//         position: 'absolute',
-//         top: '10px',
-//         right: '15px',
-//         backgroundColor: 'transparent',
-//         border: 'none',
-//         color: 'white',
-//         fontSize: '16px',
-//         cursor: 'pointer',
-//     };
-
-//     const buttonStyle = `
-//         background-color: rgb(50, 50, 50);
-//         color: white;
-//         border: none;
-//         padding: 10px 20px;
-//         border-radius: 5px;
-//         cursor: pointer;
-//         margin-top: 30px;
-//     `;
-
-//     const popup = document.createElement('div');
-//     Object.assign(popup.style, popupStyle);
-//     popup.innerHTML = `
-//         <button id="close-popup" style="${Object.entries(closeButtonStyle).map(([k, v]) => `${k}:${v}`).join(';')}">x</button>
-//         <h3 style="font-size: 24px;">SafePass</h3>
-//         <p style="margin-top: 20px;">Would you like to save your credentials?</p>
-//         <button id="save-credentials" style="${buttonStyle}">Yes</button>
-//     `;
-
-//     document.body.appendChild(popup);
-
-//     const closeButton = document.getElementById('close-popup');
-//     closeButton.addEventListener('click', () => {
-//         document.body.removeChild(popup);
-//         newCredential = {}
-//     });
-
-//     const button = document.getElementById('save-credentials');
-//     button.addEventListener('mouseover', () => {
-//         button.style.backgroundColor = 'rgb(70, 70, 70)';
-//     });
-//     button.addEventListener('mouseout', () => {
-//         button.style.backgroundColor = 'rgb(50, 50, 50)';
-//     });
-
-//     if (button) {
-//         button.addEventListener('click', () => {
-//             // Save the credentials to storage or send them to your server
-//             console.log("CREDENTIAL OBJECT: \n", newCredential);
-
-//             chrome.runtime.sendMessage({ action: 'saveNewCredential', newCredential });
-
-//             document.body.removeChild(popup);
-//         });
-//     } else {
-//         console.error('Button with ID "save-credentials" not found.');
-//     }
-
-//     console.log('Popup rendered');
-// }
-
 // Event Listeners
 
 //this makes an event listener and listens for a submit
@@ -464,7 +384,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     }
                 });
             },
-            args: [tab.url] // Pass the current tab's URL as an argument
+            args: [currentTab] // Pass the current tab's URL as an argument
         });
     }
 });
