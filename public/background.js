@@ -12,6 +12,8 @@ let showNewCredentialPopup = false
 
 let newCredential = {}
 
+let currentTab = ''
+
 // Utility Functions
 function getFromStorage(key, callback) {
     chrome.storage.local.get([key], function(result) {
@@ -57,6 +59,48 @@ function saveToChrome(callback) {
     });
 }
 
+function newCredentialFunc(newCredential) {
+    let newCredentialForm = {
+        username: newCredential.username,
+        password: newCredential.password,
+        website: newCredential.website
+    };
+
+    console.log("NEW CREDENTIAL OBJECT ON REQUEST", newCredentialForm)
+
+    chrome.storage.local.get(['jwtToken', 'userId'], async function(result) {
+        const userToken = result.jwtToken;
+        const userId = result.userId;
+
+        if (!userToken || !userId) {
+            console.error('User token or ID is missing');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/credentials/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${userToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newCredentialForm)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const responseData = await response.json();
+
+            console.log("RESPONSE IN CREATE: \n", responseData);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
 function fetchData(sendResponse) {
     getFromStorage('jwtToken', function(token) {
         getFromStorage('userId', function(userId) {
@@ -97,19 +141,28 @@ function activeTabChange() {
 
         if ((activeTab.includes('http://') || activeTab.includes('https://')) && activeTabObj.incognito === false) {
             let activeTabSnippet = activeTab.replace("http://", "").replace("https://", "");
-            let idx = activeTabSnippet.indexOf(".com");
-            activeTabSnippet = activeTabSnippet.substring(0, idx + 4);
+            let idxCom = activeTabSnippet.indexOf(".com");
+            let idxIo = activeTabSnippet.indexOf(".io");
+        
+            if (idxCom !== -1) {
+                activeTabSnippet = activeTabSnippet.substring(0, idxCom + 4);
+            } else if (idxIo !== -1) {
+                activeTabSnippet = activeTabSnippet.substring(0, idxIo + 3);
+            }
+        
+            currentTab = activeTabSnippet;
+            console.log("THIS IS THE CURRENT TAB: ", currentTab);
+        
             for (const credential of credentials) {
                 if (credential.website.includes(activeTabSnippet)) {
                     console.log("THIS IS IN THE CREDENTIAL ARRAY", activeTabSnippet);
-                    credentialAndActiveTab = credential
+                    credentialAndActiveTab = credential;
                     checkForLoginFields();
-                    showNewCredentialPopup = false
-                    console.log("DONT SHOW NEW CREDENTIAL ON SUBMIT", showNewCredentialPopup)
+                    showNewCredentialPopup = false;
+                    console.log("DONT SHOW NEW CREDENTIAL ON SUBMIT", showNewCredentialPopup);
                 } else {
-                    showNewCredentialPopup = true
-                    console.log("SHOW NEW CREDENTIAL ON SUBMIT", showNewCredentialPopup)
-
+                    showNewCredentialPopup = true;
+                    console.log("SHOW NEW CREDENTIAL ON SUBMIT", showNewCredentialPopup);
                 }
             }
         }
@@ -303,82 +356,85 @@ function createAndRenderPopup(credentialAndActiveTab) {
     console.log('Popup rendered');
 }
 
-function createAndRenderPopupNewCredential(newCredential) {
-    const popupStyle = {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        width: '300px',
-        height: '230px',
-        backgroundColor: 'rgb(32, 33, 36)',
-        color: 'rgb(255, 255, 255)',
-        border: '1px solid #ccc',
-        boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-        zIndex: '10000',
-        padding: '20px',
-        transform: 'translate(-50%, -50%)',
-        borderRadius: '10px',
-        textAlign: 'center',
-    };
+// function createAndRenderPopupNewCredential(newCredential) {
+//     const popupStyle = {
+//         position: 'fixed',
+//         top: '50%',
+//         left: '50%',
+//         width: '300px',
+//         height: '230px',
+//         backgroundColor: 'rgb(32, 33, 36)',
+//         color: 'rgb(255, 255, 255)',
+//         border: '1px solid #ccc',
+//         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+//         zIndex: '10000',
+//         padding: '20px',
+//         transform: 'translate(-50%, -50%)',
+//         borderRadius: '10px',
+//         textAlign: 'center',
+//     };
 
-    const closeButtonStyle = {
-        position: 'absolute',
-        top: '10px',
-        right: '15px',
-        backgroundColor: 'transparent',
-        border: 'none',
-        color: 'white',
-        fontSize: '16px',
-        cursor: 'pointer',
-    };
+//     const closeButtonStyle = {
+//         position: 'absolute',
+//         top: '10px',
+//         right: '15px',
+//         backgroundColor: 'transparent',
+//         border: 'none',
+//         color: 'white',
+//         fontSize: '16px',
+//         cursor: 'pointer',
+//     };
 
-    const buttonStyle = `
-        background-color: rgb(50, 50, 50);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 30px;
-    `;
+//     const buttonStyle = `
+//         background-color: rgb(50, 50, 50);
+//         color: white;
+//         border: none;
+//         padding: 10px 20px;
+//         border-radius: 5px;
+//         cursor: pointer;
+//         margin-top: 30px;
+//     `;
 
-    const popup = document.createElement('div');
-    Object.assign(popup.style, popupStyle);
-    popup.innerHTML = `
-        <button id="close-popup" style="${Object.entries(closeButtonStyle).map(([k, v]) => `${k}:${v}`).join(';')}">x</button>
-        <h3 style="font-size: 24px;">SafePass</h3>
-        <p style="margin-top: 20px;">Would you like to save your credentials?</p>
-        <button id="save-credentials" style="${buttonStyle}">Yes</button>
-    `;
+//     const popup = document.createElement('div');
+//     Object.assign(popup.style, popupStyle);
+//     popup.innerHTML = `
+//         <button id="close-popup" style="${Object.entries(closeButtonStyle).map(([k, v]) => `${k}:${v}`).join(';')}">x</button>
+//         <h3 style="font-size: 24px;">SafePass</h3>
+//         <p style="margin-top: 20px;">Would you like to save your credentials?</p>
+//         <button id="save-credentials" style="${buttonStyle}">Yes</button>
+//     `;
 
-    document.body.appendChild(popup);
+//     document.body.appendChild(popup);
 
-    const closeButton = document.getElementById('close-popup');
-    closeButton.addEventListener('click', () => {
-        document.body.removeChild(popup);
-    });
+//     const closeButton = document.getElementById('close-popup');
+//     closeButton.addEventListener('click', () => {
+//         document.body.removeChild(popup);
+//         newCredential = {}
+//     });
 
-    const button = document.getElementById('save-credentials');
-    button.addEventListener('mouseover', () => {
-        button.style.backgroundColor = 'rgb(70, 70, 70)';
-    });
-    button.addEventListener('mouseout', () => {
-        button.style.backgroundColor = 'rgb(50, 50, 50)';
-    });
+//     const button = document.getElementById('save-credentials');
+//     button.addEventListener('mouseover', () => {
+//         button.style.backgroundColor = 'rgb(70, 70, 70)';
+//     });
+//     button.addEventListener('mouseout', () => {
+//         button.style.backgroundColor = 'rgb(50, 50, 50)';
+//     });
 
-    if (button) {
-        button.addEventListener('click', () => {
-            // Save the credentials to storage or send them to your server
-            console.log("CREDENTIAL OBJECT: \n", newCredential);
+//     if (button) {
+//         button.addEventListener('click', () => {
+//             // Save the credentials to storage or send them to your server
+//             console.log("CREDENTIAL OBJECT: \n", newCredential);
 
-            document.body.removeChild(popup);
-        });
-    } else {
-        console.error('Button with ID "save-credentials" not found.');
-    }
+//             chrome.runtime.sendMessage({ action: 'saveNewCredential', newCredential });
 
-    console.log('Popup rendered');
-}
+//             document.body.removeChild(popup);
+//         });
+//     } else {
+//         console.error('Button with ID "save-credentials" not found.');
+//     }
+
+//     console.log('Popup rendered');
+// }
 
 // Event Listeners
 
@@ -387,24 +443,28 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete' && !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
-            func: () => {
+            func: (currentTab) => {
                 document.addEventListener('submit', (event) => {
-                    event.preventDefault(); // Prevent the default form submission
+                    event.preventDefault();
 
                     const form = event.target;
-                    const usernameField = document.querySelector('input[type="text"], input[type="email"], input[name*="email"], input[id="user_email"], input[name="user[email]"]');
-                    const passwordField = document.querySelector('input[type="password"]');
+                    const usernameField = form.querySelector('input[type="text"], input[type="email"], input[name*="email"], input[id="user_email"], input[name="user[email]"]');
+                    const passwordField = form.querySelector('input[type="password"]');
 
                     if (usernameField && passwordField) {
-                        newCredential = {
+                        const newCredential = {
                             username: usernameField.value,
-                            password: passwordField.value
+                            password: passwordField.value,
+                            website: currentTab
                         };
+
+                        console.log("OBJECT WHEN ITS CREATED, LOOK FOR WEBSITE", newCredential);
 
                         chrome.runtime.sendMessage({ action: 'showSaveCredentialsPopup', newCredential });
                     }
                 });
-            }
+            },
+            args: [tab.url] // Pass the current tab's URL as an argument
         });
     }
 });
@@ -414,9 +474,91 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'showSaveCredentialsPopup') {
         chrome.scripting.executeScript({
             target: { tabId: sender.tab.id },
-            func: createAndRenderPopupNewCredential,
-            args: [message.newCredential]
+            func: (newCredential) => {
+                function createAndRenderPopupNewCredential(newCredential) {
+                    const popupStyle = {
+                        position: 'fixed',
+                        top: '50%',
+                        left: '50%',
+                        width: '300px',
+                        height: '230px',
+                        backgroundColor: 'rgb(32, 33, 36)',
+                        color: 'rgb(255, 255, 255)',
+                        border: '1px solid #ccc',
+                        boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                        zIndex: '10000',
+                        padding: '20px',
+                        transform: 'translate(-50%, -50%)',
+                        borderRadius: '10px',
+                        textAlign: 'center',
+                    };
+
+                    const closeButtonStyle = {
+                        position: 'absolute',
+                        top: '10px',
+                        right: '15px',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        color: 'white',
+                        fontSize: '16px',
+                        cursor: 'pointer',
+                    };
+
+                    const buttonStyle = `
+                        background-color: rgb(50, 50, 50);
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        margin-top: 30px;
+                    `;
+
+                    const popup = document.createElement('div');
+                    Object.assign(popup.style, popupStyle);
+                    popup.innerHTML = `
+                        <button id="close-popup" style="${Object.entries(closeButtonStyle).map(([k, v]) => `${k}:${v}`).join(';')}">x</button>
+                        <h3 style="font-size: 24px;">SafePass</h3>
+                        <p style="margin-top: 20px;">Would you like to save your credentials?</p>
+                        <button id="save-credentials" style="${buttonStyle}">Yes</button>
+                    `;
+
+                    document.body.appendChild(popup);
+
+                    const closeButton = document.getElementById('close-popup');
+                    closeButton.addEventListener('click', () => {
+                        document.body.removeChild(popup);
+                        newCredential = {};
+                    });
+
+                    const button = document.getElementById('save-credentials');
+                    button.addEventListener('mouseover', () => {
+                        button.style.backgroundColor = 'rgb(70, 70, 70)';
+                    });
+                    button.addEventListener('mouseout', () => {
+                        button.style.backgroundColor = 'rgb(50, 50, 50)';
+                    });
+
+                    if (button) {
+                        button.addEventListener('click', () => {
+                            // Send a message to the background script to save the credentials
+                            chrome.runtime.sendMessage({ action: 'saveNewCredential', newCredential });
+
+                            document.body.removeChild(popup);
+                        });
+                    } else {
+                        console.error('Button with ID "save-credentials" not found.');
+                    }
+
+                    console.log('Popup rendered');
+                }
+
+                createAndRenderPopupNewCredential(newCredential);
+            },
+            args: [message.newCredential] // Pass newCredential as an argument
         });
+    } else if (message.action === 'saveNewCredential') {
+        newCredentialFunc(message.newCredential); // Call the function to save the credential in the background script
     }
 });
 
