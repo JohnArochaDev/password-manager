@@ -6,7 +6,7 @@ SECURITY:
 
 3. look into ways to block curl scripts as a whole
 
-4. Add capatcha  https://www.google.com/recaptcha/admin/create Challenge (v2) "I'm not a robot" Checkbox
+4. Add capatcha  https://www.google.com/recaptcha/admin/create Challenge (v2) "I'm not a robot" Checkbox for Login/Register
 
 TO DO:
 
