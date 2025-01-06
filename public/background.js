@@ -132,13 +132,10 @@ function checkForLoginFields() {
             }, (results) => {
                 if (results && results[0] && results[0].result) {
                     console.log("Login fields are present on the page.");
-                    // usernameField.value = 'bam';
-                    // passwordField.value = 'bam';
                     injectPopupOnActiveTab();
                 } else {
                     console.log("Login fields are not present on the page.");
-                    // logic if login fields are not there
-                    // injectPopupOnActiveTab()
+                    // check for data in username and password fields, maybe on a submit a popup appears asking if the user wants to save that data.
                 }
             });
         }
@@ -260,6 +257,8 @@ function createAndRenderPopup(credentialAndActiveTab) {
             if (usernameField && passwordField) {
                 usernameField.value = credentialAndActiveTab.username;
                 passwordField.value = credentialAndActiveTab.password;
+                usernameField.style.backgroundColor = 'rgb(200, 255, 200)';
+                passwordField.style.backgroundColor = 'rgb(200, 255, 200)';
             }
 
             console.log("CREDENTIAL OBJECT: \n", credentialAndActiveTab);
