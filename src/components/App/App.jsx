@@ -181,32 +181,18 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
     useEffect(() => {console.log("SEARCH ARRAY: \n", searchArray)}, [searchArray])
 
     function handleInvalid(e) { // ensures the correct format for url's
-        if (!e.target.value.startsWith('www.')) {
-            e.target.setCustomValidity('The website should start with "www."')
-            setToastMessage('The website should start with "www."')
-        } else if (!e.target.value.endsWith('.com') && !e.target.value.endsWith('.org')) {
+        if (!e.target.value.endsWith('.com') && !e.target.value.endsWith('.org') && !e.target.value.endsWith('.io')) {
             e.target.setCustomValidity('The website should end with ".com" or ".org"')
             setToastMessage('The website should end with ".com" or ".org"')
-        } else {
+        } else if (e.target.value == '') {
             e.target.setCustomValidity('This field is required. Please enter a valid website.')
             setToastMessage('This field is required. Please enter a valid website.')
         }
         setShowToast(true)
     }
 
-    useEffect(() => { // decrypts the data
+    useEffect(() => {
         if(data) {
-            // let decryptedData = data?.loginCredentials
-            // decryptedData = decryptedData.map((credential) => {
-            //     for (const key in credential) {
-            //         if (key !== 'id' && credential.hasOwnProperty(key)) {
-            //             credential[key] = decryptData(credential[key], base64Key)
-            //         }
-            //     }
-            //     return credential
-            // })
-
-            // setDataArray(decryptedData)
             setDataArray(data?.loginCredentials)
         }
     }, [data])
@@ -262,7 +248,7 @@ export default function App({ reload, setReload, setDarkMode, darkMode, search, 
                                     onChange={(e) => {e.target.setCustomValidity(''); setWebsite(e.target.value)}}
                                     onInvalid={handleInvalid}
                                     required
-                                    pattern="^www\..*\.(com|org)$"
+                                    pattern=".*\.(com|org|io)$"
                                     className={darkMode ? 'dark-input' : 'light-input'}
                                 />
                             </Form.Group>
