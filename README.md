@@ -16,7 +16,9 @@ This project is a secure password manager Chrome extension, built with React and
 10. **Password Generator**: Generate strong passwords.
 11. **Settings Page**: Customize user preferences.
 12. **Visual Indicators**: Indicators for compromised and weak passwords.
-13. **Encrypted Databse**: User credentials are securely stored and transferred
+13. **Encrypted Database**: User credentials are securely stored and transferred.
+14. **Autofill Feature**: Automatically fills in the username and password fields for websites that are on the list of saved credentials.
+15. **Save Password Popup**: Displays a popup asking the user if they want to save the password when they log into a new site.
 
 ## Installation
 
