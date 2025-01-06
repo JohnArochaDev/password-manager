@@ -6,6 +6,8 @@ SECURITY:
 
 3. look into ways to block curl scripts as a whole
 
+4. Add capatcha  https://www.google.com/recaptcha/admin/create
+
 TO DO:
 
 1. [DONE] COMPLETE THE WEB URL'S SO IT LOOKS CLEAN ON THE CARDS AND ON THE EXPORT SHEET. ALWAYS REMOVE HTTPS://, DO IT ON FRONT OR BACK END
