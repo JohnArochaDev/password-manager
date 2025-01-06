@@ -48,7 +48,7 @@ npm run dev
 ```
 
 ### Build
-To build the project for production:
+To build the project for production or testing:
 
 ```sh
 npm run build
